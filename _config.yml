@@ -17,7 +17,7 @@ title: chhanz tech blog
 email: han0495@gmail.com
 description: chhanz Tech blog
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "http://chhanz.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://chhanz.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 
 github_username:  chhanz
 
