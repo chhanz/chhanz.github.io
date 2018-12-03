@@ -15,11 +15,8 @@
 # in the templates via {{ site.myvariable }}.
 title: chhanz Blog
 email: han0495@gmail.com
-description: |
-안녕하세요? chhanz 입니다.
-소소한 기술자료들 포스팅중입니다. ^_^
-감사합니다.
- 
+description: "
+소소한 기술자료들 포스팅중입니다. ^_^  "
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://chhanz.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 
