@@ -1,3 +1,7 @@
-# chhanz.github.io
-Makeing a blog on GitHub!
-- chhan Blog
+# chhanz Tech blog
+
+# 사용된 도구
+- jekyll
+- vim
+
+UPDATE : 2018-12-04
