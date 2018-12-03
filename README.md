@@ -1,2 +1,3 @@
 # chhanz.github.io
-chhan Blog
+Makeing a blog on GitHub!
+- chhan Blog
