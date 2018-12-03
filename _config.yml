@@ -13,9 +13,13 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-title: chhanz tech blog
+title: chhanz Blog
 email: han0495@gmail.com
-description: chhanz Tech blog
+description: |
+안녕하세요? chhanz 입니다.
+소소한 기술자료들 포스팅중입니다. ^_^
+감사합니다.
+ 
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://chhanz.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 
