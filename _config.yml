@@ -23,7 +23,7 @@ github_username:  chhanz
 
 # Build settings
 markdown: kramdown
-theme: jekyll-theme-hacker
+theme: jekyll-theme-modernist
 plugins:
   - jekyll-feed
 
