@@ -1,3 +1,3 @@
-# Title :chhanz.github.io
+# chhanz.github.io
 Makeing a blog on GitHub!
 - chhan Blog
