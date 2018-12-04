@@ -1,32 +1,41 @@
-# Welcome to Jekyll!
-#
-# This config file is meant for settings that affect your whole blog, values
-# which you are expected to set up once and rarely edit after that. If you find
-# yourself editing this file very often, consider using Jekyll's data files
-# feature for the data you need to update frequently.
-#
-# For technical reasons, this file is *NOT* reloaded automatically when you use
-# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
-
-# Site settings
-# These are used to personalize your new site. If you look in the HTML files,
-# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
-# You can create any custom variable you would like, and they will be accessible
-# in the templates via {{ site.myvariable }}.
+# 블로그 제목 설정 부분
+# 상단 및 하단 제목 부분에 들어감
 title: chhanz Blog
+
+# 하단 메일 주소 부분
 email: han0495@gmail.com
+
+# 하단 오른쪽 블로그 소개
 description: "
 소소한 기술자료들 포스팅중입니다. ^_^  "
+
 baseurl: "" # the subpath of your site, e.g. /blog
+timezone: Asia/Seoul
+
+# 기본 사용 URL
 url: "https://chhanz.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 
+# SNS 관련 
 github_username:  chhanz
 
 # Build settings
 markdown: kramdown
+
+# 블로그 테마 설정 
 theme: minima
+# 블로그 플러그인
 plugins:
+  - jekyll-paginate
+  - jekyll-sitemap
   - jekyll-feed
+
+# 페이지네이트 설정 부분
+paginate: 5
+paginate_path: '/page/:num/'
+
+# 구글 애널리틱스 설정
+google_analytics:
+ua: UA-130421804-1
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
