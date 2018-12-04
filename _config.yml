@@ -22,7 +22,8 @@ github_username:  chhanz
 markdown: kramdown
 
 # 블로그 테마 설정 
-theme: minima
+#theme: minima
+theme: jekyll-theme-hacker
 # 블로그 플러그인
 plugins:
   - jekyll-paginate
