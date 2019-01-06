@@ -1,0 +1,19 @@
+<div id="header">
+    <button id="menu-toggle" type="button">
+        <span class="sr-only">Toggle Navigation Menu</span>
+    </button>
+    <button id="search-toggle" type="button">
+        <span class="sr-only">Toggle Search Form</span>
+    </button>
+    <a href="/" id="logo">
+    </a>
+    <form id="search">
+        <input id="searchQueryEdit" name="q" type="search" placeholder="Search..." value="" />
+    </form>
+
+    <ul id="menu" class="nav">
+        <li class="{% if page.url != '/about/' and page.url != '/books/' %} active {% endif %}"><a href="{{ base_path }}/">Blog</a></li>
+        <!--<li class="{% if page.url == '/books/' %} active {% endif %}"><a href="{{ base_path }}/books/">Books</a></li>-->
+        <li class="{% if page.url == '/about/' %} active {% endif %}"><a href="{{ base_path }}/about/">About</a></li>
+    </ul>
+</div><!-- #header -->

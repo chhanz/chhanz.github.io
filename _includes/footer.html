@@ -1,0 +1,34 @@
+<div id="footer" class="container-fluid">
+    <ul id="links">
+        {% if site.github %}
+        <li>
+            <a id="link-github" href="http://github.com/{{ site.github.username }}" target="_blank">
+                <span class="sr-only">github</span>
+            </a>
+        </li>
+        {% endif %}
+        {% if site.facebook %}
+        <li>
+            <a id="link-facebook" href="http://facebook.com/{{ site.facebook.username }}" target="_blank">
+                <span class="sr-only">facebook</span>
+            </a>
+        </li>
+        {% endif %}
+        {% if site.linkedin%}
+        <li>
+            <a id="link-linkedin" href="http://www.linkedin.com/in/{{ site.linkedin.username }}" target="_blank">
+                <span class="sr-only">linkedin</span>
+            </a>
+        </li>
+        {% endif %}
+        <li>
+            <a id="link-rss" href="/rss" target="_blank">
+                <span class="sr-only">rss</span>
+            </a>
+        </li>
+    </ul>
+    <p id="copyright">
+        <a href="https://github.com/chhanz">&copy;2019 chhanz.github.io.</a>
+        All rights reserved.
+    </p>
+</div><!--#footer-->

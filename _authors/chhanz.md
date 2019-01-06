@@ -1,5 +1,5 @@
 ---
 name: chhanz
-title: chhanz
-image: /assets/authors/chhanz.png
+title: 한철희
+image: /assets/authors/chhan.png
 ---

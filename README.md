@@ -1,7 +1,7 @@
-# chhanz Tech blog
+# CHHANz BLOG
 
-# 사용된 도구
-- jekyll
-- vim
+[@Go to the Page Information.](https://chhanz.github.io/about)
 
-UPDATE : 2018-12-04
+Thanks for visit. :)
+
+

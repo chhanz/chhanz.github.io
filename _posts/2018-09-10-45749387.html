@@ -1,0 +1,1751 @@
+---
+layout: post
+title: Docker 이해하기
+description: " " 
+author: chhanz
+date: 2018-09-10
+tags: [docker]
+category: docker
+image: /assets/images/post/45749387/0
+---
+<center>
+
+<b><p>
+회사 기술블로그에 작성한 내용입니다.
+</p>
+<p>
+<a href="https://tech.osci.kr/docker/2018/09/10/45749387/">오픈소스컨설팅 기술블로그</a>
+<hr color="red" size="1px" noshade>
+</b></p>
+</center>
+
+<p>
+ 안녕하세요 오픈소스컨설팅 한철희 과장입니다.
+</p>
+<p>
+ 이번에는 개발자, 시스템 운영자 등등 IT 업계에 계신다면 많이 들어본 Docker 에 대해 포스팅 해보려고 합니다.
+</p>
+<p>
+ Docker 의 기초적인 내용부터 활용까지 알아보도록 하겠습니다.
+</p>
+<p>
+ <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size">
+<img src="/assets/images/post/45749387/0"/>
+ </span>
+</p>
+<p>
+ 이미지 출처 :
+ <a class="external-link" href="https://flic.kr/p/pNPnws" rel="nofollow">
+  flickr
+ </a>
+</p>
+<p>
+ <br/>
+</p>
+<p>
+ 위 사진을 보면 항구에 정박되있는 배가 있습니다. 해외 수출, 수입을 위해 많은 컨테이너를 적재한 모습입니다.
+</p>
+<p>
+ 위키백과에서는 컨테이너를 이렇게 정의 하고 있습니다.
+</p>
+<div class="panel conf-macro output-block" data-hasbody="true" data-macro-name="panel" style="border-width: 1px;">
+ <div class="panelContent">
+  <p>
+   <strong>
+    컨테이너
+   </strong>
+   (
+   <span>
+    <a class="external-link" href="https://ko.wikipedia.org/wiki/%EC%98%81%EC%96%B4" rel="nofollow" title="영어">
+     영어
+    </a>
+    :
+   </span>
+   <span lang="en">
+    Container
+   </span>
+   )는 철판으로 만들어져
+   <a class="external-link" href="https://ko.wikipedia.org/wiki/%EC%9E%AC%EC%82%AC%EC%9A%A9" rel="nofollow" title="재사용">
+    재사용
+   </a>
+   이 가능한 규격화된 통으로 화물을 옮길 때 쓴다.
+  </p>
+  <p>
+   1950년대 상용화 되고 그후 점차 널리 쓰게 되었으며, 짐 꾸리기에 편하고 운반이 쉬우며 보관에도 좋은 점 때문에 전 세계적으로 널리 퍼지게 되었다.
+   <sup class="reference">
+    <a class="external-link" href="https://ko.wikipedia.org/wiki/%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88#cite_note-1" rel="nofollow">
+     [1]
+    </a>
+   </sup>
+  </p>
+ </div>
+</div>
+<p>
+ 재미있게도 지금부터 알아볼 컨테이너의 기술은 위키백과에 설명된 내용과 비슷합니다!
+</p>
+<h1 id="Docker이해하기-Container란?">
+ Container 란?
+</h1>
+<p>
+ 컨테이너란 어플리케이션이 동작하기 위해서 필요한 요소(실행 파일, 어플리케이션 엔진등) 을 패키지화하고 격리 하는 기술을 말합니다.
+</p>
+<p>
+ 이를 통해 전체 인프라를 쉽고 빠르게 관리 할 수 있게 됩니다.
+</p>
+<p>
+ 아래 동영상은 컨테이너에 대해 쉽게 설명된 동영상입니다.
+</p>
+<p>
+ (자막이 포함되어 있습니다!)
+</p>
+<p>
+ <br/>
+</p>
+<iframe allow="autoplay; encrypted-media" allowfullscreen="" 
+class="conf-macro output-block" data-hasbody="true" data-macro-name="markdown" 
+frameborder="0" height="450" src="https://www.youtube.com/embed/n-JwAM6XF88" style="width:100%">
+</iframe>
+<p>
+ 출처 :
+ <a class="external-link" href="https://www.youtube.com/user/RedHatVideos" rel="nofollow">
+  RedHat Videos
+ </a>
+</p>
+<p>
+ <br/>
+</p>
+<h1 id="Docker이해하기-Container의작동원리">
+ Container 의 작동 원리
+</h1>
+<p>
+ <br/>
+</p>
+<p>
+ 컨테이너는 Cgroup 와 namespace 와 같은 커널 기반의 기술을 이용해서 프로세스를 완벽하게 격리하여 분리된 환경을 만들고 실행하도록 만듭니다.
+</p>
+<p>
+ 컨테이너의 사용법을 알기전에 Cgroup 과 namespace에 대해 먼저 보도록 하겠습니다.
+</p>
+<p>
+ <br/>
+</p>
+<h2 id="Docker이해하기-Cgroup">
+ Cgroup
+</h2>
+<p>
+ Cgroup 이란 Control Group 의 약자로, 시스템의 CPU 시간, 시스템 메모리, 네트워크 대역폭과 같은 자원을 제한하고 격리 할 수 있는 커널 기능입니다.
+</p>
+<div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-name="code" style="border-width: 1px;">
+ <div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;">
+  <b>
+   Cgroup
+  </b>
+ </div>
+ <div class="codeContent panelContent pdl">
+  <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: false; theme: RDark" data-theme="RDark">" CentOS 7 - Cgroup 내용"
+
+#
+/sys/fs/cgroup
+# ls -la
+합계 0
+drwxr-xr-x 13 root root 340  7월  6 23:23 .
+drwxr-xr-x  5 root root   0  7월  6 23:23 ..
+drwxr-xr-x  5 root root   0  7월  6 23:23 blkio
+lrwxrwxrwx  1 root root  11  7월  6 23:23 cpu -&gt; cpu,cpuacct
+drwxr-xr-x  5 root root   0  7월  6 23:23 cpu,cpuacct
+lrwxrwxrwx  1 root root  11  7월  6 23:23 cpuacct -&gt; cpu,cpuacct
+drwxr-xr-x  3 root root   0  7월  6 23:23 cpuset
+drwxr-xr-x  5 root root   0  7월  6 23:23 devices
+drwxr-xr-x  3 root root   0  7월  6 23:23 freezer
+drwxr-xr-x  3 root root   0  7월  6 23:23 hugetlb
+drwxr-xr-x  5 root root   0  7월  6 23:23 memory
+lrwxrwxrwx  1 root root  16  7월  6 23:23 net_cls -&gt; net_cls,net_prio
+drwxr-xr-x  3 root root   0  7월  6 23:23 net_cls,net_prio
+lrwxrwxrwx  1 root root  16  7월  6 23:23 net_prio -&gt; net_cls,net_prio
+drwxr-xr-x  3 root root   0  7월  6 23:23 perf_event
+drwxr-xr-x  3 root root   0  7월  6 23:23 pids
+drwxr-xr-x  5 root root   0  7월  6 23:23 systemd</pre>
+ </div>
+</div>
+<p>
+ 위 내용을 보면 Cgroup은 많은 시스템 자원을 제한하고 격리를 할 수 있습니다.
+</p>
+<p>
+ 해당 서브시스템에 대한 설명은 아래와 같습니다.
+</p>
+<div class="table-wrap">
+ <table class="relative-table wrapped confluenceTable" style="width: 100%;">
+  <colgroup>
+   <col style="width: 21.0477%;"/>
+   <col style="width: 78.9523%;"/>
+  </colgroup>
+  <tbody>
+   <tr>
+    <th class="confluenceTh" style="text-align: center;">
+     서브시스템
+    </th>
+    <th class="confluenceTh" style="text-align: center;">
+     설 명
+    </th>
+   </tr>
+   <tr>
+    <td class="confluenceTd" style="text-align: center;">
+     <p>
+      blkio
+     </p>
+    </td>
+    <td class="confluenceTd">
+     Block Device 의 입출력 접근 제한
+    </td>
+   </tr>
+   <tr>
+    <td class="confluenceTd" style="text-align: center;">
+     <p>
+      cpu
+     </p>
+    </td>
+    <td class="confluenceTd">
+     CPU에 cgroup 작업 액세스를 제공하기 위해 스케줄러
+    </td>
+   </tr>
+   <tr>
+    <td class="confluenceTd" style="text-align: center;">
+     <p>
+      cpuacct
+     </p>
+    </td>
+    <td class="confluenceTd">
+     cgroup의 작업에 사용된 CPU 자원에 대한 보고서를 자동으로 생성
+    </td>
+   </tr>
+   <tr>
+    <td class="confluenceTd" style="text-align: center;">
+     <p>
+      cpuset
+     </p>
+    </td>
+    <td class="confluenceTd">
+     개별 CPU (멀티코어 시스템에서) 및 메모리 노드를 cgroup의 작업에 할당
+    </td>
+   </tr>
+   <tr>
+    <td class="confluenceTd" style="text-align: center;">
+     devices
+    </td>
+    <td class="confluenceTd">
+     cgroup의 작업 단위로 장치에 대한 액세스를 허용하거나 거부
+    </td>
+   </tr>
+   <tr>
+    <td class="confluenceTd" style="text-align: center;">
+     freezer
+    </td>
+    <td class="confluenceTd">
+     cgroup의 작업을 일시 중지하거나 다시 시작
+    </td>
+   </tr>
+   <tr>
+    <td class="confluenceTd" style="text-align: center;">
+     net_cls
+    </td>
+    <td class="confluenceTd">
+     특정 cgroup에서 발생하는 패킷을 식별하기 위해 태그를 지정
+    </td>
+   </tr>
+   <tr>
+    <td class="confluenceTd" style="text-align: center;">
+     net_prio
+    </td>
+    <td class="confluenceTd">
+     cgroup의 작업에서 생성되는 네트워크 트래픽의 우선순위 지정
+    </td>
+   </tr>
+   <tr>
+    <td class="confluenceTd" style="text-align: center;">
+     memory
+    </td>
+    <td class="confluenceTd">
+     cgroup의 작업에서 사용되는 메모리에 대한 제한을 설정
+    </td>
+   </tr>
+  </tbody>
+ </table>
+</div>
+<p>
+ <br/>
+</p>
+<p>
+ cgroup를 쉽게 이해하기 위해서 devices 서브시스템 자원을 제한하는 것을 보여드리겠습니다.
+</p>
+<div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-name="code" style="border-width: 1px;">
+ <div class="codeContent panelContent pdl">
+  <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: true; theme: RDark" data-theme="RDark"># cd /sys/fs/cgroup/devices
+# mkdir shell
+# cd shell/
+# ls
+cgroup.clone_children  cgroup.procs   devices.deny  notify_on_release
+cgroup.event_control   devices.allow  devices.list  tasks
+# cat tasks
+# cat devices.list
+a *:* rwm                      " 모든 권한 활성화 "
+
+# cat tasks
+#
+
+" 다른 세션 PID: 8403 을 cgroup으로 지정 "
+# echo "8403" &gt; tasks  
+# cat tasks
+8403
+# echo "cgroup test \
+&gt; Hello Cgroup! \
+&gt; end" &gt; /dev/pts/2
+#</pre>
+ </div>
+</div>
+<div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-name="code" style="border-width: 1px;">
+ <div class="codeContent panelContent pdl">
+  <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: true; theme: RDark" data-theme="RDark"># echo $$
+8403
+# w
+ 15:24:14 up 54 days, 16:00,  4 users,  load average: 0.00, 0.01, 0.05
+USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+root     tty1                      06 7월18 16days  0.04s  0.04s -bash
+root     pts/0    192.168.0.83     14:38   14.00s  0.04s  0.02s ssh root@192.168.13.131
+root     pts/2    192.168.0.83     15:24    4.00s  0.00s  0.00s w
+root     pts/3    192.168.13.131   15:23   14.00s  0.01s  0.01s -bash
+# cgroup test Hello Cgroup! end
+
+</pre>
+ </div>
+</div>
+<p>
+ 위와 같이 pid : 8403 세션에 echo 명령으로 넣은 내용이 나오는 것을 보실 수 있습니다.
+</p>
+<p>
+ <br/>
+</p>
+<p>
+ Cgroup을 이용해서 시스템 자원을 제한 해보도록 하겠습니다.
+</p>
+<div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-name="code" style="border-width: 1px;">
+ <div class="codeContent panelContent pdl">
+  <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: true; theme: RDark" data-theme="RDark"># echo "a *:* rwm" &gt; devices.deny</pre>
+ </div>
+</div>
+<p>
+ pid : 8403 세선에 모든 장치에 대해 deny 하는 내용을 선언 합니다.
+</p>
+<div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-name="code" style="border-width: 1px;">
+ <div class="codeContent panelContent pdl">
+  <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: true; theme: RDark" data-theme="RDark"># echo $$
+8403
+# echo "Dent test" &gt; /dev/pts/2
+-bash: /dev/pts/2: 명령을 허용하지 않음
+# echo "Dent test" &gt; /dev/pts/2
+-bash: /dev/pts/2: 명령을 허용하지 않음</pre>
+ </div>
+</div>
+<p>
+ 위와 같이 pid : 8403 세션에 대해 모든 장치 가 deny 된 것을 확인 할 수 있습니다.
+</p>
+<p>
+ 이처럼 프로세스의 장치를 제한하고 격리하는 것이 바로 Cgroup 입니다.
+</p>
+<h2 id="Docker이해하기-namespace">
+ namespace
+</h2>
+<p>
+ namespace 란, 시스템 리소스를 프로세스의 전용 자원처럼 보이게 하고, 다른 프로세스와 격리시키는 기능입니다.
+</p>
+<p>
+ namespace 에는 총 6가지 namespace 가 있습니다.
+</p>
+<ul>
+ <li>
+  Mount namespacaes : 파일시스템의 Mount 를 분할하고 격리합니다.
+ </li>
+ <li>
+  PID namespacaes : 프로세스를 분할 관리합니다.
+ </li>
+ <li>
+  Network namespacaes : Network 관련된 정보를 분할 관리합니다.
+ </li>
+ <li>
+  IPC namespacaes : 프로세스간 통신을 격리합니다.
+ </li>
+ <li>
+  UTS namespacaes : 독립적인 hostname 할당합니다
+ </li>
+ <li>
+  USER namespacaes : 독립적인 UID를 할당합니다.
+ </li>
+</ul>
+<p>
+ <span>
+  <span>
+   이와 같이 namespace 를 이용하여 각 프로세스를 격리 할 수 있습니다.
+  </span>
+ </span>
+</p>
+<p>
+ <span>
+  <span>
+   <br/>
+  </span>
+ </span>
+</p>
+<p>
+ <span>
+  <span>
+   간단하게 Mount namespaces 를 통해 namespace에 대해 알아보겠습니다.
+  </span>
+ </span>
+</p>
+<div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-name="code" style="border-width: 1px;">
+ <div class="codeContent panelContent pdl">
+  <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: true; theme: RDark" data-theme="RDark"># echo $$
+6467
+# mkdir /imsi
+# ls -la /proc/6467/ns/mnt
+lrwxrwxrwx 1 root root 0  8월 30 16:48 /proc/6467/ns/mnt -&gt; mnt:[4026531840]
+
+ "신규 Mount Namespace 생성"
+# unshare -m /bin/bash  
+# echo $$
+6523
+# mount -t tmpfs tmpfs /imsi
+# mount | grep imsi
+tmpfs on /imsi type tmpfs (rw,relatime)
+# df | grep imsi
+tmpfs                     1941000       0   1941000   0% /imsi
+# ls -la /proc/6523/ns/mnt
+lrwxrwxrwx 1 root root 0  8월 30 16:50 /proc/6523/ns/mnt -&gt; mnt:[4026532457]
+
+" 다른 세션에서 Mount 확인 "
+# echo $$
+21889
+# mount | grep imsi
+# df | grep imsi</pre>
+ </div>
+</div>
+<p>
+ <span>
+  <span>
+   namespace 를 통해 프로세스가 시스템 자원을 전용으로 사용하는것을 확인 할 수 있습니다.
+  </span>
+ </span>
+</p>
+<p>
+ <span>
+  <span>
+   <br/>
+  </span>
+ </span>
+</p>
+<p>
+ <span>
+  <span>
+   이처럼 컨테이너는 Cgroup 와 namespace 의 기술을 이용한 프로세스 격리 기술입니다.
+  </span>
+ </span>
+</p>
+<p>
+ <span>
+  <span>
+   이를 이용하여 프로세스별로 각각의 가상머신을 운영하는 것과 같은 격리 효과를 볼 수 있는 것입니다.
+  </span>
+ </span>
+</p>
+<p>
+ <span>
+  <span>
+   이것이 바로 컨테이너 입니다!!!
+   <br/>
+  </span>
+ </span>
+</p>
+<p>
+ <span>
+  <span>
+   <br/>
+  </span>
+ </span>
+</p>
+<h1 id="Docker이해하기-그럼Docker는뭔가요!?">
+ 그럼 Docker 는 뭔가요!?
+</h1>
+<p>
+ <br/>
+</p>
+<p>
+ <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size">
+<img src="/assets/images/post/45749387/1"/>
+ </span>
+</p>
+<p>
+ Docker 란, 리눅스 컨테이너 기술을 기반으로 하는 오픈 소스 소프트웨어 플랫폼입니다.
+</p>
+<p>
+ 로고를 보면 마치 항구에서 컨테이너를 관리하는 것처럼 Docker는 컨테이너를 환경에 구애받지 않고 애플리케이션을 신속하게 배포 및 확장 있는 플랫폼입니다.
+</p>
+<p>
+ <br/>
+</p>
+<p>
+ 컨테이너에서도 잠깐 설명한것처럼 Docker 는 가상화 환경과 비교를 많이하는데
+</p>
+<p>
+ 위 비교 자료 및 성능 자료는 기존에 포스팅된 내용 참고 하시면 됩니다.
+</p>
+<p>
+ <strong>
+  <a class="external-link" href="https://tech.osci.kr/docker/2015/05/09/tistory-56/" rel="nofollow">
+   [ Docker 발표 및 VM과 성능 비교 ]
+  </a>
+ </strong>
+</p>
+<p>
+ <br/>
+</p>
+<p>
+ 이렇게 좋은 Docker 한번 설치해보겠습니다.
+</p>
+<h1 id="Docker이해하기-Docker설치">
+ Docker 설치
+</h1>
+<p>
+ <br/>
+</p>
+<div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-name="info">
+ <p class="title">
+  Test Information
+ </p>
+ <span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon">
+ </span>
+ <div class="confluence-information-macro-body">
+  <p>
+   <strong>
+    Test OS 정보 :
+   </strong>
+   CentOS Linux release 7.5.1804 (Core)
+  </p>
+  <p>
+   <strong>
+    Docker Install Version :
+   </strong>
+   docker-ce-18.06.1.ce-3.el7
+  </p>
+ </div>
+</div>
+<h2 id="Docker이해하기-InstallRepository">
+ Install Repository
+</h2>
+<p>
+ docker-ce Yum Repository를 등록합니다.
+</p>
+<div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-name="code" style="border-width: 1px;">
+ <div class="codeContent panelContent pdl">
+  <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: true; theme: RDark" data-theme="RDark"># wget https://download.docker.com/linux/centos/docker-ce.repo -O /etc/yum.repos.d/docker-ce.repo
+# yum repolist</pre>
+ </div>
+</div>
+<h2 id="Docker이해하기-Installdocker-ce">
+ Install docker-ce
+</h2>
+<p>
+ docker-ce 를 설치합니다.
+</p>
+<div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-name="code" style="border-width: 1px;">
+ <div class="codeContent panelContent pdl">
+  <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: true; theme: RDark" data-theme="RDark">#  yum install docker-ce</pre>
+ </div>
+</div>
+<h2 id="Docker이해하기-docker서비스시작">
+ docker 서비스 시작
+</h2>
+<p>
+ docker 서비스 시작 합니다.
+</p>
+<div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-name="code" style="border-width: 1px;">
+ <div class="codeContent panelContent pdl">
+  <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: true; theme: RDark" data-theme="RDark">#  systemctl enable docker;systemctl start docker</pre>
+ </div>
+</div>
+<h2 id="Docker이해하기-docker서비스확인">
+ docker 서비스 확인
+</h2>
+<p>
+ docker 가 정상적으로 설치가 되고 문제없이 사용이 가능한지 확인합니다.
+</p>
+<div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-name="code" style="border-width: 1px;">
+ <div class="codeContent panelContent pdl">
+  <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: true; theme: RDark" data-theme="RDark">" docker 컨테이너 확인 "
+# docker ps -a
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+
+" docker 컨테이너 실행 "
+# docker run hello-world
+Unable to find image 'hello-world:latest' locally
+latest: Pulling from library/hello-world
+9db2ca6ccae0: Pull complete
+Digest: sha256:4b8ff392a12ed9ea17784bd3c9a8b1fa3299cac44aca35a85c90c5e3c7afacdc
+Status: Downloaded newer image for hello-world:latest
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+    (amd64)
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+
+Share images, automate workflows, and more with a free Docker ID:
+ https://hub.docker.com/
+
+For more examples and ideas, visit:
+ https://docs.docker.com/engine/userguide/
+
+" dockerd 정보 "
+# docker info
+Containers: 1
+ Running: 0
+ Paused: 0
+ Stopped: 1
+Images: 1
+Server Version: 18.06.1-ce
+Storage Driver: overlay2
+ Backing Filesystem: xfs
+ Supports d_type: true
+ Native Overlay Diff: true
+Logging Driver: json-file
+Cgroup Driver: cgroupfs
+Plugins:
+ Volume: local
+ Network: bridge host macvlan null overlay
+ Log: awslogs fluentd gcplogs gelf journald json-file logentries splunk syslog
+Swarm: inactive
+Runtimes: runc
+Default Runtime: runc
+Init Binary: docker-init
+containerd version: 468a545b9edcd5932818eb9de8e72413e616e86e
+runc version: 69663f0bd4b60df09991c08812a60108003fa340
+init version: fec3683
+Security Options:
+ seccomp
+  Profile: default
+Kernel Version: 3.10.0-693.el7.x86_64
+Operating System: CentOS Linux 7 (Core)
+OSType: linux
+Architecture: x86_64
+CPUs: 2
+Total Memory: 3.702GiB
+Name: container.local
+ID: FC6G:U5RT:3F6H:4KTL:MX7I:7NND:F42S:FYXI:OFH2:XDSE:DFFC:Z6F2
+Docker Root Dir: /var/lib/docker
+Debug Mode (client): false
+Debug Mode (server): false
+Registry: https://index.docker.io/v1/
+Labels:
+Experimental: false
+Insecure Registries:
+ 127.0.0.0/8
+Live Restore Enabled: false
+
+ </pre>
+ </div>
+</div>
+<p>
+ <br/>
+</p>
+<h1 id="Docker이해하기-DockerCommand">
+ Docker Command
+</h1>
+<p>
+ docker 사용을 위해 기본적인 명령어들을 알아보겠습니다.
+</p>
+<p>
+ <br/>
+</p>
+<h2 id="Docker이해하기-1)Listcontainers">
+ 1) List containers
+</h2>
+<p>
+ 현재 활성화되거나 중지된 컨테이너 목록을 보는 명령어입니다.
+</p>
+<p>
+ 컨테이너의 상태 및 가동 시간등을 보여줍니다.
+</p>
+<div class="panel conf-macro output-block" data-hasbody="true" data-macro-name="panel" style="border-width: 1px;">
+ <div class="panelContent">
+  <p>
+   <em>
+    <strong>
+     # docker ps -a
+    </strong>
+   </em>
+  </p>
+  <p>
+   CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                   PORTS               NAMES
+  </p>
+  <p>
+   032759e31d4c        hello-world         "/hello"            10 days ago         Exited (0) 10 days ago                       jovial_lovelace
+  </p>
+ </div>
+</div>
+<p>
+ <br/>
+</p>
+<h2 id="Docker이해하기-2)Listimages">
+ 2) List images
+</h2>
+<p>
+ Local 에 저장된 image 목록을 보여줍니다.
+</p>
+<div class="panel conf-macro output-block" data-hasbody="true" data-macro-name="panel" style="border-width: 1px;">
+ <div class="panelContent">
+  <p>
+   <em>
+    <strong>
+     # docker images
+    </strong>
+   </em>
+  </p>
+  <p>
+   REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+  </p>
+  <p>
+   hello-world         latest              2cb0d9787c4d        2 months ago        1.85kB
+  </p>
+ </div>
+</div>
+<p>
+ <br/>
+</p>
+<h2 id="Docker이해하기-3)Pullimage">
+ 3) Pull image
+</h2>
+<p>
+ Public Repository 혹은 Private Repository에 있는 container image 를  Local 로 pull 합니다. ( 일종의 다운로드 )
+</p>
+<div class="panel conf-macro output-block" data-hasbody="true" data-macro-name="panel" style="border-width: 1px;">
+ <div class="panelContent">
+  <p>
+   <em>
+    <strong>
+     # docker pull [OPTIONS] NAME[:TAG|@DIGEST]
+    </strong>
+   </em>
+  </p>
+  <p>
+   # docker pull httpd
+   <strong>
+    "pull http image "
+   </strong>
+  </p>
+  <p>
+   Using default tag: latest
+  </p>
+  <p>
+   latest: Pulling from library/httpd
+  </p>
+  <p>
+   f189db1b88b3: Pull complete
+  </p>
+  <p>
+   ba2d31d4e2e7: Pull complete
+  </p>
+  <p>
+   23a65f5e3746: Pull complete
+  </p>
+  <p>
+   5e8eccbd4bc6: Pull complete
+  </p>
+  <p>
+   4c145eec18d8: Pull complete
+  </p>
+  <p>
+   1c74ffd6a8a2: Pull complete
+  </p>
+  <p>
+   1421f0320e1b: Pull complete
+  </p>
+  <p>
+   Digest: sha256:8631904c6e92918b6c7dd82b72512714e7fbc3f1a1ace2de17cb2746c401b8fb
+  </p>
+  <p>
+   Status: Downloaded newer image for httpd:latest
+  </p>
+  <p>
+   # docker images
+  </p>
+  <p>
+   REPOSITORY            TAG                 IMAGE ID            CREATED             SIZE
+  </p>
+  <p>
+   <strong>
+    httpd                 latest              d595a4011ae3        5 days ago          178MB
+   </strong>
+  </p>
+  <p>
+   han0495/hello-world   latest              2cb0d9787c4d        2 months ago        1.85kB
+  </p>
+  <p>
+   hello-world           latest              2cb0d9787c4d        2 months ago        1.85kB
+  </p>
+ </div>
+</div>
+<h2 id="Docker이해하기-4)Pushimages">
+ 4) Push images
+</h2>
+<p>
+ Local 에 있는 container image 를 Public Repository 혹은 Private Repository 로 push 합니다. ( 일종의 업로드 )
+</p>
+<p>
+ <br/>
+</p>
+<div class="panel conf-macro output-block" data-hasbody="true" data-macro-name="panel" style="border-width: 1px;">
+ <div class="panelContent">
+  <p>
+   <em>
+    <strong>
+     # docker push [OPTIONS] NAME[:TAG]
+    </strong>
+   </em>
+  </p>
+  <p>
+   # docker push han0495/hello-world
+   <br/>
+   The push refers to repository [
+   <a class="external-link" href="http://docker.io/han0495/hello-world" rel="nofollow">
+    docker.io/han0495/hello-world
+   </a>
+   ]
+   <br/>
+   ee83fc5847cb: Mounted from library/hello-world
+   <br/>
+   latest: digest: sha256:aca41a608e5eb015f1ec6755f490f3be26b48010b178e78c00eac21ffbe246f1 size: 524
+   <br/>
+   # docker images
+   <br/>
+   REPOSITORY            TAG                 IMAGE ID            CREATED             SIZE
+   <br/>
+   <strong>
+    han0495/hello-world   latest              2cb0d9787c4d        2 months ago        1.85kB
+   </strong>
+   <br/>
+   hello-world           latest              2cb0d9787c4d        2 months ago        1.85kB
+  </p>
+ </div>
+</div>
+<p>
+ <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size">
+<img src="/assets/images/post/45749387/2"/>
+ </span>
+</p>
+<p>
+ 위와 같이 docker hub 의 Public Repository 로 push 된 것을 확인 할 수 있습니다.
+</p>
+<p>
+ <br/>
+</p>
+<h2 id="Docker이해하기-5)Tagimage">
+ 5) Tag image
+</h2>
+<p>
+ Container image 에 태그를 작성합니다.
+</p>
+<div class="panel conf-macro output-block" data-hasbody="true" data-macro-name="panel" style="border-width: 1px;">
+ <div class="panelContent">
+  <p>
+   <em>
+    <strong>
+     # docker tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]
+    </strong>
+   </em>
+  </p>
+  <p>
+   # docker tag hello-world han0495/hello-world
+  </p>
+  <p>
+   # docker images
+  </p>
+  <p>
+   REPOSITORY            TAG                 IMAGE ID            CREATED             SIZE
+  </p>
+  <p>
+   <strong>
+    han0495/hello-world   latest              2cb0d9787c4d        2 months ago        1.85kB
+   </strong>
+  </p>
+  <p>
+   hello-world           latest              2cb0d9787c4d        2 months ago        1.85kB
+  </p>
+ </div>
+</div>
+<p>
+ <br/>
+</p>
+<h2 id="Docker이해하기-6)Container실행">
+ 6) Container 실행
+</h2>
+<p>
+ Container 를 실행 하는 명령 입니다.
+</p>
+<div class="panel conf-macro output-block" data-hasbody="true" data-macro-name="panel" style="border-width: 1px;">
+ <div class="panelContent">
+  <p>
+   <em>
+    <strong>
+     # docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
+    </strong>
+   </em>
+  </p>
+  <p>
+   # docker run httpd
+  </p>
+  <p>
+   AH00558: httpd: Could not reliably determine the server's fully qualified domain name, using 172.17.0.2. Set the 'ServerName' directive globally to suppress this message
+  </p>
+  <p>
+   AH00558: httpd: Could not reliably determine the server's fully qualified domain name, using 172.17.0.2. Set the 'ServerName' directive globally to suppress this message
+  </p>
+  <p>
+   [Mon Sep 10 06:43:19.002515 2018] [mpm_event:notice] [pid 1:tid 140466418673536] AH00489: Apache/2.4.34 (Unix) configured -- resuming normal operations
+  </p>
+  <p>
+   [Mon Sep 10 06:43:19.002612 2018] [core:notice] [pid 1:tid 140466418673536] AH00094: Command line: 'httpd -D FOREGROUND'
+  </p>
+ </div>
+</div>
+<p>
+ <br/>
+</p>
+<h2 id="Docker이해하기-7)Container제거">
+ 7) Container 제거
+</h2>
+<p>
+ 현재 실행 중이거나 실행이 종료된 Container 를 제거하는 명령 입니다.
+</p>
+<p>
+ 현재 실행 중인 Container 를 강제로 제거 하기 위해서는 -f 옵션을 사용합니다.
+</p>
+<div class="panel conf-macro output-block" data-hasbody="true" data-macro-name="panel" style="border-width: 1px;">
+ <div class="panelContent">
+  <p>
+   <em>
+    <strong>
+     # docker rm [OPTIONS] CONTAINER [CONTAINER...]
+    </strong>
+   </em>
+  </p>
+  <p>
+   # docker ps -a
+  </p>
+  <p>
+   CONTAINER ID        IMAGE               COMMAND              CREATED             STATUS                     PORTS               NAMES
+  </p>
+  <p>
+   <strong>
+    c89632a2eede
+   </strong>
+   httpd               "httpd-foreground"   2 minutes ago       Exited (0) 2 minutes ago                       fervent_wiles
+  </p>
+  <p>
+   032759e31d4c        hello-world         "/hello"             10 days ago         Exited (0) 10 days ago                         jovial_lovelace
+  </p>
+  <p>
+   <strong>
+    # docker rm c89632a2eede
+   </strong>
+  </p>
+  <p>
+   c89632a2eede
+  </p>
+  <p>
+   # docker ps -a
+  </p>
+  <p>
+   CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                   PORTS               NAMES
+  </p>
+  <p>
+   032759e31d4c        hello-world         "/hello"            10 days ago         Exited (0) 10 days ago                       jovial_lovelace
+  </p>
+ </div>
+</div>
+<p>
+ <br/>
+</p>
+<h2 id="Docker이해하기-8)ContainersImage삭제">
+ 8) Containers Image 삭제
+</h2>
+<p>
+ Local 에 저장된 Container Image 를 삭제합니다.
+</p>
+<div class="panel conf-macro output-block" data-hasbody="true" data-macro-name="panel" style="border-width: 1px;">
+ <div class="panelContent">
+  <p>
+   <em>
+    <strong>
+     # docker rmi [OPTIONS] IMAGE [IMAGE...]
+    </strong>
+   </em>
+  </p>
+  <p>
+   # docker images
+  </p>
+  <p>
+   REPOSITORY            TAG                 IMAGE ID            CREATED             SIZE
+  </p>
+  <p>
+   httpd                 latest              d595a4011ae3        5 days ago          178MB
+  </p>
+  <p>
+   <strong>
+    hello-world           latest              2cb0d9787c4d        2 months ago        1.85kB
+   </strong>
+  </p>
+  <p>
+   han0495/hello-world   latest              2cb0d9787c4d        2 months ago        1.85kB
+  </p>
+  <p>
+   <strong>
+    # docker rmi hello-world
+   </strong>
+  </p>
+  <p>
+   Untagged: hello-world:latest
+  </p>
+  <p>
+   Untagged: hello-world@sha256:4b8ff392a12ed9ea17784bd3c9a8b1fa3299cac44aca35a85c90c5e3c7afacdc
+  </p>
+  <p>
+   # docker images
+  </p>
+  <p>
+   REPOSITORY            TAG                 IMAGE ID            CREATED             SIZE
+  </p>
+  <p>
+   httpd                 latest              d595a4011ae3        5 days ago          178MB
+  </p>
+  <p>
+   han0495/hello-world   latest              2cb0d9787c4d        2 months ago        1.85kB
+  </p>
+ </div>
+</div>
+<p>
+ <br/>
+</p>
+<p>
+ 이처럼 Docker 에서 사용되는 기본적인 명령들을 확인하였습니다.
+</p>
+<p>
+ 추가적인 명령들은 아래 문서를 참고합니다.
+</p>
+<p>
+ (
+ <a class="external-link" href="https://docs.docker.com/engine/reference/commandline/cli/" rel="nofollow">
+  https://docs.docker.com/engine/reference/commandline/cli/
+ </a>
+ )
+</p>
+<h1 id="Docker이해하기-Docker를이용해서Web서비스를실행해보자!">
+ Docker를 이용해서 Web 서비스를 실행해보자!
+</h1>
+<p>
+ 위 명령어 예제에서 httpd image 를 이용하여 contanier를 실행하는 예제를 보여드렸습니다.
+</p>
+<p>
+ 그런데 container 만 작동된다고 Web 서비스가 구동되는 것은 아니죠!
+</p>
+<p>
+ docker 를 이용해서 Web 서비스를 해보도록 하겠습니다.
+</p>
+<p>
+ <br/>
+</p>
+<p>
+ 먼저, httpd container image 를 pull 합니다.
+</p>
+<div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-name="code" style="border-width: 1px;">
+ <div class="codeContent panelContent pdl">
+  <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: true; theme: RDark" data-theme="RDark"># docker pull httpd
+Using default tag: latest
+latest: Pulling from library/httpd
+Digest: sha256:8631904c6e92918b6c7dd82b72512714e7fbc3f1a1ace2de17cb2746c401b8fb
+Status: Image is up to date for httpd:latest
+# docker images
+REPOSITORY            TAG                 IMAGE ID            CREATED             SIZE
+httpd                 latest              d595a4011ae3        5 days ago          178MB
+han0495/hello-world   latest              2cb0d9787c4d        2 months ago        1.85kB</pre>
+ </div>
+</div>
+<p>
+ http container 를 위에서 배운것처럼 실행해봅니다.
+</p>
+<p>
+ <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size">
+<img src="/assets/images/post/45749387/3"/>
+ </span>
+</p>
+<p>
+ Container 가 Foreground 로 작동하면서 Shell 을 사용을 못할 뿐더러, Shell 이 종료가 되면 httpd Container 도 중지가 됩니다.
+</p>
+<p>
+ 위와 같이 되면, 전혀 서비스에 적용 할 수가 없습니다.
+</p>
+<p>
+ 그리하여 아래와 같이 background 로 container 를 실행하면 됩니다.
+</p>
+<div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-name="code" style="border-width: 1px;">
+ <div class="codeContent panelContent pdl">
+  <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: true; theme: RDark" data-theme="RDark"># docker run -d httpd
+3c9764e9b79a058b0dedda07312679d6cafc0779c3e66ae04d9d1034a2b29ee1
+# docker ps -a
+CONTAINER ID        IMAGE               COMMAND              CREATED             STATUS              PORTS               NAMES
+3c9764e9b79a        httpd               "httpd-foreground"   11 seconds ago      Up 10 seconds       80/tcp              stupefied_rama</pre>
+ </div>
+</div>
+<p>
+ 위와 같이 Shell 에서 다른 명령도 가능하고 서비스가 계속 실행되는 것을 확인 할 수 있습니다.
+</p>
+<p>
+ 그럼 실제로 서비스가 작동하는지 확인해 보겠습니다.
+</p>
+<div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-name="code" style="border-width: 1px;">
+ <div class="codeContent panelContent pdl">
+  <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: true; theme: RDark" data-theme="RDark"># curl http://127.0.0.1
+curl: (7) Failed connect to 127.0.0.1; 연결이 거부됨</pre>
+ </div>
+</div>
+<p>
+ 서비스가 안되고 있습니다! 이유가 뭘까요?
+</p>
+<p>
+ <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size">
+<img src="/assets/images/post/45749387/4"/>
+ </span>
+</p>
+<p>
+ 현재 container 가 어떤 상황인지 이해 하시면 왜 네트워크가 안되는지 이해가 쉽습니다.
+</p>
+<p>
+ 위에 도식화된 내용은 Host OS 위에 docker 엔진이 설치가 되고 container 들의 네트워크가 어떤식으로 연결되어 있는지 쉽게 볼 수 있습니다.
+</p>
+<p>
+ 지금 보면 HTTP 는 Host Network 와 연결이 안되어 있습니다. 이러면 docker 내부에서 container 간 통신은 되지만 docker 외부와 통신이 불가능합니다. 그래서 외부 서비스가 안되는 것입니다.
+</p>
+<p>
+ 그럼 서비스가 되기 위해서는 아래와 같은 연결이 필요합니다. 그 연결은 port mapping 을 통해 진행합니다.
+</p>
+<p>
+ <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size">
+<img src="/assets/images/post/45749387/5"/>
+ </span>
+</p>
+<p>
+ 그리하면 위와 같은 구성이 될 것입니다. 실제로 적용해보겠습니다.
+</p>
+<div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-name="code" style="border-width: 1px;">
+ <div class="codeContent panelContent pdl">
+  <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: true; theme: RDark" data-theme="RDark"># docker stop 3c9764e9b79a        " 기존에 실행중이던 docker 중지 "
+3c9764e9b79a
+# docker ps -a
+CONTAINER ID        IMAGE               COMMAND              CREATED             STATUS                     PORTS               NAMES
+3c9764e9b79a        httpd               "httpd-foreground"   18 minutes ago      Exited (0) 3 seconds ago                       stupefied_raman
+# docker run -d -p 80:80 httpd
+dee5fb60c083564d6095b1b9811b3e634c017caf9788f5fce57a0dcb309e4e76
+# docker ps -a
+CONTAINER ID        IMAGE               COMMAND              CREATED             STATUS                      PORTS                NAMES
+dee5fb60c083        httpd               "httpd-foreground"   3 seconds ago       Up 2 seconds                0.0.0.0:80-&gt;80/tcp   goofy_sammet
+3c9764e9b79a        httpd               "httpd-foreground"   19 minutes ago      Exited (0) 18 seconds ago                        stupefied_raman
+# curl http://127.0.0.1
+&lt;html&gt;&lt;body&gt;&lt;h1&gt;It works!&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;</pre>
+ </div>
+</div>
+<p>
+ 위와 같이 포트 80 을 통해 외부로 서비스를 하는 것을 확인 할 수 있습니다.
+</p>
+<p>
+ 웹 브라우져에서 확인해보겠습니다.
+</p>
+<p>
+ <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size">
+<img src="/assets/images/post/45749387/6"/>
+ </span>
+</p>
+<p>
+ 이렇게 쉽게 Web 서비스를 구성 할 수 있습니다.
+</p>
+<p>
+ <br/>
+</p>
+<p>
+ 하지만 이런 Web Page 를 쓸수는 없습니다. Web Page 를 바꿔보겠습니다.
+</p>
+<div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-name="code" style="border-width: 1px;">
+ <div class="codeContent panelContent pdl">
+  <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: true; theme: RDark" data-theme="RDark"># docker ps -a
+CONTAINER ID        IMAGE               COMMAND              CREATED             STATUS                      PORTS                NAMES
+dee5fb60c083        httpd               "httpd-foreground"   3 seconds ago       Up 2 seconds                0.0.0.0:80-&gt;80/tcp   goofy_sammet
+3c9764e9b79a        httpd               "httpd-foreground"   19 minutes ago      Exited (0) 18 seconds ago                        stupefied_raman
+# docker exec -ti dee5fb60c083 /bin/bash       "container 내부로 들어가서 http index.html 을 수정합니다."
+root@dee5fb60c083:/usr/local/apache2#
+root@dee5fb60c083:/usr/local/apache2# ls
+bin  build  cgi-bin  conf  error  htdocs  icons  include  logs    modules
+root@dee5fb60c083:/usr/local/apache2# cd htdocs/
+root@dee5fb60c083:/usr/local/apache2/htdocs# ls
+index.html
+root@dee5fb60c083:/usr/local/apache2/htdocs# cat index.html
+&lt;html&gt;&lt;body&gt;&lt;h1&gt;It works!&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;
+root@dee5fb60c083:/usr/local/apache2/htdocs# echo "&lt;html&gt;&lt;body&gt;&lt;h1&gt;Docker Test Page&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;" &gt; index.html
+root@dee5fb60c083:/usr/local/apache2/htdocs# cat index.html
+&lt;html&gt;&lt;body&gt;&lt;h1&gt;Docker Test Page&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;
+root@dee5fb60c083:/usr/local/apache2/htdocs# exit
+exit
+# curl http://192.168.13.131
+&lt;html&gt;&lt;body&gt;&lt;h1&gt;Docker Test Page&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;</pre>
+ </div>
+</div>
+<p>
+ <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size">
+<img src="/assets/images/post/45749387/7"/>
+ </span>
+</p>
+<p>
+ 이처럼 container 내부의 index.html 을 수정하면 Web Page를 변경 할 수 있습니다.
+</p>
+<p>
+ <br/>
+</p>
+<p>
+ 그럼 이제 완벽하게 Web 서비스를 할 수 있게 되었습니다.
+</p>
+<p>
+ 하지만 이런 방식은 운영자 입장에서 보면 container 가 종료가 되거나, 삭제가 되면 매번 container를 실행하기 위해 Port 를 결정해서 입력해야되고, 수정된 index 파일을 다시 수정해야됩니다.
+</p>
+<p>
+ 또한 운영하면서 발생한 로그 및 기타 증분 데이터는 container 가 종료가 되면 전부 삭제가 됩니다.
+</p>
+<p>
+ <br/>
+</p>
+<p>
+ 이런 귀차니즘을 해결하기 위해서
+</p>
+<p>
+ 두가지의 방법을 적용해야 합니다.
+</p>
+<p>
+ <br/>
+</p>
+<p>
+ 바로
+</p>
+<p>
+ <br/>
+</p>
+<p>
+ <em>
+  <strong>
+   DockerFile
+  </strong>
+ </em>
+</p>
+<p>
+ <em>
+  <strong>
+   Docker-compose
+  </strong>
+ </em>
+</p>
+<p>
+ <br/>
+</p>
+<p>
+ 입니다.
+</p>
+<h1 id="Docker이해하기-DockerFile이란?">
+ DockerFile 이란?
+</h1>
+<p>
+ DockerFile 이란, 나만의 Container image를 Build 할 수 있게 해주는 Docker image 파일 입니다.
+</p>
+<p>
+ Docker Hub 에 없는 이미지도 DockerFile 을 이용하면 특별한 image 도 생성 할 수 있습니다.
+</p>
+<div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-name="code" style="border-width: 1px;">
+ <div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;">
+  <b>
+   DockerFile
+  </b>
+ </div>
+ <div class="codeContent panelContent pdl">
+  <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: true; theme: RDark" data-theme="RDark"># cat dockerfile
+FROM httpd:latest
+MAINTAINER chhan &lt;chhan@osci.kr&gt;
+
+RUN echo "&lt;html&gt;&lt;body&gt;&lt;h1&gt;Docker File Test Page&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;" &gt; /usr/local/apache2/htdocs/index.html
+
+EXPOSE 80</pre>
+ </div>
+</div>
+<p>
+ 간단히 위에 사용된 구문에 대해 설명하겠습니다.
+</p>
+<p>
+ <br/>
+</p>
+<ul>
+ <li>
+  <strong>
+   FROM
+  </strong>
+ </li>
+</ul>
+<p style="margin-left: 60.0px;">
+ Docker Hub 에서 어떤 이미지를 가지고와서 작업할지 선언합니다. 작성법은 &lt;이미지명&gt;:&lt;태그&gt; 로 작성합니다.
+</p>
+<ul>
+ <li>
+  <strong>
+   MAINTAINER
+  </strong>
+ </li>
+</ul>
+<p style="margin-left: 60.0px;">
+ DockerFile 제작한 사람의 정보를 기입합니다.
+</p>
+<ul>
+ <li>
+  <strong>
+   RUN
+  </strong>
+ </li>
+</ul>
+<p style="margin-left: 60.0px;">
+ docker image 가 실행되고 container 내에서 실행될 명령어입니다.
+</p>
+<p style="margin-left: 60.0px;">
+ 해당 내용은 적으면 적을수록 container label 이 적게 생성되어 image 를 compact 하게 생성 할 수 있습니다.
+</p>
+<ul>
+ <li>
+  <strong>
+   EXPOSE
+  </strong>
+ </li>
+</ul>
+<p style="margin-left: 60.0px;">
+ Host 에 연결될 Port를 지정합니다.
+</p>
+<p>
+ 위와 같은 DockerFile 구문을 자세히 확인하려면 아래 문서를 참고하시면 됩니다.
+</p>
+<p>
+ (
+ <a class="external-link" href="https://docs.docker.com/engine/reference/builder/" rel="nofollow">
+  https://docs.docker.com/engine/reference/builder/
+ </a>
+ )
+</p>
+<p>
+ 그럼 작성한 DockerFile 을 Build 하고 실행해 보겠습니다.
+</p>
+<div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-name="code" style="border-width: 1px;">
+ <div class="codeContent panelContent pdl">
+  <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: true; theme: RDark" data-theme="RDark"># pwd
+/root/http
+# ls
+dockerfile
+
+# docker build -t myhttpd .
+Sending build context to Docker daemon  2.048kB
+Step 1/4 : FROM httpd:latest
+ ---&gt; d595a4011ae3
+Step 2/4 : MAINTAINER chhan &lt;chhan@osci.kr&gt;
+ ---&gt; Running in 176d94e63272
+Removing intermediate container 176d94e63272
+ ---&gt; 282d30eba8fe
+Step 3/4 : RUN echo "&lt;html&gt;&lt;body&gt;&lt;h1&gt;Docker File Test Page&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;" &gt; /usr/local/apache2/htdocs/index.html
+ ---&gt; Running in 2f16f1ef9d1c
+Removing intermediate container 2f16f1ef9d1c
+ ---&gt; df135d6e6dbd
+Step 4/4 : EXPOSE 80
+ ---&gt; Running in 12cdc41b8546
+Removing intermediate container 12cdc41b8546
+ ---&gt; 52c07f2bfb38
+Successfully built 52c07f2bfb38
+Successfully tagged myhttpd:latest
+
+# docker images
+REPOSITORY            TAG                 IMAGE ID            CREATED             SIZE
+myhttpd               latest              52c07f2bfb38        3 seconds ago       178MB
+httpd                 latest              d595a4011ae3        5 days ago          178MB
+han0495/hello-world   latest              2cb0d9787c4d        2 months ago        1.85kB
+
+# docker run -d -p 80:80 --name=myweb myhttpd
+1afd260265923828f88eeae9bc7083985b66eef2d9c588d35ee08e05198470a0
+
+# docker ps -a
+CONTAINER ID        IMAGE               COMMAND              CREATED             STATUS              PORTS                NAMES
+1afd26026592        myhttpd             "httpd-foreground"   5 seconds ago       Up 5 seconds        0.0.0.0:80-&gt;80/tcp   myweb
+
+# curl http://192.168.13.131
+&lt;html&gt;&lt;body&gt;&lt;h1&gt;Docker File Test Page&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;</pre>
+ </div>
+</div>
+<p>
+ 이처럼 DockerFile 을 통해 작성한 container image 를 통해 매번 index File 이 수정된 Web 서비스를 실행 할 수 있습니다.
+</p>
+<h1 id="Docker이해하기-docker-compose로Container통합관리">
+ docker-compose 로 Container 통합 관리
+</h1>
+<p>
+ docker-compose 란, 한번에 여러개의 container 을 통합 관리 할 수 있게 하는 툴입니다.
+</p>
+<p>
+ <br/>
+</p>
+<p>
+ 주로 서비스는 하나만으로 작동하는 것은 없습니다.
+</p>
+<p>
+ 예를 들면
+ <code>
+  wordpress 같은 것이 있습니다.
+ </code>
+</p>
+<p>
+ DB 서비스와
+ <code class="language-none">
+  wordpress
+ </code>
+ 서비스가 동시에 실행되고 서로 연결되어 있습니다.
+</p>
+<p>
+ 위와 같은 서비스를 편하게 통합 관리하기 위해 docker-compose 를 사용하는 것입니다.
+</p>
+<p>
+ <br/>
+</p>
+<p>
+ 그럼 docker-compose 를 사용해보겠습니다.
+</p>
+<p>
+ <br/>
+</p>
+<h2 id="Docker이해하기-docker-compose설치">
+ docker-compose 설치
+</h2>
+<p>
+ 아래와 같이 docker-compose 명령어를 설치해야합니다.
+</p>
+<div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-name="code" style="border-width: 1px;">
+ <div class="codeContent panelContent pdl">
+  <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: true; theme: RDark" data-theme="RDark"># curl -L "https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   617    0   617    0     0    558      0 --:--:--  0:00:01 --:--:--   559
+100 11.2M  100 11.2M    0     0  2186k      0  0:00:05  0:00:05 --:--:-- 3668k
+# chmod +x /usr/local/bin/docker-compose
+# ls -l /usr/local/bin/docker-compose
+-rwxr-xr-x 1 root root 11750136  9월 10 17:26 /usr/local/bin/docker-compose
+# docker-compose --version
+docker-compose version 1.22.0, build f46880fe</pre>
+ </div>
+</div>
+<p>
+ <br/>
+</p>
+<h2 id="Docker이해하기-docker-compose사용법">
+ docker-compose 사용법
+</h2>
+<p>
+ 아래 예제는 DB 서비스와 wordpress 서비스를 구동하는 docker-compose 파일입니다.
+</p>
+<p>
+ 해당 docker-compose.yml 을 이용해서 wordpress 서비스를 구동해 보겠습니다.
+</p>
+<div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-name="code" style="border-width: 1px;">
+ <div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;">
+  <b>
+   docker-compose.yml
+  </b>
+ </div>
+ <div class="codeContent panelContent pdl">
+  <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: true; theme: RDark" data-theme="RDark">version: '3.3'
+
+services:
+   db:
+     image: mysql:5.7
+     volumes:
+       - /var/lib/mysql:/var/lib/mysql
+     restart: always
+     environment:
+       MYSQL_ROOT_PASSWORD: passwordpress
+       MYSQL_DATABASE: wordpress
+       MYSQL_USER: wordpress
+       MYSQL_PASSWORD: wordpress
+
+   wordpress:
+     depends_on:
+       - db
+     image: wordpress:latest
+     ports:
+       - "8000:80"
+     restart: always
+     environment:
+       WORDPRESS_DB_HOST: db:3306
+       WORDPRESS_DB_USER: wordpress
+       WORDPRESS_DB_PASSWORD: wordpress</pre>
+ </div>
+</div>
+<p>
+ * 위 예제는 docker docs 에서 발췌 했습니다. (
+ <a class="external-link" href="https://docs.docker.com/compose/overview/" rel="nofollow">
+  https://docs.docker.com/compose/overview/
+ </a>
+ )
+</p>
+<p>
+ * docker-compose 에 선언되는 각각의 environment는 아래 URL과 같이 docker docs 에서 확인이 가능합니다.
+</p>
+<p>
+ (
+ <a class="external-link" href="https://docs.docker.com/samples/library/mysql/" rel="nofollow">
+  https://docs.docker.com/samples/library/mysql/
+ </a>
+ )
+</p>
+<p>
+ <br/>
+</p>
+<p>
+ 이제 위 docker-compose.yml 을 실행해보겠습니다.
+</p>
+<div class="panel conf-macro output-block" data-hasbody="true" data-macro-name="panel" style="border-width: 1px;">
+ <div class="panelContent">
+  <pre># docker-compose -f docker-compose.yml up -d</pre>
+  (-f [File] , -d background 실행)
+ </div>
+</div>
+<p>
+ <br/>
+</p>
+<div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-name="code" style="border-width: 1px;">
+ <div class="codeContent panelContent pdl">
+  <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: true; theme: RDark" data-theme="RDark"># ls -la /root/wordpress/docker-compose.yml
+-rw-r--r-- 1 root root 537  9월 10 17:35 /root/wordpress/docker-compose.yml
+# docker-compose -f docker-compose.yml up -d
+Creating network "wordpress_default" with the default driver
+Pulling db (mysql:5.7)...
+5.7: Pulling from library/mysql
+802b00ed6f79: Pull complete
+30f19a05b898: Pull complete
+3e43303be5e9: Pull complete
+94b281824ae2: Pull complete
+51eb397095b1: Pull complete
+54567da6fdf0: Pull complete
+bc57ddb85cce: Pull complete
+c7c0a9c25d8a: Pull complete
+cce6c47ac3fc: Pull complete
+499b9c7376c8: Pull complete
+6c5e08e005ea: Pull complete
+Digest: sha256:1d8f471c7e2929ee1e2bfbc1d16fc8afccd2e070afed24805487e726ce601a6d
+Status: Downloaded newer image for mysql:5.7
+Pulling wordpress (wordpress:latest)...
+latest: Pulling from library/wordpress
+802b00ed6f79: Already exists
+59f5a5a895f8: Pull complete
+6898b2dbcfeb: Pull complete
+8e0903aaa47e: Pull complete
+2961af1e196a: Pull complete
+71f7016f79a0: Pull complete
+5e1a48e5719c: Pull complete
+7ae5291984f3: Pull complete
+725b65166f31: Pull complete
+3823a607a5d4: Pull complete
+1bcfa4198e39: Pull complete
+f1c79da21110: Pull complete
+18903f439956: Pull complete
+5eda25fffde3: Pull complete
+3800dac98824: Pull complete
+951fbb644962: Pull complete
+5b91123e33c5: Pull complete
+71250bb070e7: Pull complete
+0363e75875b5: Pull complete
+3bcb3cbf244a: Pull complete
+Digest: sha256:e30aed2d17b33758544f0eaebee763a452b41ff5bc926d723566338b0137dd81
+Status: Downloaded newer image for wordpress:latest
+Creating wordpress_db_1 ... done
+Creating wordpress_wordpress_1 ... done
+
+# docker-compose ps
+        Name                       Command               State          Ports
+-------------------------------------------------------------------------------------
+wordpress_db_1          docker-entrypoint.sh mysqld      Up      3306/tcp, 33060/tcp
+wordpress_wordpress_1   docker-entrypoint.sh apach ...   Up      0.0.0.0:8000-&gt;80/tcp
+[root@container wordpress]# docker-compose top
+wordpress_db_1
+  UID      PID    PPID    C   STIME   TTY     TIME      CMD
+-------------------------------------------------------------
+polkitd   10737   10716   0   17:41   ?     00:00:00   mysqld
+
+wordpress_wordpress_1
+UID     PID    PPID    C   STIME   TTY     TIME             CMD
+------------------------------------------------------------------------
+root   10997   10977   0   17:41   ?     00:00:00   apache2 -DFOREGROUND
+33     14530   10997   0   17:41   ?     00:00:00   apache2 -DFOREGROUND
+33     14531   10997   0   17:41   ?     00:00:00   apache2 -DFOREGROUND
+33     14533   10997   0   17:41   ?     00:00:00   apache2 -DFOREGROUND
+33     14534   10997   0   17:41   ?     00:00:00   apache2 -DFOREGROUND
+33     14535   10997   0   17:41   ?     00:00:00   apache2 -DFOREGROUND</pre>
+ </div>
+</div>
+<p>
+ 이처럼 명령어 한줄로 두 종류의 서비스를 한번에 실행 할 수 있었습니다.
+</p>
+<p>
+ 정상적으로 서비스가 작동하는지 확인해볼까요?
+</p>
+<p>
+ <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size">
+<img src="/assets/images/post/45749387/8"/>
+ </span>
+</p>
+<p>
+ 정상적으로 실행된 것을 확인 할 수 있었습니다.
+</p>
+<p>
+ <br/>
+</p>
+<p>
+ 지금까지 배운 명령어를 통해 docker-compose 가 어떤 내용을 실행했는지 한번 더 확인해 보겠습니다.
+</p>
+<p>
+ <br/>
+</p>
+<div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-name="code" style="border-width: 1px;">
+ <div class="codeContent panelContent pdl">
+  <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: true; theme: RDark" data-theme="RDark"># docker ps -a
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                  NAMES
+25c5e75bb07d        wordpress:latest    "docker-entrypoint.s…"   4 minutes ago       Up 4 minutes        0.0.0.0:8000-&gt;80/tcp   wordpress_wordpress_1
+f52a5d2495e4        mysql:5.7           "docker-entrypoint.s…"   4 minutes ago       Up 4 minutes        3306/tcp, 33060/tcp    wordpress_db_1
+
+# docker images
+REPOSITORY            TAG                 IMAGE ID            CREATED             SIZE
+myhttpd               latest              52c07f2bfb38        About an hour ago   178MB
+wordpress             latest              63b422244491        2 days ago          409MB
+mysql                 5.7                 563a026a1511        5 days ago          372MB
+httpd                 latest              d595a4011ae3        5 days ago          178MB
+han0495/hello-world   latest              2cb0d9787c4d        2 months ago        1.85k</pre>
+ </div>
+</div>
+<ul class="inline-task-list" data-inline-tasks-content-id="45749387">
+ <li class="checked" data-inline-task-id="6">
+  Local 에 없던 image를 자동으로 Download 했습니다.
+ </li>
+ <li class="checked" data-inline-task-id="7">
+  docker container 를 실행했습니다.
+ </li>
+ <li class="checked" data-inline-task-id="8">
+  /var/lib/mysql 를 영구적 볼륨으로 할당하였습니다.
+ </li>
+ <li class="checked" data-inline-task-id="9">
+  docker 내부 포트를 외부 포트와 Mapping 하였습니다.
+ </li>
+ <li class="checked" data-inline-task-id="10">
+  container 를 순서대로 실행했습니다.
+ </li>
+</ul>
+<p>
+ <br/>
+</p>
+<p>
+ 간단히 만든 docker-compose.yml 인데....
+</p>
+<p>
+ 명령어 한줄인데....
+</p>
+<p>
+ 많은 작업을 한번에 해줬습니다.
+</p>
+<p>
+ 잘만든 docker-compose.yml ....
+</p>
+<p>
+ 운영자들은 행복해합니다. ^ㅡ^
+</p>
+<p>
+ <br/>
+</p>
+<p>
+ <br/>
+</p>
+<h1 id="Docker이해하기-마치며">
+ 마치며
+</h1>
+<p>
+ 지금까지 docker 에 대한 기초부터 응용법까지 간단히 포스팅해보았습니다.
+</p>
+<p>
+ 이 포스팅이 많은 운영자, 개발자, 엔지니어 분들이 도움이 되셨으면 합니다.
+</p>
+<p>
+ <br/>
+</p>
+<p>
+ <em>
+  <strong>
+   Docker 의 원리와 구조를 잘 이해하고, 고객사의 서비스 환경에 맞는 container 를 구성하여 쉽고 편한 운영을 할 수 있는 좋은 세상이 될 수 있었으면 합니다!!
+  </strong>
+ </em>
+</p>
+<p>
+ <br/>
+</p>
+<h2 id="Docker이해하기-참고자료">
+ 참고 자료
+</h2>
+<p>
+ Cgroup :
+ <a class="external-link" href="https://access.redhat.com/documentation/ko-kr/red_hat_enterprise_linux/6/html/resource_management_guide/ch01" rel="nofollow">
+  https://access.redhat.com/documentation/ko-kr/red_hat_enterprise_linux/6/html/resource_management_guide/ch01
+ </a>
+</p>
+<p>
+ namespace :
+ <a class="external-link" href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux_atomic_host/7/html/overview_of_containers_in_red_hat_systems/introduction_to_linux_containers" rel="nofollow">
+  https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux_atomic_host/7/html/overview_of_containers_in_red_hat_systems/introduction_to_linux_containers
+ </a>
+</p>
+<p>
+ docker :
+ <a class="external-link" href="https://docs.docker.com/" rel="nofollow">
+  https://docs.docker.com/
+ </a>
+</p>
+
+
+<!--<p>
+ <br/>
+</p>
+<p>
+ <br/>
+</p>
+<p>
+ <br/>
+</p>
+<p>
+ <br/>
+</p>
+<p>
+ <br/>
+</p>--!>
