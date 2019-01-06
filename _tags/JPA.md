@@ -1,4 +1,0 @@
----
-name: JPA
-title: JPA
----

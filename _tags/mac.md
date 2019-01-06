@@ -1,4 +1,0 @@
----
-name: mac
-title: mac
----
