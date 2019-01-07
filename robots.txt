@@ -1,5 +1,3 @@
 User-agent: *
 Allow:/
 Sitemap: https://chhanz.github.io/sitemap.xml
-, nm,l., , ]
-\,
