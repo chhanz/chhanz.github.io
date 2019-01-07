@@ -16,7 +16,7 @@ System Engineer
 (han0495@gmail.com)
 <br>
 <br>
-<a href="https://github.com/chhanz"><img src="/assets/images/pc/icon_git.png" width="20" height="20">&emsp; </a>
+<a href="https://github.com/chhanz"><img src="/assets/images/pc/icon_git.png" width="20" height="20"></a>&emsp;
 <a href="https://www.linkedin.com/in/chhanz/"><img src="/assets/images/pc/icon_linkedin.png" width="20" height="20"></a>
 
 </center>
