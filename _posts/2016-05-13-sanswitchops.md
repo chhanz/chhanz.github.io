@@ -21,7 +21,7 @@ SAN Switch 의 설정을 위해 주로 GUI - Web Console 을 접속합니다.
 ## Switch name 변경
 
 ```
-switch_name > switchname “san_sw_new_name” 
+switch_name > switchname "san_sw_new_name" 
 ```
 
 ## Switch Domain ID 변경
@@ -98,7 +98,7 @@ Switch 의 Port 번호 혹은 WWWN 을 알기쉽게 alias 로 지정하여, zone
 
 * Alias 생성   
 ~~~
-switch_name> alicreate <“alias name”>,<“member_1;…;member_n”>
+switch_name> alicreate <"alias name">,<"member_1;…;member_n">
 switch_name> alicreate "test_fc0","1,0"
 switch_name> alicreate "test_fc0","10:00:00:00:C9:4E:03:76"
 ~~~
@@ -107,7 +107,7 @@ WWWN Zoning : switch_name> alicreate "test_fc0","10:00:00:00:C9:4E:03:76"
 
 * Alias 삭제   
 ~~~
-switch_name> alidelete <“alias name”>
+switch_name> alidelete <"alias name">
 ~~~   
 
 ## Zone
@@ -132,27 +132,27 @@ Zone 을 적용하기 위해서는 Config Group 을 생성하여 Zone 을 Group 
 
 * Config Group 생성 및 Zone 추가
 ~~~
-switch_name> cfgcreate <“group name”>,<“member_1;…;member_n>
+switch_name> cfgcreate <"group name">,<"member_1;…;member_n>
 switch_name> cfgcreate "test_zone","test_fc0__stg_fc1"
 ~~~
 
 * 생성 되있는 Group 에 Zone 추가
 ~~~
-switch_name> cfgadd <“group name”>,<“member_1;…;member_n>
+switch_name> cfgadd <"group name">,<"member_1;…;member_n>
 switch_name> cfgadd "test_zone","test_fc1__stg_fc2"
 ~~~
 
 * Zone Config 적용
 ~~~ 
-switch_name> cfgenable <“group name”>
+switch_name> cfgenable <"group name">
 switch_name> cfgenable "test_zone"
 ~~~
 
 * Zone Config 해제 및 삭제   
 ~~~
-switch_name> cfgdisable <“group name”>
+switch_name> cfgdisable <"group name">
 switch_name> cfgdisable "test_zone"   
-switch_name> cfgdelete <“group name”>
+switch_name> cfgdelete <"group name">
 switch_name> cfgdelete "test_zone"
 ~~~   
 
