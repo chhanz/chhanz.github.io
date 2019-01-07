@@ -1,3 +1,4 @@
 User-agent: *
 Allow:/
+Disallow: /assets/ 
 Sitemap: https://chhanz.github.io/sitemap.xml
