@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Spacewalk Latest Docker image 제작기"
+title: "Spacewalk latest Docker Image 제작기"
 description: " "
 author: chhanz
 date: 2019-01-07
@@ -8,7 +8,7 @@ tags: [docker, spacewalk]
 category: docker
 ---
 
-# Spacewalk latest Docker image 제작기
+# Spacewalk latest Docker Image 제작기
 * * * 
 
 안녕하세요? chhanz 입니다.   
@@ -190,4 +190,4 @@ https://(Docker Host IP)  로 접속합니다.
 * Base Dockerfile : [https://bitbucket.org/bashell-com/spacewalk](https://bitbucket.org/bashell-com/spacewalk)     
 * Spacewalk Document : [https://spacewalkproject.github.io/documentation.html](https://spacewalkproject.github.io/documentation.html)   
 * chhanz github : [https://github.com/chhanz/spacewalk-docker-img](https://github.com/chhanz/spacewalk-docker-img)
-
+* 해당 포스팅은 오픈소스컨설팅 기술블로그에서도 확인하실 수 있습니다! : [https://tech.osci.kr/spacewalk/2019/01/07/55869620/](https://tech.osci.kr/spacewalk/2019/01/07/55869620/)
