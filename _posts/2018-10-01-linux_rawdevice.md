@@ -4,8 +4,8 @@ title: "CentOS 7 raw device 생성"
 description: " "
 author: chhanz
 date: 2018-10-1
-tags: [Linux]
-category: Linux
+tags: [linux]
+category: linux
 ---
 
 # CentOS 7 raw device 생성
