@@ -1,5 +1,5 @@
 ---
-name: docker
-title: docker
+name: python
+title: python
 image: /assets/images/author_cover.jpg
 ---
