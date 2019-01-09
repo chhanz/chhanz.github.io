@@ -163,3 +163,8 @@ Filesystem    GB blocks      Used      Free %Used Mounted on
 /dev/app_lv       90.00     41.10     48.90   46% /app
 
 ~~~
+
+# 해당 SCRIPT 의 일부가 사용된 솔루션 
+* * *
+Playce RoRo : [https://roro.play-ce.io/](https://roro.play-ce.io/)
+
