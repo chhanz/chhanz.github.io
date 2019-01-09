@@ -35,8 +35,8 @@ IA64 system 에서는 JFS2 만 사용할 수 있습니다.
 | Available on POWER Architecture (POWER 아키텍처에서 사용 가능) | Yes | Yes |
 
 ```
-(**1) PB (PetaBytes) = 1,048,576 GB(**2)    
-TB (TeraBytes) = 1,024 GB    
+(**1) PB (PetaBytes) = 1,048,576 GB
+(**2) TB (TeraBytes) = 1,024 GB    
 ```
 
 cf) SGID = Linux SetUID 와 같은 기능
