@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "CentOS 7 raw device 생성"
+title: "[CentOS 7] raw device 생성"
 description: " "
 author: chhanz
 date: 2018-10-1
@@ -8,7 +8,7 @@ tags: [linux]
 category: linux
 ---
 
-# CentOS 7 raw device 생성
+# [CentOS 7] raw device 생성
 * * * 
 >raw device 생성을 위해 아래 절차를 따라 /etc/udev/rules.d/60-raw.rules 을 수정합니다.   
 
