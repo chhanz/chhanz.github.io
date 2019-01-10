@@ -11,7 +11,7 @@ category: Windows
 # [Windows] MSCS Cluster 구성 메뉴얼
 * * *
 
-신입 사원 시절, 작성한 Windows MSCS 구성 메뉴얼 입니다.   
+사원 시절, 작성한 Windows MSCS 구성 메뉴얼 입니다.   
 
 
 <center>
