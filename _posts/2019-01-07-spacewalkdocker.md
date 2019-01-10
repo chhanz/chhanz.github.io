@@ -12,7 +12,7 @@ category: docker
 * * * 
 
 안녕하세요? chhanz 입니다.   
-고객사의 요청으로 Spacewalk 로 docker container 형태로 운영을 해야되는 요건이 생겨서,   
+고객사의 요청으로 Spacewalk 를 docker container 형태로 운영을 해야되는 요건이 생겨서,   
 image를 만들기 시작 하였습니다...... ;(    
 
 # Spacewalk 란?
@@ -27,7 +27,7 @@ Red Hat Satellite 제품이 파생 된 업스트림 커뮤니티 프로젝트입
 # 쉽게 가자...
 * * * 
 docker 의 장점이 뭡니까!  
-docker hub의 많은 offiaical image 아닙니까!   
+docker hub의 많은 official image 아닙니까!   
 
 열심히 docker image를 찾아보았습니다.   
 하지만...
@@ -42,7 +42,7 @@ docker.io   docker.io/egonzalez90/spacewalk                 Spacewalk docker ima
 ```
 
 OFFICIAL 은 없고, 그나마 STARS 는 7개 뿐이고...   
-내가 만들어야 겠다... ;)   
+내가 만들어야겠다... ;)   
 이렇게 시작 되었습니다.  
 
 # Docker image 를 만들어보자!
