@@ -3,7 +3,7 @@ layout: post
 title: "[AIX] RDX Device Backup Guide"
 description: ""
 author: chhanz
-date: 2012-08-06
+date: 2016-02-15
 tags: [aix,backup]
 category: aix
 ---
