@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "ESXi VM Clone Script"
+title: "[VMware] ESXi VM Clone Script"
 description: " "
 author: chhanz
 date: 2018-10-23
