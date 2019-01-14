@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Mirror 상태인 VG, alt_disk_install 하는 법"
+title: "[AIX] Mirror 상태인 VG, alt_disk_install 하는 법"
 description: " " 
 author: chhanz
 date: 2012-12-28

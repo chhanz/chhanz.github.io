@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Create a raw Logical Volume for Oracle ASM On AIX"
+title: "[AIX] Create a raw Logical Volume for Oracle ASM On AIX"
 description: " "
 author: chhanz
 date: 2017-05-25

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "JFS vs JFS2"
+title: "[AIX] JFS vs JFS2"
 description: "JFS 와 JFS2의 차이점" 
 author: chhanz
 date: 2012-09-06

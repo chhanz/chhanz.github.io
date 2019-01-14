@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "hdisk format - diag command"
+title: "[AIX] hdisk format - diag command"
 description: " "
 author: chhanz
 date: 2018-02-21

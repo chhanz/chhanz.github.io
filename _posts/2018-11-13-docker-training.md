@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Docker 기초 실습 교육자료"
+title: "[Docker] Docker 기초 실습 교육자료"
 description: " "
 author: chhanz
 date: 2018-11-13

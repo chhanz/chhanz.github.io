@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Could not load program: Cannot run a 64-bit program until the 64-bit environment has been configured."
+title: "[AIX] Could not load program: Cannot run a 64-bit program until the 64-bit environment has been configured."
 description: " "
 author: chhanz
 date: 2017-01-16
