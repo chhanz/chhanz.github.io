@@ -10,6 +10,7 @@ image: /assets/images/about_cover2.jpg
 <br>
 <br>
 <font size="5">Cheolhee Han</font>
+<br><b><a href="https://www.redhat.com/rhtapps/services/verify/?certId=160-204-038"><font color="red">RED HAT CERTIFIED ARCHITECT IN INFRASTRUCTURE</font></a></b>
 <br>
 System Engineer
 <br>
@@ -58,6 +59,17 @@ System Engineer
 * Docker
 * Openshift
 * Kubernetes
+
+## Red Hat Certified Architect in Infrastructure
+> * Ansible 2.3
+* GFS2 for Red Hat Enterprise Linux 7
+* Red Hat Enterprise Linux 7
+* Red Hat Enterprise Linux High Availability Add-On 7
+* Red Hat Certified Specialist in Linux Performance Tuning 
+* Red Hat Enterprise Linux OpenStack Platform 6.0
+* Red Hat OpenShift Container Platform 3.5   
+<a href="https://www.redhat.com/rhtapps/services/verify/?certId=160-204-038">@ Go to Red Hat Certification Central </a>
+
 
 * * *
 
