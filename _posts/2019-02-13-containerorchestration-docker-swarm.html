@@ -1,0 +1,1350 @@
+---
+layout: post
+title: "Docker Swarm 을 이용한 Container Orchestration 환경 만들기"
+description: " " 
+author: chhanz
+date: 2019-02-13
+tags: [docker]
+category: docker
+image: /assets/images/post/2019-02-13-docker-swarm/0 
+---
+<center>
+<hr color="red" size="1px" noshade>
+<b><p>
+회사 기술블로그에 작성한 내용입니다.
+</p>
+<p>
+<a href=""https://tech.osci.kr/2019/02/13/59736201/>오픈소스컨설팅 기술블로그</a>
+<p> Author. chhanz </p>
+<hr color="red" size="1px" noshade>
+</b></p>
+</center>
+<p>
+</p>
+
+<p>
+ 안녕하세요? 오픈소스컨설팅 한철희 과장입니다.
+</p>
+<p>
+ <br/>
+</p>
+<p>
+ 이전 "
+ <strong>
+  Docker 이해하기
+ </strong>
+ " 를 포스팅에 이어, "
+ <strong>
+  Docker Swarm 을 이용한 Container Orchestration 환경 만들기
+ </strong>
+ " 라는 포스팅을 작성하게 되었습니다.
+</p>
+<p>
+ <em>
+  (Review -
+  <a class="external-link" href="https://chhanz.github.io/docker/2018/09/10/45749387/" rel="nofollow">
+   Docker 이해하기
+  </a>
+ </em>
+ )
+</p>
+<p>
+ <br/>
+</p>
+<p>
+ 이전 포스팅에서 Docker 를 직접 사용하면서 여러 장점을 확인했습니다.
+</p>
+<p>
+ 하지만 과연 실무에 적용하면 안정적으로 서비스를 유지하고 운영할 수 있을지에 대해서는 의문을 가지고 있었습니다.
+</p>
+<p>
+ 이러한 의문은 Container 들을 자동으로 관리하게 해주는
+ <em>
+  Container
+ </em>
+ <em>
+  Orchestration Tool
+ </em>
+ 을 활용함으로써 해결을 하게 되었습니다.
+</p>
+<p>
+ <br/>
+</p>
+<h1 id="DockerSwarm을이용한ContainerOrchestration환경만들기-ContainerOrchestration">
+ <em>
+  Container Orchestration
+ </em>
+</h1>
+<hr/>
+<p>
+ <span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size">
+  <img src="/assets/images/post/2019-02-13-docker-swarm/0"/>
+ </span>
+</p>
+<p>
+ 컨테이너 오케스트레이션 이란? 다중 컨테이너 패키지 어플리케이션을 배포하는 동안 사용되는 컨테이너, 리소스의 자동화, 정렬, 조정 및 관리를 하는 것을 말합니다.
+</p>
+<p>
+ 위와 같이 많은 오케스트레이션 도구들이 있습니다. 이번 포스팅에서는 쉽게 구성이 가능한 Docker Swarm 을 통해 컨테이너 오케스트레이션을 맛보려고 합니다.
+</p>
+<p>
+ <br/>
+</p>
+<h1 id="DockerSwarm을이용한ContainerOrchestration환경만들기-DockerSwarm">
+ Docker Swarm
+</h1>
+<hr/>
+<p>
+ <br/>
+</p>
+<p>
+ <span class="confluence-embedded-file-wrapper image-center-wrapper">
+  <img src="/assets/images/post/2019-02-13-docker-swarm/1"/>
+ </span>
+</p>
+<p>
+ Docker Swarm 이란?
+</p>
+<p>
+ 수많은 컨테이너 오케스트레이션 도구 중의 하나로, 여러 대의 Docker 호스트들을 마치 하나인 것처럼 만들어주는 Orchestration 도구입니다.
+</p>
+<p>
+ Docker v1.12 이후부터 Docker Swarm Mode 로 별개의 Docker Swarm 엔진에서 Docker 엔진으로 통합되면서 좀 더 간편한 설치가 가능해졌습니다.
+</p>
+<p>
+ <br/>
+</p>
+<p>
+ 쉬워진 Docker Swarm 직접 설치 해보도록 하겠습니다.
+</p>
+<p>
+ <br/>
+</p>
+<h1 id="DockerSwarm을이용한ContainerOrchestration환경만들기-DockerSwarm설치">
+ Docker Swarm 설치
+</h1>
+<hr/>
+<p>
+ <span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size">
+  <img src="/assets/images/post/2019-02-13-docker-swarm/2"/>
+ </span>
+</p>
+<p style="text-align: center;">
+ <br/>
+</p>
+<p style="text-align: center;">
+ (Docker Document, How nodes work -
+ <a class="external-link" href="https://docs.docker.com/engine/swarm/how-swarm-mode-works/nodes/" rel="nofollow">
+  https://docs.docker.com/engine/swarm/how-swarm-mode-works/nodes/)
+ </a>
+</p>
+<p>
+ 위와 같이 기본적으로 Docker Swarm 은 Master 노드와 Worker 노드로 시스템을 구성합니다.
+</p>
+<p>
+ Master 노드에서는 클러스터 관리 작업을 하고 클러스터 상태 유지, 스케줄링 서비스, Swarm HTTP API Endpoint 를 제공합니다.
+</p>
+<p>
+ Worker 노드는 컨테이너를 실행하는 역할만 합니다.
+</p>
+<p>
+ <br/>
+</p>
+<p>
+ 이번 Master 노드를 Three-Manager 구성으로 하여 컨테이너 오케스트레이션 및 Docker Swarm 안정성에 대해 확인해보도록 하겠습니다.
+</p>
+<p>
+ <br/>
+</p>
+<div class="panel conf-macro output-block" data-hasbody="true" data-macro-name="panel" style="border-color: black;border-style: dashed;border-width: 1px;">
+ <div class="panelHeader" style="border-bottom-width: 1px;border-bottom-style: dashed;border-bottom-color: black;">
+  <b>
+   System Environment
+  </b>
+ </div>
+ <div class="panelContent">
+  <p>
+   OS : CentOS Linux release 7.6.1810 (Core)
+  </p>
+  <p>
+   Docker Version : docker-1.13.1-88.git07f3374.el7.centos.x86_64
+  </p>
+ </div>
+</div>
+<p>
+ <span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size">
+  <img src="/assets/images/post/2019-02-13-docker-swarm/3"/>
+ </span>
+</p>
+<p>
+ 위와 같이 시스템 환경으로 Three-Manager 구성을 하도록 하겠습니다.
+</p>
+<p>
+ Docker Swarm 이 Docker 엔진과 통합되면서 설치는 일반적인 Docker 설치와 동일해졌습니다.
+</p>
+<p>
+ 설치는 아래와 같습니다.
+</p>
+<p>
+ <strong>
+  <em>
+   # yum -y install docker
+  </em>
+ </strong>
+</p>
+<p>
+ <br/>
+</p>
+<div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-name="code" style="border-width: 1px;">
+ <div class="codeContent panelContent pdl">
+  <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: false; theme: Emacs" data-theme="Emacs">[root@manager1 ~]# yum -y install docker
+
+&lt;중략&gt;
+
+Installed:
+  docker.x86_64 2:1.13.1-88.git07f3374.el7.centos
+
+Dependency Installed:
+  PyYAML.x86_64 0:3.10-11.el7                                                     atomic-registries.x86_64 1:1.22.1-26.gitb507039.el7.centos            audit-libs-python.x86_64 0:2.8.4-4.el7                               checkpolicy.x86_64 0:2.5-8.el7
+  container-selinux.noarch 2:2.74-1.el7                                           container-storage-setup.noarch 0:0.11.0-2.git5eaf76c.el7              containers-common.x86_64 1:0.1.31-7.gitb0b750d.el7.centos            docker-client.x86_64 2:1.13.1-88.git07f3374.el7.centos
+  docker-common.x86_64 2:1.13.1-88.git07f3374.el7.centos                          libcgroup.x86_64 0:0.41-20.el7                                        libseccomp.x86_64 0:2.3.1-3.el7                                      libsemanage-python.x86_64 0:2.5-14.el7
+  libyaml.x86_64 0:0.1.4-11.el7_0                                                 oci-register-machine.x86_64 1:0-6.git2b44233.el7                      oci-systemd-hook.x86_64 1:0.1.18-2.git3efe246.el7                    oci-umount.x86_64 2:2.3.4-2.git87f9237.el7
+  policycoreutils-python.x86_64 0:2.5-29.el7_6.1                                  python-IPy.noarch 0:0.75-6.el7                                        python-backports.x86_64 0:1.0-8.el7                                  python-backports-ssl_match_hostname.noarch 0:3.5.0.1-1.el7
+  python-ipaddress.noarch 0:1.0.16-2.el7                                          python-pytoml.noarch 0:0.1.14-1.git7dea353.el7                        python-setuptools.noarch 0:0.9.8-7.el7                               setools-libs.x86_64 0:3.3.8-4.el7
+  subscription-manager-rhsm-certificates.x86_64 0:1.21.10-3.el7.centos            yajl.x86_64 0:2.0.4-4.el7
+
+Dependency Updated:
+  policycoreutils.x86_64 0:2.5-29.el7_6.1
+
+Complete!
+
+[root@manager1 ~]# systemctl enable docker
+Created symlink from /etc/systemd/system/multi-user.target.wants/docker.service to /usr/lib/systemd/system/docker.service.
+[root@manager1 ~]# systemctl start docker
+</pre>
+ </div>
+</div>
+<p>
+ 위와 같이 모든 Master 노드에 동일하게 설치를 합니다.
+</p>
+<p>
+ <br/>
+</p>
+<div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-name="code" style="border-width: 1px;">
+ <div class="codeContent panelContent pdl">
+  <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: false; theme: Emacs" data-theme="Emacs">[root@manager1 ~]# systemctl enable docker
+Created symlink from /etc/systemd/system/multi-user.target.wants/docker.service to /usr/lib/systemd/system/docker.service.
+[root@manager1 ~]# systemctl start docker</pre>
+ </div>
+</div>
+<p>
+ <strong>
+  <em>
+   # systemctl enable docker
+  </em>
+ </strong>
+</p>
+<p>
+ <strong>
+  <em>
+   # systemctl start docker
+  </em>
+ </strong>
+</p>
+<p>
+ 각 노드 별로 Docker 서비스를 시작합니다.
+</p>
+<p>
+ <br/>
+</p>
+<div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-name="code" style="border-width: 1px;">
+ <div class="codeContent panelContent pdl">
+  <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: false; theme: Emacs" data-theme="Emacs">[root@manager1 ~]# systemctl status docker
+● docker.service - Docker Application Container Engine
+   Loaded: loaded (/usr/lib/systemd/system/docker.service; enabled; vendor preset: disabled)
+   Active: active (running) since 월 2019-02-11 14:14:37 KST; 2min 54s ago
+     Docs: http://docs.docker.com
+ Main PID: 14694 (dockerd-current)
+   CGroup: /system.slice/docker.service
+           ├─14694 /usr/bin/dockerd-current --add-runtime docker-runc=/usr/libexec/docker/docker-runc-current --default-runtime=docker-runc --exec-opt native.cgroupdriver=systemd --userland-proxy-path=/usr/libexec/docker/docker-proxy-current --init-path=/usr/libexec/docker/docker-init-cu...
+           └─14701 /usr/bin/docker-containerd-current -l unix:///var/run/docker/libcontainerd/docker-containerd.sock --metrics-interval=0 --start-timeout 2m --state-dir /var/run/docker/libcontainerd/containerd --shim docker-containerd-shim --runtime docker-runc --runtime-args --systemd-c...
+
+</pre>
+ </div>
+</div>
+<p>
+ <strong>
+  <em>
+   # systemctl status docker
+  </em>
+ </strong>
+</p>
+<p>
+ 설치가 완료되면 Docker 서비스를 시작하고 위와 같이 정상적으로 시작되었는지 확인합니다.
+</p>
+<p>
+ <br/>
+</p>
+<h1 id="DockerSwarm을이용한ContainerOrchestration환경만들기-DockerSwarminit">
+ Docker Swarm init
+</h1>
+<hr/>
+<p>
+ Docker Swarm 를 구성하기 위해 아래와 같이 명령 수행을 합니다.
+</p>
+<p>
+ <strong>
+  <em>
+   # docker swarm init --advertise-addr [Manager Node IP]
+  </em>
+ </strong>
+</p>
+<p>
+ <br/>
+</p>
+<div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-name="code" style="border-width: 1px;">
+ <div class="codeContent panelContent pdl">
+  <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: false; theme: Emacs" data-theme="Emacs">[root@manager1 ~]# docker swarm init --advertise-addr 192.168.13.176
+Swarm initialized: current node (y8ul9r3jq0rgt9k3vbvrayeyg) is now a manager.
+
+To add a worker to this swarm, run the following command:
+
+    docker swarm join \
+    --token SWMTKN-1-2m3tqsm8ly45vpd5i80p4bkor5zaohfmultu4cdnvfpg8yxmuk-bv8adgschaygmg9icehekb9wg \
+    192.168.13.176:2377
+
+To add a manager to this swarm, run 'docker swarm join-token manager' and follow the instructions.</pre>
+ </div>
+</div>
+<p>
+ <br/>
+</p>
+<p>
+ 위와 같이 초기화를 진행하면 Worker 노드를 추가하는 token 값으로 명령어가 자동 생성됩니다.
+</p>
+<p>
+ 해당 명령을 Worker 노드에 입력하면 해당 노드는 Worker 노드가 됩니다.
+</p>
+<p>
+ Master 노드(Manager 노드)를 추가하기 위해서는
+</p>
+<p>
+ <strong>
+  <em>
+   # docker swarm join-token manager
+  </em>
+ </strong>
+</p>
+<p>
+ 명령을 통해 명령어를 생성해야됩니다.
+</p>
+<p>
+ <br/>
+</p>
+<div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-name="code" style="border-width: 1px;">
+ <div class="codeContent panelContent pdl">
+  <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: false; theme: Emacs" data-theme="Emacs"># docker swarm join-token manager
+To add a manager to this swarm, run the following command:
+
+    docker swarm join \
+    --token SWMTKN-1-2m3tqsm8ly45vpd5i80p4bkor5zaohfmultu4cdnvfpg8yxmuk-9ghru6puwdvqms3bn7zqtiyvt \
+    192.168.13.176:2377</pre>
+ </div>
+</div>
+<p>
+ <br/>
+</p>
+<p>
+ Manager 연결을 위해 생성된 명령을 나머지 Manager 노드에 아래와 같이 입력합니다.
+</p>
+<div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-name="code" style="border-width: 1px;">
+ <div class="codeContent panelContent pdl">
+  <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: false; theme: Emacs" data-theme="Emacs">[root@manager2 ~]#     docker swarm join \
+&gt;     --token SWMTKN-1-2m3tqsm8ly45vpd5i80p4bkor5zaohfmultu4cdnvfpg8yxmuk-9ghru6puwdvqms3bn7zqtiyvt \
+&gt;     192.168.13.176:2377
+This node joined a swarm as a manager.
+
+[root@manager3 ~]#     docker swarm join \
+&gt;     --token SWMTKN-1-2m3tqsm8ly45vpd5i80p4bkor5zaohfmultu4cdnvfpg8yxmuk-9ghru6puwdvqms3bn7zqtiyvt \
+&gt;     192.168.13.176:2377
+This node joined a swarm as a manager.
+</pre>
+ </div>
+</div>
+<p>
+ <br/>
+</p>
+<h2 id="DockerSwarm을이용한ContainerOrchestration환경만들기-DockerSwarm구성확인">
+ Docker Swarm 구성 확인
+</h2>
+<hr/>
+<div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-name="code" style="border-width: 1px;">
+ <div class="codeContent panelContent pdl">
+  <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: false; theme: Emacs" data-theme="Emacs">[root@manager1 ~]# docker node ls
+ID                           HOSTNAME              STATUS  AVAILABILITY  MANAGER STATUS
+lrt89xwkugty162qk8c2av5ek    manager2.example.com  Ready   Active        Reachable
+y8ul9r3jq0rgt9k3vbvrayeyg *  manager1.example.com  Ready   Active        Leader
+yqerq5ujds38t0izzlp03dbhd    manager3.example.com  Ready   Active        Reachable
+
+</pre>
+ </div>
+</div>
+<p>
+ <strong>
+  <em>
+   # docker node ls
+  </em>
+ </strong>
+</p>
+<p>
+ 위와 같이 manager 로 노드들이 연결된 것을 확인 할 수 있습니다.
+</p>
+<p>
+ <br/>
+</p>
+<h1 id="DockerSwarm을이용한ContainerOrchestration환경만들기-DockerSwarm기본사용법">
+ Docker Swarm 기본 사용법
+</h1>
+<hr/>
+<p>
+ Docker Swarm 에서 사용되는 기본적인 명령을 간단한 Apache 서비스를 기동하면서 확인 해보겠습니다.
+</p>
+<p>
+ <br/>
+</p>
+<h2 id="DockerSwarm을이용한ContainerOrchestration환경만들기-DockerSwarmService생성">
+ Docker Swarm Service 생성
+</h2>
+<hr/>
+<p>
+ Docker Swarm 명령어는 기존의 docker 명령어와 크게 다른 점은 없습니다.
+</p>
+<p>
+ 기본적으로 docker run 에서 사용되는 옵션을 그대로 사용 할 수 있습니다.
+</p>
+<p>
+ <em>
+  <br/>
+ </em>
+</p>
+<p>
+ 아래 명령을 통해 Docker Swarm Mode 로 컨테이너를 실행 할 수 있습니다.
+ <em>
+  <br/>
+ </em>
+</p>
+<p>
+ <strong>
+  <em>
+   Usage:  docker service create [OPTIONS] IMAGE [COMMAND] [ARG...]
+  </em>
+ </strong>
+</p>
+<div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-name="code" style="border-width: 1px;">
+ <div class="codeContent panelContent pdl">
+  <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: false; theme: Emacs" data-theme="Emacs">[root@manager1 ~]# docker service create --name web httpd
+xocc6zwdulliijqpypwby764d</pre>
+ </div>
+</div>
+<p>
+ <br/>
+</p>
+<h2 id="DockerSwarm을이용한ContainerOrchestration환경만들기-DockerSwarmService확인">
+ Docker Swarm Service 확인
+</h2>
+<hr/>
+<p>
+ 생성된 서비스가 정상적으로 실행이 되었는지는 아래 명령으로 확인이 가능합니다.
+</p>
+<p>
+ <strong>
+  <em>
+   Usage:    docker service ls
+  </em>
+ </strong>
+</p>
+<div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-name="code" style="border-width: 1px;">
+ <div class="codeContent panelContent pdl">
+  <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: false; theme: Emacs" data-theme="Emacs">[root@manager1 ~]# docker service ls
+ID            NAME  MODE        REPLICAS  IMAGE
+xocc6zwdulli  web   replicated  0/1       httpd:latest
+[root@manager1 ~]# docker service ls
+ID            NAME  MODE        REPLICAS  IMAGE
+xocc6zwdulli  web   replicated  1/1       httpd:latest</pre>
+ </div>
+</div>
+<p>
+ 처음 REPLICAS 필드가 0/1 로 시작해서 1/1 로 변경이 되면 컨테이너가 정상적으로 실행이 된 것으로 확인 할 수 있습니다.
+</p>
+<p>
+ 해당 필드를 통해 컨테이너가 문제가 생겼는지 정상 작동 중인지 확인이 가능합니다.
+</p>
+<p>
+ <br/>
+</p>
+<p>
+ 또한 각 서비스 별로 자세한 정보를 확인하는 명령은 아래와 같습니다.
+</p>
+<p>
+ <strong>
+  <em>
+   Usage:    docker service ps [SERVICE]
+  </em>
+ </strong>
+</p>
+<div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-name="code" style="border-width: 1px;">
+ <div class="codeContent panelContent pdl">
+  <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: false; theme: Emacs" data-theme="Emacs">[root@manager1 ~]# docker service ps web
+ID            NAME   IMAGE         NODE                  DESIRED STATE  CURRENT STATE          ERROR  PORTS
+9x3qvcl5seif  web.1  httpd:latest  manager2.example.com  Running        Running 2 minutes ago</pre>
+ </div>
+</div>
+<h2 id="DockerSwarm을이용한ContainerOrchestration환경만들기-DockerSwarmServiceScale-out">
+ Docker Swarm Service Scale-out
+</h2>
+<hr/>
+<p>
+ 생성된 서비스를 복제하여 분산 서비스를 할 수 있도록 합니다.(Scale-out)
+</p>
+<p>
+ <strong>
+  <em>
+   Usage:  docker service scale SERVICE=REPLICAS [SERVICE=REPLICAS...]
+  </em>
+ </strong>
+</p>
+<div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-name="code" style="border-width: 1px;">
+ <div class="codeContent panelContent pdl">
+  <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: false; theme: Emacs" data-theme="Emacs">[root@manager1 ~]# docker service scale web=3
+web scaled to 3
+
+[root@manager1 ~]# docker service ls
+ID            NAME  MODE        REPLICAS  IMAGE
+xocc6zwdulli  web   replicated  1/3       httpd:latest
+
+[root@manager1 ~]# docker service ls
+ID            NAME  MODE        REPLICAS  IMAGE
+xocc6zwdulli  web   replicated  3/3       httpd:latest
+
+[root@manager1 ~]# for i in $(cat /etc/hosts | grep manager| awk '{print $1}')
+&gt; do
+&gt; ssh root@$i "docker ps -a"
+&gt; done
+CONTAINER ID        IMAGE                                                                           COMMAND              CREATED             STATUS              PORTS               NAMES
+e517f6af9ebd        httpd@sha256:d12c036427f436978f2d4397ad2bd6b5b8f7b03003b7a1da084eb228ef25b7d2   "httpd-foreground"   5 minutes ago       Up 5 minutes        80/tcp              web.2.57p0vzbkqymvak5t5rw6g42k9
+CONTAINER ID        IMAGE                                                                           COMMAND              CREATED             STATUS              PORTS               NAMES
+91dddedf7374        httpd@sha256:d12c036427f436978f2d4397ad2bd6b5b8f7b03003b7a1da084eb228ef25b7d2   "httpd-foreground"   9 minutes ago       Up 9 minutes        80/tcp              web.1.9x3qvcl5seifoidt5jy4fm3oa
+CONTAINER ID        IMAGE                                                                           COMMAND              CREATED             STATUS              PORTS               NAMES
+2a3ade0887f9        httpd@sha256:d12c036427f436978f2d4397ad2bd6b5b8f7b03003b7a1da084eb228ef25b7d2   "httpd-foreground"   5 minutes ago       Up 5 minutes        80/tcp              web.3.aqlqfena08g9c50tdl5vgb4ju
+
+[root@manager1 ~]# docker service ps web
+ID            NAME   IMAGE         NODE                  DESIRED STATE  CURRENT STATE          ERROR  PORTS
+9x3qvcl5seif  web.1  httpd:latest  manager2.example.com  Running        Running 9 minutes ago
+57p0vzbkqymv  web.2  httpd:latest  manager1.example.com  Running        Running 6 minutes ago
+aqlqfena08g9  web.3  httpd:latest  manager3.example.com  Running        Running 6 minutes ago
+</pre>
+ </div>
+</div>
+<h2 id="DockerSwarm을이용한ContainerOrchestration환경만들기-DockerSwarmService제거">
+ Docker Swarm Service 제거
+</h2>
+<hr/>
+<p>
+ 생성한 서비스의 제거 및 종료는 아래 명령을 통해 가능합니다.
+</p>
+<p>
+ <strong>
+  <em>
+   Usage:  docker service rm SERVICE [SERVICE...]
+  </em>
+ </strong>
+</p>
+<div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-name="code" style="border-width: 1px;">
+ <div class="codeContent panelContent pdl">
+  <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: false; theme: Emacs" data-theme="Emacs">[root@manager1 ~]# docker service rm web
+web
+[root@manager1 ~]# docker service ls
+ID  NAME  MODE  REPLICAS  IMAGE
+[root@manager1 ~]# docker service ps web
+Error: No such service: web
+</pre>
+ </div>
+</div>
+<p>
+ <br/>
+</p>
+<p>
+ 지금까지 Docker Swarm 에서 많이 사용되는 명령어들을 보면서 간단한 웹 서비스를 구성하였습니다.
+</p>
+<p>
+ 이제부터는 Build 된 PHP Docker Image를 이용해서 Docker Swarm 을 어떻게 실무에 적용 할 수 있는지 확인해 보도록 하겠습니다.
+</p>
+<p>
+ <br/>
+</p>
+<h1 id="DockerSwarm을이용한ContainerOrchestration환경만들기-PHPDemo">
+ PHP Demo
+</h1>
+<hr/>
+<h2 id="DockerSwarm을이용한ContainerOrchestration환경만들기-DockerImage관리를위한사설Registry생성">
+ Docker Image 관리를 위한 사설 Registry 생성
+</h2>
+<hr/>
+<p>
+ 각 Docker Host 노드에 같은 이미지를 배포 하기 위해서는 두가지 방법이 있습니다.
+</p>
+<p>
+ 그 방법은 DockerHub 를 활용하는 방법 및 사설 Registry 를 만들어서 사용하는 방법입니다.
+</p>
+<p>
+ 어떤 방법을 사용하는 것이 좋을지는 운영 환경에 맞게 선택을 하는 것이 좋습니다.
+</p>
+<p>
+ <br/>
+</p>
+<p>
+ 이번 PHP Demo 에서는 사설 Registry 를 생성하여 Docker Image 를 관리하도록 하겠습니다.
+</p>
+<p>
+ 먼저 Docker Registry 를 생성하기 전에 insecure-registries 옵션을 설정하여 인증되지 않은 Registry를 사용 할 수 있도록 해야됩니다.
+</p>
+<p>
+ 이미지를 사용해야되는 모든 노드를 아래와 같이 수정을 합니다. 이후 docker 서비스를 재시작합니다.
+</p>
+<div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-name="code" style="border-width: 1px;">
+ <div class="codeContent panelContent pdl">
+  <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: false; theme: Emacs" data-theme="Emacs"># vi /etc/docker/daemon.json
+{
+  "insecure-registries" : ["manager1.example.com:5000"]
+}
+# systemctl restart docker</pre>
+ </div>
+</div>
+<p class="auto-cursor-target">
+ 위와 같이 manager1.example.com 만 선택을 하였는데 Load Balancer 가 있다면 해당 IP 혹은 Domain 명을 추가해도 됩니다.
+</p>
+<p>
+ <br/>
+</p>
+<p>
+ 사설 Registry 를 생성하기 위해서는 아래와 같이 진행합니다.
+</p>
+<p>
+ <strong>
+  <em>
+   # docker service create --name registry -p 5000:5000 registry
+  </em>
+ </strong>
+</p>
+<div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-name="code" style="border-width: 1px;">
+ <div class="codeContent panelContent pdl">
+  <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: false; theme: Emacs" data-theme="Emacs"># docker service create --name registry -p 5000:5000 registry
+z3gl3pie7xm9vjfyetot9zi3q
+
+[root@manager1 ~]# docker service ls
+ID            NAME      MODE        REPLICAS  IMAGE
+z3gl3pie7xm9  registry  replicated  1/1       registry:latest
+
+[root@manager1 dockerfile]# docker service ps registry
+ID            NAME        IMAGE            NODE                  DESIRED STATE  CURRENT STATE          ERROR  PORTS
+ct6zhchfla8s  registry.1  registry:latest  manager3.example.com  Running        Running 6 minutes ago
+</pre>
+ </div>
+</div>
+<p>
+ 위와 같이 현재 manager3.example.com Docker Host 에 컨테이너가 실행중인 것을 확인 할 수 있습니다.
+</p>
+<p>
+ <br/>
+</p>
+<h2 id="DockerSwarm을이용한ContainerOrchestration환경만들기-BuildTheDockerImage">
+ Build The Docker Image
+</h2>
+<hr/>
+<p>
+ 아래와 같이 Dockerfile을 생성하여 PHP 서비스가 가능한 Docker Image 를 Build 합니다.
+</p>
+<p style="margin-left: 30.0px;">
+ &gt; 참고로 아래 사용된 예제 파일은 github 에서 Clone 할 수 있습니다.
+</p>
+<p style="margin-left: 30.0px;">
+ <span>
+  &gt;
+ </span>
+ <a class="external-link" href="https://github.com/chhanz/docker-swarm-demo" rel="nofollow">
+  <span>
+   https://github.com/chhanz/docker-swarm-demo
+  </span>
+ </a>
+</p>
+<p>
+ <br/>
+</p>
+<p>
+ PHP Demo 에 사용되는 파일 구성 및 내용은 아래와 같습니다.
+</p>
+<div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-name="code" style="border-width: 1px;">
+ <div class="codeContent panelContent pdl">
+  <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: false; theme: Emacs" data-theme="Emacs">[root@manager1 docker-swarm-demo]# tree
+.
+├── Dockerfile
+├── README.md
+└── htdocs
+    └── index.php
+
+1 directory, 3 files
+
+# vi Dockerfile
+FROM php:7.2-apache
+MAINTAINER chhanz &lt;chhan@osci.kr&gt;
+
+ADD htdocs/index.php /var/www/html/index.php
+
+EXPOSE 80
+
+[root@manager1 docker-swarm-demo]# cat htdocs/index.php
+&lt;html&gt;
+&lt;body&gt;
+&lt;center&gt;
+&lt;b&gt;
+&lt;?php
+$host=gethostname();
+echo "Container Name : ";
+echo $host;
+?&gt;
+&lt;p&gt; Image Version : orignal&lt;/p&gt;
+&lt;/b&gt;
+&lt;/center&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+ </div>
+</div>
+<p>
+ 제가 포스팅한 내용을 보신 분이라면 Docker Build는 어렵지 않습니다. ㅎㅎ
+</p>
+<p>
+ Image 를 Build 합니다.
+</p>
+<p>
+ <strong>
+  <em>
+   # docker build -t phpdemo:v1 .
+  </em>
+ </strong>
+</p>
+<div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-name="code" style="border-width: 1px;">
+ <div class="codeContent panelContent pdl">
+  <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: false; theme: Emacs" data-theme="Emacs">[root@manager1 docker-swarm-demo]# docker build -t phpdemo:v1 .
+Sending build context to Docker daemon 4.608 kB
+Step 1/4 : FROM php:7.2-apache
+ ---&gt; 2424d6c5e6b9
+Step 2/4 : MAINTAINER chhanz &lt;chhan@osci.kr&gt;
+ ---&gt; Running in 1257b21144c7
+ ---&gt; 2beeadfdb912
+Removing intermediate container 1257b21144c7
+Step 3/4 : ADD htdocs/index.php /var/www/html/index.php
+ ---&gt; 62a4d63e0c2f
+Removing intermediate container 06a5fe09c5c5
+Step 4/4 : EXPOSE 80
+ ---&gt; Running in 310137303fa5
+ ---&gt; c62e0ad19807
+Removing intermediate container 310137303fa5
+Successfully built c62e0ad19807
+[root@manager1 docker-swarm-demo]#</pre>
+ </div>
+</div>
+<p>
+ Build 가 완료된 Image 를 사설 Registry 에 Push 합니다.
+</p>
+<p>
+ <strong>
+  <em>
+   // Docker Image Tag 변경
+  </em>
+ </strong>
+</p>
+<p style="margin-left: 30.0px;">
+ <strong>
+  <em>
+   # docker tag phpdemo:v1 manager1.example.com:5000/phpdemo:v1
+  </em>
+ </strong>
+</p>
+<p>
+ <strong>
+  <em>
+   // Docker Image Push
+  </em>
+ </strong>
+</p>
+<p style="margin-left: 30.0px;">
+ <strong>
+  <em>
+   # docker push manager1.example.com:5000/phpdemo:v1
+  </em>
+ </strong>
+</p>
+<p>
+ <br/>
+</p>
+<div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-name="code" style="border-width: 1px;">
+ <div class="codeContent panelContent pdl">
+  <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: false; theme: Emacs" data-theme="Emacs">[root@manager1 docker-swarm-demo]# docker images
+REPOSITORY           TAG                 IMAGE ID            CREATED             SIZE
+phpdemo              v1                  c62e0ad19807        18 seconds ago      378 MB
+docker.io/php        7.2-apache          2424d6c5e6b9        3 days ago          378 MB
+docker.io/registry   &lt;none&gt;              d0eed8dad114        12 days ago         25.8 MB
+[root@manager1 docker-swarm-demo]# docker tag phpdemo:v1 manager1.example.com:5000/phpdemo:v1
+[root@manager1 docker-swarm-demo]# docker images
+REPOSITORY                          TAG                 IMAGE ID            CREATED             SIZE
+manager1.example.com:5000/phpdemo   v1                  c62e0ad19807        30 seconds ago      378 MB
+phpdemo                             v1                  c62e0ad19807        30 seconds ago      378 MB
+docker.io/php                       7.2-apache          2424d6c5e6b9        3 days ago          378 MB
+docker.io/registry                  &lt;none&gt;              d0eed8dad114        12 days ago         25.8 MB
+[root@manager1 docker-swarm-demo]# docker push manager1.example.com:5000/phpdemo:v1
+The push refers to a repository [manager1.example.com:5000/phpdemo]
+a0df0b1bee34: Pushed
+29f6f251b4d2: Pushed
+28255a6692d8: Pushed
+d9b14cb17d8b: Pushed
+725c91d33681: Pushed
+005a87a63ac9: Pushed
+66fd43b3ea3b: Pushed
+20d941ba3638: Pushed
+eb3e3e0ec224: Pushed
+3843f6b0eab9: Pushed
+63fc1837f67c: Pushed
+c68025fbc229: Pushed
+ec6f4f0a90dc: Pushed
+0a07e81f5da3: Pushed
+v1: digest: sha256:58b33a5f39d60a3f0ba860a1bcbc98f5f767d934c9b1c057cee4b8c1a192fd06 size: 3242
+[root@manager1 docker-swarm-demo]#</pre>
+ </div>
+</div>
+<p>
+ <br/>
+</p>
+<h2 id="DockerSwarm을이용한ContainerOrchestration환경만들기-서비스배포!">
+ 서비스 배포!
+</h2>
+<hr/>
+<p>
+ 생성된 따끈한 Image 를 이용해서 Docker Swarm Mode 로 서비스를 배포하도록 하겠습니다.
+</p>
+<p>
+ <strong>
+  <em>
+   # docker service create --name phpdemo -p 80:80 manager1.example.com:5000/phpdemo:v1
+  </em>
+ </strong>
+</p>
+<div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-name="code" style="border-width: 1px;">
+ <div class="codeContent panelContent pdl">
+  <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: false; theme: Emacs" data-theme="Emacs">[root@manager1 docker-swarm-demo]# docker service create --name phpdemo -p 80:80 manager1.example.com:5000/phpdemo:v1
+mcz67fbul4gmxtjtwc4dvf4n2
+
+// 서비스 시작 중
+[root@manager1 docker-swarm-demo]# docker service ls
+ID            NAME      MODE        REPLICAS  IMAGE
+mcz67fbul4gm  phpdemo   replicated  0/1       manager1.example.com:5000/phpdemo:v1
+z3gl3pie7xm9  registry  replicated  1/1       registry:latest
+[root@manager1 docker-swarm-demo]# docker service ps phpdemo
+ID            NAME       IMAGE                                 NODE                  DESIRED STATE  CURRENT STATE            ERROR  PORTS
+m82bq5rgmk7z  phpdemo.1  manager1.example.com:5000/phpdemo:v1  manager2.example.com  Running        Preparing 7 seconds ago
+
+// 서비스 시작 완료
+[root@manager1 docker-swarm-demo]# docker service ls
+ID            NAME      MODE        REPLICAS  IMAGE
+mcz67fbul4gm  phpdemo   replicated  1/1       manager1.example.com:5000/phpdemo:v1
+z3gl3pie7xm9  registry  replicated  1/1       registry:latest
+
+[root@manager1 docker-swarm-demo]# docker service ps phpdemo
+ID            NAME       IMAGE                                 NODE                  DESIRED STATE  CURRENT STATE          ERROR  PORTS
+m82bq5rgmk7z  phpdemo.1  manager1.example.com:5000/phpdemo:v1  manager2.example.com  Running        Running 2 seconds ago
+</pre>
+ </div>
+</div>
+<p>
+ <br/>
+</p>
+<p>
+ <span class="confluence-embedded-file-wrapper image-center-wrapper">
+  <img src="/assets/images/post/2019-02-13-docker-swarm/4"/>
+ </span>
+</p>
+<p>
+ 직접 웹브라우져를 통해 접속해보니 서비스가 정상적으로 작동 되는 것을 확인 할 수 있었습니다.
+</p>
+<p>
+ <br/>
+</p>
+<h2 id="DockerSwarm을이용한ContainerOrchestration환경만들기-서비스복제!">
+ 서비스 복제!
+</h2>
+<hr/>
+<p>
+ 컨터이너 한개로 서비스를 하기에는 안정성이 너무나도 떨어지고 성능 향상을 위해 컨테이너를 복제합니다.
+</p>
+<p>
+ <em>
+  <strong>
+   # docker service scale phpdemo=3
+  </strong>
+ </em>
+</p>
+<div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-name="code" style="border-width: 1px;">
+ <div class="codeContent panelContent pdl">
+  <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: false; theme: Emacs" data-theme="Emacs">[root@manager1 docker-swarm-demo]# docker service ls
+ID            NAME      MODE        REPLICAS  IMAGE
+mcz67fbul4gm  phpdemo   replicated  1/1       manager1.example.com:5000/phpdemo:v1
+z3gl3pie7xm9  registry  replicated  1/1       registry:latest
+
+// 서비스 복제
+[root@manager1 docker-swarm-demo]# docker service scale phpdemo=3
+phpdemo scaled to 3
+
+[root@manager1 docker-swarm-demo]# docker service ls
+ID            NAME      MODE        REPLICAS  IMAGE
+mcz67fbul4gm  phpdemo   replicated  3/3       manager1.example.com:5000/phpdemo:v1
+z3gl3pie7xm9  registry  replicated  1/1       registry:latest
+[root@manager1 docker-swarm-demo]#
+
+[root@manager1 docker-swarm-demo]# docker service ps phpdemo
+ID            NAME       IMAGE                                 NODE                  DESIRED STATE  CURRENT STATE                   ERROR  PORTS
+m82bq5rgmk7z  phpdemo.1  manager1.example.com:5000/phpdemo:v1  manager2.example.com  Running        Running 2 minutes ago
+09p9qrtxidnw  phpdemo.2  manager1.example.com:5000/phpdemo:v1  manager3.example.com  Running        Running less than a second ago
+8x0pcftmzbzw  phpdemo.3  manager1.example.com:5000/phpdemo:v1  manager1.example.com  Running        Running 11 seconds ago
+[root@manager1 docker-swarm-demo]#</pre>
+ </div>
+</div>
+<p>
+ 위와 같이 서비스가 복제가 된 것을 확인 할 수 있습니다.
+</p>
+<p>
+ <br/>
+</p>
+<p>
+ 그럼 실제로 어떻게 서비스가 운영되는지 확인해보겠습니다.
+</p>
+<p>
+ <br/>
+</p>
+<p>
+ <strong>
+  3 Replica 서비스
+ </strong>
+</p>
+<p>
+ <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size">
+  <img src="/assets/images/post/2019-02-13-docker-swarm/5"/>
+ </span>
+</p>
+<p>
+ (상기 GIF 파일은 용량이 커서, 출력이 느릴수도 있습니다.)
+</p>
+<p>
+ 보시는 것과 같이 각기 다른 컨테이너로 Load Balancing 되는 것을 확인 할 수 있습니다.
+</p>
+<p>
+ <br/>
+</p>
+<p>
+ 위와 같이 Docker Swarm 이 각기 다른 Docker Host를 Load Balancing 를 하는 이유는 아래와 같습니다.
+</p>
+<p>
+ <span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size">
+  <img src="/assets/images/post/2019-02-13-docker-swarm/6"/>
+ </span>
+</p>
+<p>
+ 무언가 엄청 복잡해 보이지만 결국은 Ingress Network 를 통해 지정된 포트의 통신은 해당 컨테이너로 자동으로 전달이 될 것입니다.
+</p>
+<p>
+ 자세한 Network Architecture 는 아래 Docker Document 를 확인하는 것이 좋습니다.
+</p>
+<p>
+ (
+ <a class="external-link" href="https://success.docker.com/article/networking" rel="nofollow">
+  https://success.docker.com/article/networking
+ </a>
+ )
+</p>
+<p>
+ <br/>
+</p>
+<h2 id="DockerSwarm을이용한ContainerOrchestration환경만들기-서비스RollingUpdate">
+ 서비스 Rolling Update
+</h2>
+<hr/>
+<p>
+ 서비스를 운영하다보면 업데이트가 필요로한 시기가 있습니다.
+</p>
+<p>
+ 하지만 운영중에 서비스를 중지하고 업데이트를 하는 것은 서비스 DownTime 이 발생하게 되고 그만큼 운영에 힘들게 됩니다.
+</p>
+<p>
+ <br/>
+</p>
+<p>
+ 우리 Docker Swarm 과 함께라면 운영중에 서비스를 업데이트가 가능합니다!!!
+</p>
+<p>
+ <br/>
+</p>
+<p>
+ 먼저 기존에 만들어진 Docker Image 를 업데이트하도록 하겠습니다.
+</p>
+<div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-name="code" style="border-width: 1px;">
+ <div class="codeContent panelContent pdl">
+  <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: false; theme: Emacs" data-theme="Emacs">[root@manager1 docker-swarm-demo]# cat htdocs/index.php
+&lt;html&gt;
+&lt;body&gt;
+&lt;center&gt;
+&lt;b&gt;
+&lt;?php
+$host=gethostname();
+echo "Container Name : ";
+echo $host;
+?&gt;
+&lt;p&gt; Image Version : Update Version v2&lt;/p&gt;
+&lt;/b&gt;
+&lt;/center&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+ </div>
+</div>
+<p class="auto-cursor-target">
+ 핵심 파일인 Index.php 를 수정을 합니다.
+</p>
+<p>
+ <br/>
+</p>
+<div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-name="code" style="border-width: 1px;">
+ <div class="codeContent panelContent pdl">
+  <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: false; theme: Emacs" data-theme="Emacs">[root@manager1 docker-swarm-demo]# docker build -t phpdemo:v2 .
+Sending build context to Docker daemon 4.608 kB
+Step 1/4 : FROM php:7.2-apache
+ ---&gt; 2424d6c5e6b9
+Step 2/4 : MAINTAINER chhanz &lt;chhan@osci.kr&gt;
+ ---&gt; Using cache
+ ---&gt; 2beeadfdb912
+Step 3/4 : ADD htdocs/index.php /var/www/html/index.php
+ ---&gt; 723bb4020994
+Removing intermediate container ef8133b39a77
+Step 4/4 : EXPOSE 80
+ ---&gt; Running in 14a08f850b38
+ ---&gt; 99574ad1473c
+Removing intermediate container 14a08f850b38
+Successfully built 99574ad1473c
+[root@manager1 docker-swarm-demo]# docker images
+REPOSITORY                          TAG                 IMAGE ID            CREATED             SIZE
+phpdemo                             v2                  99574ad1473c        5 seconds ago       378 MB
+manager1.example.com:5000/phpdemo   v1                  c62e0ad19807        16 minutes ago      378 MB
+phpdemo                             v1                  c62e0ad19807        16 minutes ago      378 MB
+docker.io/php                       7.2-apache          2424d6c5e6b9        3 days ago          378 MB
+docker.io/registry                  &lt;none&gt;              d0eed8dad114        12 days ago         25.8 MB
+[root@manager1 docker-swarm-demo]#
+</pre>
+ </div>
+</div>
+<p>
+ phpdemo:v2 로 Tag 를 지정하고 신규로 생성된 Image 를 Push 합니다.
+</p>
+<div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-name="code" style="border-width: 1px;">
+ <div class="codeContent panelContent pdl">
+  <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: false; theme: Emacs" data-theme="Emacs">[root@manager1 docker-swarm-demo]# docker tag phpdemo:v2 manager1.example.com:5000/phpdemo:v2
+
+[root@manager1 docker-swarm-demo]# docker images
+REPOSITORY                          TAG                 IMAGE ID            CREATED              SIZE
+manager1.example.com:5000/phpdemo   v2                  99574ad1473c        About a minute ago   378 MB
+phpdemo                             v1                  c62e0ad19807        17 minutes ago   378 MB
+phpdemo                             v2                  99574ad1473c        About a minute ago   378 MB
+manager1.example.com:5000/phpdemo   v1                  c62e0ad19807        18 minutes ago       378 MB
+docker.io/php                       7.2-apache          2424d6c5e6b9        3 days ago           378 MB
+docker.io/registry                  &lt;none&gt;              d0eed8dad114        12 days ago          25.8 MB
+[root@manager1 docker-swarm-demo]#
+[root@manager1 docker-swarm-demo]# docker push manager1.example.com:5000/phpdemo:v2
+The push refers to a repository [manager1.example.com:5000/phpdemo]
+b246f39fc10a: Pushed
+29f6f251b4d2: Layer already exists
+28255a6692d8: Layer already exists
+d9b14cb17d8b: Layer already exists
+725c91d33681: Layer already exists
+005a87a63ac9: Layer already exists
+66fd43b3ea3b: Layer already exists
+20d941ba3638: Layer already exists
+eb3e3e0ec224: Layer already exists
+3843f6b0eab9: Layer already exists
+63fc1837f67c: Layer already exists
+c68025fbc229: Layer already exists
+ec6f4f0a90dc: Layer already exists
+0a07e81f5da3: Layer already exists
+v2: digest: sha256:1542620ce99456e9cc6b8e55998f08707e68d0f7aa8c84a17457e20fd5623caa size: 3242
+[root@manager1 docker-swarm-demo]#
+</pre>
+ </div>
+</div>
+<p>
+ 그럼 본격적으로 서비스를 운영하면서 변경된 Image 로 서비스 Rolling Update 를 하겠습니다.
+</p>
+<p>
+ 방법은 아래와 같습니다.
+</p>
+<p>
+ <strong>
+  <em>
+   # docker service update --update-parallelism 1 --image manager1.example.com:5000/phpdemo:v2 phpdemo
+  </em>
+ </strong>
+</p>
+<p>
+ --update-parallelism 옵션은 컨테이너 이미지가 한번에 얼마나 변경될지 결정합니다. 0일 경우, 한번에 변경합니다.
+ <strong>
+  <br/>
+ </strong>
+</p>
+<div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-name="code" style="border-width: 1px;">
+ <div class="codeContent panelContent pdl">
+  <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: false; theme: Emacs" data-theme="Emacs">[root@manager1 docker-swarm-demo]# docker service update --update-parallelism 1 --image manager1.example.com:5000/phpdemo:v2 phpdemo
+phpdemo
+[root@manager1 docker-swarm-demo]# docker service ps phpdemo
+ID            NAME           IMAGE                                 NODE                  DESIRED STATE  CURRENT STATE                ERROR                             PORTS
+qo0dxm16hly5  phpdemo.1      manager1.example.com:5000/phpdemo:v2  manager2.example.com  Running        Running about a minute ago
+m82bq5rgmk7z   \_ phpdemo.1  manager1.example.com:5000/phpdemo:v1  manager2.example.com  Shutdown       Shutdown about a minute ago
+z7782l71gnum  phpdemo.2      manager1.example.com:5000/phpdemo:v2  manager3.example.com  Running        Running about a minute ago
+msiyu6y2gjxn   \_ phpdemo.2  manager1.example.com:5000/phpdemo:v1  manager3.example.com  Shutdown       Shutdown about a minute ago
+sxp3cs1vmn96  phpdemo.3      manager1.example.com:5000/phpdemo:v2  manager1.example.com  Running        Running about a minute ago
+8x0pcftmzbzw   \_ phpdemo.3  manager1.example.com:5000/phpdemo:v1  manager1.example.com  Shutdown       Shutdown about a minute ago</pre>
+ </div>
+</div>
+<p>
+ <em>
+  <strong>
+   # docker service ps
+  </strong>
+ </em>
+ 명령으로 보면 각 노드에 phpdemo:v2 로 이미지들이 교체가 된 것을 확인 할 수 있습니다.
+</p>
+<p>
+ <br/>
+</p>
+<p>
+ 실제로 아래 그림을 보시면 이해에 도움이 됩니다.
+</p>
+<p>
+ 하나씩 신규로 이미지를 교체하면서 서비스를 운영하면서 신규 이미지로 배포가 되는 것을 볼 수 있습니다.
+</p>
+<p>
+ <span class="confluence-embedded-file-wrapper">
+  <img src="/assets/images/post/2019-02-13-docker-swarm/7"/>
+ </span>
+</p>
+<p>
+ (상기 GIF 파일은 용량이 커서, 출력이 느릴수도 있습니다.)
+</p>
+<p>
+ <br/>
+</p>
+<h2 id="DockerSwarm을이용한ContainerOrchestration환경만들기-서비스Rollback">
+ 서비스 Rollback
+</h2>
+<hr/>
+<p>
+ 서비스 Rolling Update 를 진행하였는데 문제가 발생되어 원복을 해야되는 상황이 발생 할 수 있습니다.
+</p>
+<p>
+ Docker Swarm 은 Rollback 기능도 지원하고 있습니다.
+</p>
+<p>
+ Rollback 은 아래와 같이 수행 합니다.
+</p>
+<p>
+ <strong>
+  <em>
+   # docker service update --rollback phpdemo
+  </em>
+ </strong>
+</p>
+<div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-name="code" style="border-width: 1px;">
+ <div class="codeContent panelContent pdl">
+  <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: false; theme: Emacs" data-theme="Emacs">[root@manager1 docker-swarm-demo]# docker service update --rollback phpdemo
+phpdemo
+
+[root@manager1 docker-swarm-demo]# docker service ps phpdemo
+ID            NAME           IMAGE                                 NODE                  DESIRED STATE  CURRENT STATE            ERROR  PORTS
+u1w5rry6wvog  phpdemo.1      manager1.example.com:5000/phpdemo:v1  manager1.example.com  Running        Running 24 seconds ago
+so0h6oyfdy65   \_ phpdemo.1  manager1.example.com:5000/phpdemo:v2  manager1.example.com  Shutdown       Shutdown 26 seconds ago
+yzfysbktouw9  phpdemo.2      manager1.example.com:5000/phpdemo:v1  manager2.example.com  Running        Running 23 seconds ago
+i3lqa52jspx4   \_ phpdemo.2  manager1.example.com:5000/phpdemo:v2  manager2.example.com  Shutdown       Shutdown 24 seconds ago
+whoukoq2hwor   \_ phpdemo.2  manager1.example.com:5000/phpdemo:v1  manager2.example.com  Shutdown       Shutdown 2 minutes ago
+z7782l71gnum   \_ phpdemo.2  manager1.example.com:5000/phpdemo:v2  manager3.example.com  Shutdown       Shutdown 3 minutes ago
+msiyu6y2gjxn   \_ phpdemo.2  manager1.example.com:5000/phpdemo:v1  manager3.example.com  Shutdown       Shutdown 7 minutes ago
+9ju17obshxlp  phpdemo.3      manager1.example.com:5000/phpdemo:v1  manager3.example.com  Running        Running 25 seconds ago
+26s3p5fthc0f   \_ phpdemo.3  manager1.example.com:5000/phpdemo:v2  manager3.example.com  Shutdown       Shutdown 26 seconds ago
+92g40nhfm15n   \_ phpdemo.3  manager1.example.com:5000/phpdemo:v1  manager3.example.com  Shutdown       Shutdown 3 minutes ago
+sxp3cs1vmn96   \_ phpdemo.3  manager1.example.com:5000/phpdemo:v2  manager1.example.com  Shutdown       Shutdown 3 minutes ago
+8x0pcftmzbzw   \_ phpdemo.3  manager1.example.com:5000/phpdemo:v1  manager1.example.com  Shutdown       Shutdown 7 minutes ago
+[root@manager1 docker-swarm-demo]#</pre>
+ </div>
+</div>
+<p>
+ <em>
+  <strong>
+   # docker service ps
+  </strong>
+ </em>
+ 명령을 통해 확인해보면 Rollback 된 것을 자세히 확인 할 수 있습니다.
+</p>
+<p>
+ <br/>
+</p>
+<p>
+ 실제로 서비스는 어떻게 Rollback 되는지는 아래 그림을 보면 됩니다.
+</p>
+<p>
+ 컨테이너 하나씩 기존 이미지로 Rollback 을 진행 하는 것을 확인 할 수 있습니다.
+</p>
+<p>
+ <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size">
+  <img src="/assets/images/post/2019-02-13-docker-swarm/8"/>
+ </span>
+</p>
+<p>
+ (상기 GIF 파일은 용량이 커서, 출력이 느릴수도 있습니다.)
+</p>
+<p>
+ <br/>
+</p>
+<h2 id="DockerSwarm을이용한ContainerOrchestration환경만들기-DockerHost장애발생으로인한복구시나리오">
+ Docker Host 장애 발생으로 인한 복구 시나리오
+</h2>
+<hr/>
+<p>
+ 서비스를 운영하다보면 어떠한 이유로 시스템에 장애가 발생되어 서비스가 중단되는 경우가 발생합니다.
+</p>
+<p>
+ Docker Swarm 을 이용하면 서비스 장애에 대해 감지하고 장애가 발생된 노드의 컨테이너를 다른 노드로 이관하여 장애 복구를 진행합니다.
+</p>
+<p>
+ <br/>
+</p>
+<p>
+ 인위적으로 manager2.example.com 의 시스템을 강제로 중지시켜 장애를 발생시키고 어떻게 Docker Swarm 에서 복구하는지 확인 해보겠습니다.
+</p>
+<p>
+ <br/>
+</p>
+<div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-name="code" style="border-width: 1px;">
+ <div class="codeContent panelContent pdl">
+  <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: false; theme: Emacs" data-theme="Emacs">[root@manager1 docker-swarm-demo]# docker node ls
+ID                           HOSTNAME              STATUS  AVAILABILITY  MANAGER STATUS
+lrt89xwkugty162qk8c2av5ek    manager2.example.com  Ready   Active        Leader
+y8ul9r3jq0rgt9k3vbvrayeyg *  manager1.example.com  Ready   Active        Reachable
+yqerq5ujds38t0izzlp03dbhd    manager3.example.com  Ready   Active        Reachable
+
+[root@manager1 docker-swarm-demo]# docker service ps phpdemo
+ID            NAME       IMAGE                                 NODE                  DESIRED STATE  CURRENT STATE               ERROR  PORTS
+a50p5gs82hop  phpdemo.1  manager1.example.com:5000/phpdemo:v2  manager2.example.com  Running        Running about a minute ago
+4vwicf8zt7j4  phpdemo.2  manager1.example.com:5000/phpdemo:v2  manager3.example.com  Running        Running 46 seconds ago
+7ik901zrb0ob  phpdemo.3  manager1.example.com:5000/phpdemo:v2  manager1.example.com  Running        Running 51 seconds ago
+
+// 노드 2번 시스템 인위적인 장애 발생
+
+[root@manager1 docker-swarm-demo]# docker node ls
+ID                           HOSTNAME              STATUS  AVAILABILITY  MANAGER STATUS
+lrt89xwkugty162qk8c2av5ek    manager2.example.com  Down    Active        Unreachable
+y8ul9r3jq0rgt9k3vbvrayeyg *  manager1.example.com  Ready   Active        Leader
+yqerq5ujds38t0izzlp03dbhd    manager3.example.com  Ready   Active        Reachable
+[root@manager1 docker-swarm-demo]#
+
+[root@manager1 docker-swarm-demo]# docker service ps phpdemo
+ID            NAME           IMAGE                                 NODE                  DESIRED STATE  CURRENT STATE               ERROR  PORTS
+o32y0ozm5wpz  phpdemo.1      manager1.example.com:5000/phpdemo:v2  manager1.example.com  Running        Running about a minute ago
+a50p5gs82hop   \_ phpdemo.1  manager1.example.com:5000/phpdemo:v2  manager2.example.com  Shutdown       Running 5 minutes ago
+4vwicf8zt7j4  phpdemo.2      manager1.example.com:5000/phpdemo:v2  manager3.example.com  Running        Running about a minute ago
+7ik901zrb0ob  phpdemo.3      manager1.example.com:5000/phpdemo:v2  manager1.example.com  Running        Running about a minute ago
+[root@manager1 docker-swarm-demo]#</pre>
+ </div>
+</div>
+<p>
+ <br/>
+</p>
+<p>
+ <span class="confluence-embedded-file-wrapper">
+  <img src="/assets/images/post/2019-02-13-docker-swarm/9"/>
+ </span>
+</p>
+<p>
+ (상기 GIF 파일은 용량이 커서, 출력이 느릴수도 있습니다.)
+</p>
+<p>
+ 위 그림을 보시면 장애 감지 및 장애 복구까지 소요된 시간이 약 40~50초 정도가 걸렸습니다.
+</p>
+<p>
+ manager2.example.com 시스템에 장애가 감지되고 해당 시스템에서 실행 중이던 컨테이너는 manager1.example.com 시스템에서 복구가 되는 것을 볼 수 있습니다.
+</p>
+<p>
+ <br/>
+</p>
+<h1 id="DockerSwarm을이용한ContainerOrchestration환경만들기-마치며">
+ 마치며
+</h1>
+<hr/>
+<p>
+ 컨테이너 오케스트레이션 도구 중에 하나인 Docker Swarm 에 대해서 알아보는 시간이 였습니다.
+</p>
+<p>
+ 구성이 간단하고 기존에 Docker 를 잘 사용하셨다면 쉽게 운영에 적용 할 수 있을 것 같습니다!!
+</p>
+<p>
+ 또한 컨테이너 하나만으로는 부족한 느낌이 많이 없어진 것 같습니다. ^ㅡ^
+</p>
+<p>
+ <br/>
+</p>
+<p>
+ 언제나 쉽게 오픈소스를 사용할 수 있도록 노력하겠습니다.
+</p>
+<p>
+ 감사합니다.
+</p>
+<p>
+ <br/>
+</p>
+<h1 id="DockerSwarm을이용한ContainerOrchestration환경만들기-참고자료">
+ 참고 자료
+</h1>
+<hr/>
+<ul>
+ <li>
+  <a class="external-link" href="https://docs.docker.com/engine/swarm/" rel="nofollow">
+   https://docs.docker.com/engine/swarm/
+  </a>
+ </li>
+ <li>
+  <a class="external-link" href="https://docs.docker.com/engine/reference/commandline/service_update/" rel="nofollow">
+   https://docs.docker.com/engine/reference/commandline/service_update/
+  </a>
+ </li>
+ <li>
+  <a class="external-link" href="https://www.xenonstack.com/blog/top-trends-ci-cd-devops-tools/" rel="nofollow">
+   https://www.xenonstack.com/blog/top-trends-ci-cd-devops-tools/
+  </a>
+ </li>
+ <li>
+  <a class="external-link" href="https://success.docker.com/article/networking" rel="nofollow">
+   https://success.docker.com/article/networking
+  </a>
+ </li>
+<li>
+  <a class="external-link" href="https://tech.osci.kr/2019/02/13/59736201/" rel="nofollow">
+   https://tech.osci.kr/2019/02/13/59736201/
+  </a>
+ </li>
+<li>
+  <a class="external-link" href="https://chhanz.github.io/docker/2018/09/10/45749387/" rel="nofollow">
+  https://chhanz.github.io/docker/2018/09/10/45749387/ 
+  </a>
+ </li>
+</ul>
