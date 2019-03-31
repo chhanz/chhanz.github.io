@@ -76,6 +76,7 @@ ACTION=="add", KERNEL=="raw*", OWNER="grid", GROUP="dba", MODE="0660"
 상세 raw device 생성 방법은 이전 Posting 확인합니다.   
 
 # 참고 자료   
+* * *    
 GITHUB : [https://github.com/chhanz/raw-device-generator](https://github.com/chhanz/raw-device-generator)   
 Raw Device 생성 방법 : [https://chhanz.github.io/linux/2018/10/01/linux_rawdevice/](https://chhanz.github.io/linux/2018/10/01/linux_rawdevice/)   
 
