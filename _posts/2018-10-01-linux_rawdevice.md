@@ -22,7 +22,7 @@ ACTION=="add|change", KERNEL=="sdc", RUN+="/usr/bin/raw /dev/raw/raw1 %N"
 ~~~
 3. multipath device 를 사용하는 경우,   
 ~~~
-ACTION=="add|change", ENV{DM_NAME}="mpath1", RUN+="/usr/bin/raw /dev/raw/raw1 %N" 
+ACTION=="add|change", ENV{DM_NAME}=="mpath1", RUN+="/usr/bin/raw /dev/raw/raw1 %N" 
 ~~~
 4. LVM device 를 사용하는 경우,
 ~~~
