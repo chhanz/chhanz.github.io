@@ -9,7 +9,7 @@
 }
 
 body {
-    font-family: sans-serif;
+    font-family: D2Coding, 'D2 coding', monosapce;
     font-weight: 300; /* @@iolo 200 -> 300, 200 for retina only! */
     color: #505050;
     background-color: #fff;
@@ -28,7 +28,7 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: 'NanumBarunGothic', 'Nanum Gothic', 'Spoqa Han Sans', 'Noto Sans KR', 'Noto Sans DemiLight', sans-serif;
+    font-family: D2Coding, 'D2 coding', monosapce;
     font-weight: 400;
     color: #1e1e1e;
 }
@@ -37,7 +37,7 @@ pre,
 code,
 tt,
 kbd {
-    font-family: monospace;
+    font-family: D2Coding, 'D2 coding', monosapce;
     font-weight: 300;
 }
 
@@ -522,7 +522,7 @@ for small screen(<720px):
 #cover,
 #navbar,
 #footer {
-    font-family: 'Noto Sans KR', sans-serif !important;
+    font-family: D2Coding, 'D2 coding', monosapce;
 }
 
 /* list(loop) */
@@ -867,7 +867,7 @@ body.tag-template #navbar {
     padding: 28px;
     border-left: 3px solid #e5e5e5;
     font-style: italic;
-    font-family: 'Nanum Myeongjo', sans-serif;
+    font-family: D2Coding, 'D2 coding', monosapce;
 }
 
 #post-content blockquote > *:first-child {
