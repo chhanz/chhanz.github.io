@@ -19,7 +19,7 @@ HP의 경우, Smart Storage Adminstrator 관리 명령어를 제공하고 있습
 # SSACLI 설치   
 * * *   
 Download : [HP Support Link](https://support.hpe.com/hpsc/swd/public/detail?sp4ts.oid=null&swItemId=MTX_688838b13b194c7abe1aa98584&swEnvOid=4184#tab1)   
-<center><img src="/assets/images/post/2019-04-01-use-ssacli/image-01.png"></center></br>
+<center><img src="/assets/images/post/2019-04-01-use-ssacli/image-01.png"></center>
 위 HP Support 페이지에서 해당 rpm Package 를 다운받습니다.   
 이후 시스템에 Upload 후 아래와 같이 설치 진행합니다.   
    
