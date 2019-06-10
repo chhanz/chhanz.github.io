@@ -39,7 +39,7 @@ OpenShift 는 개발자 및 IT 운영팀을 단일 플랫폼에서 통합하여,
 Openshift 에는 다양한 버전이 존재합니다.   
    
 * **OpenShift Origin**   
-    * OpenShift Online, OpenShift 전용 및 OpenShift 컨테이너 플랫폼에서 사용되는 업스트림 커뮤니티 프로젝트다.  
+    * OpenShift Online, OpenShift Dedicated 및 OpenShift Container Platform에서 사용되는 업스트림 커뮤니티 프로젝트입니다.  
 * **OpenShift Container Platform**   
     * OpenShift Container Platform은 Red Hat이 제공하고 지원하는 엔터프라이즈 버전입니다.   
 * **OpenShift Online**   
