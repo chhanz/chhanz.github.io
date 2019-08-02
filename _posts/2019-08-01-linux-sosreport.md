@@ -23,7 +23,7 @@ Installed:
 # sosreport 생성 경로 변경
 * * * 
 sosreport 는 기본적으로 아래와 같이 `/var/tmp/sosreport-XXXX.tar.xz` 로 생셩이 됩니다.   
-`/var` 경로에 용량이 부족하거나 sosreport 로 수집된 파일의 크기가 큰 경우, 생성 위치를 변경하여 생성 할 수 있습니다.   
+`/var` 경로에 용량이 부족하거나 sosreport 로 수집된 파일의 크기가 큰 경우, 생성 위치를 변경 할 수 있습니다.   
 
 ## sosreport 기본 경로 생성 로그
 ```console
@@ -90,6 +90,7 @@ Please send this file to your support representative.
    
 위와 같이 sosreport 생성 경로를 변경하였습니다.   
 해당 수집 방법은 `sos` Package Version 및 `RHEL/CentOS` Version 이 낮은 경우 다른 방법으로 수집을 해야 될 수 있습니다.   
+   
 ***위와 같은 경우 아래 첨부된 참고 자료 확인 바람니다.***   
 
 # 참고 자료
