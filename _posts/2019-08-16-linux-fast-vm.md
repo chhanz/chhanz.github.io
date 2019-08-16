@@ -4,7 +4,7 @@ title: "[Linux] Fast-VM 설치 및 활용"
 description: " "
 author: chhanz
 date: 2019-08-16
-tags: [linux]
+tags: [linux, fast-vm]
 category: linux
 ---
 
