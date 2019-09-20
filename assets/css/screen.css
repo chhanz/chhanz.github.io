@@ -1,7 +1,7 @@
 /* common */
-@import url('https://fonts.googleapis.com/earlyaccess/nanumgothic.css');
+/*@import url('https://fonts.googleapis.com/earlyaccess/nanumgothic.css');
 @import url("https://fonts.googleapis.com/earlyaccess/nanummyeongjo.css");
-@import url("https://fonts.googleapis.com/css?family=Noto+Sans");
+@import url("https://fonts.googleapis.com/css?family=Noto+Sans");*/
 
 * {
     -webkit-box-sizing: border-box;
@@ -9,7 +9,7 @@
 }
 
 body {
-    font-family: D2Coding, 'D2 coding', monosapce;
+    font-family: 'Noto Sans KR', 'NanumBarunGothic', sans-serif;
     font-weight: 300; /* @@iolo 200 -> 300, 200 for retina only! */
     color: #505050;
     background-color: #fff;
@@ -28,7 +28,7 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: D2Coding, 'D2 coding', monosapce;
+    font-family: 'Noto Sans KR', 'NanumBarunGothic', sans-serif;
     font-weight: 400;
     color: #1e1e1e;
 }
@@ -37,7 +37,7 @@ pre,
 code,
 tt,
 kbd {
-    font-family: D2Coding, 'D2 coding', monosapce;
+    font-family: Consolas, Monaco, 'Liberation Mono', 'Noto Sans KR', 'NanumBarunGothic', monospace;
     font-weight: 300;
 }
 
@@ -52,6 +52,17 @@ a, a:link, a:visited, a:active, a:hover {
 
 h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
     color: #1e1e1e;
+}
+
+/* Code block "`" */
+code.highlighter-rouge {
+  padding: 0;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin: 0;
+  font-size: 85%;
+  background-color: rgba(27,31,35,0.05);
+  border-radius: 3px;
 }
 
 .container-fluid {
@@ -267,6 +278,36 @@ for small screen(<720px):
 #search > input:focus {
     outline: none;
     color: #1e1e1e;
+}
+
+/** Search result dropdown **/
+.search__results {
+    display: block;
+    background: #fff;
+    list-style: none;
+    padding: 0px;
+    font-size: 14px;
+    transition: 0.2s ease;
+    position: absolute;
+    width: 550px;
+    -webkit-box-shadow: 0 8px 17px 0 rgba(0,0,0,.2), 0 6px 20px 0 rgba(0,0,0,.19);
+    box-shadow: 0 8px 17px 0 rgba(0,0,0,.2), 0 6px 20px 0 rgba(0,0,0,.19);
+    border-radius: 2px;
+    border: 0;
+    z-index: 999; top: 45px; right: 0px;
+    line-height: 22px;
+}
+.search__results.is-hidden {
+    opacity: 0;
+    transform: translateY(-1vh);
+    display: none;
+}
+.search__results > li {
+    border-top: 1px solid #f0f0f0;
+    padding: 10px;
+}
+.search__results > li > a {
+    padding: 10px;
 }
 
 #wrapper {
@@ -522,7 +563,7 @@ for small screen(<720px):
 #cover,
 #navbar,
 #footer {
-    font-family: D2Coding, 'D2 coding', monosapce;
+    font-family: 'Noto Sans KR', 'NanumBarunGothic', sans-serif;
 }
 
 /* list(loop) */
@@ -867,7 +908,7 @@ body.tag-template #navbar {
     padding: 28px;
     border-left: 3px solid #e5e5e5;
     font-style: italic;
-    font-family: D2Coding, 'D2 coding', monosapce;
+    font-family: 'Noto Sans KR', 'NanumBarunGothic', sans-serif;
 }
 
 #post-content blockquote > *:first-child {
@@ -1221,6 +1262,12 @@ body.page-template {
 
     #search > input {
         background-image: url(../images/mo/icon_search.png);
+    }
+
+    .search__results {
+        width: 100%;
+        font-size: 12px;
+        top: 98px;
     }
 
     /* footer */
