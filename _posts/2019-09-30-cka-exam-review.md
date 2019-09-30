@@ -12,6 +12,8 @@ category: linux
 * * * 
 안녕하세요. `chhanz` 입니다.   
 2019년 취득 목표로 잡고 공부하던 `CKA`, _Certified Kubernetes Administrator_ 자격증을 드디어 취득하였습니다.   
+
+<center><img src="/assets/images/post/2019-09-30-cka-exam-review/logo_cka.png" style="max-width: 40%; height: auto;"></center>   
     
 `CKA` 자격증을 취득하고 느낀점은 커뮤니티에 올려주신 많은 합격 후기들이 ***"너무 도움이 많이 되었다."***  라는 점입니다.   
 그리하여 제가 공부를 어떻게 했고, 시험이 어떤식으로 진행이 되었는지 공유해드리겠습니다.   
