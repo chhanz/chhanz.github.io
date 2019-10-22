@@ -12,7 +12,7 @@ image: /assets/images/about_cover2.jpg
 <font size="5">Cheolhee Han</font>
 <br><b><a href="https://www.redhat.com/rhtapps/services/verify/?certId=160-204-038"><font color="red">RED HAT CERTIFIED ARCHITECT IN INFRASTRUCTURE</font></a></b>
 <br>
-System Engineer
+Linux Engineer
 <br>
 (han0495@gmail.com)
 <br>
