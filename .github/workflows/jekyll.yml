@@ -1,9 +1,6 @@
 name: Jekyll site CI
 
-on: 
- push:
-   branches: 
-     - new-post-v1
+on: [push]
 
 jobs:
   build:
