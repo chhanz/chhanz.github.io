@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[RHV] Red Hat Vritualization Host 설치"
+title: "[RHV] Red Hat Virtualization Host 설치"
 description: " "
 author: chhanz
 date: 2020-01-03
@@ -9,13 +9,14 @@ category: RHV
 ---
 
 # 목차
-+ [Red Hat Vritualization Host 설치](/rhv/2020/01/03/install-rhvh/)   
-+ [Red Hat Vritualization Standalone Manager 설치](/rhv/2020/01/03/install-rhvh/)   
-+ [Red Hat Vritualization Host 추가 및 VM 생성](/rhv/2020/01/03/install-rhvh/)   
++ [Red Hat Virtualization Host 설치](/rhv/2020/01/03/install-rhvh/)   
++ [Red Hat Virtualization Standalone Manager 설치](/rhv/2020/01/17/install-rhvm/)   
++ [Red Hat Virtualization Host 추가 및 VM 생성](/rhv/2020/01/18/install-rhvm-admin/)   
 
-# [RHV] Red Hat Vritualization Host 란?
+# Red Hat Virtualization Host 란?
 RHVH (Red Hat Virtualization Host)는 Red Hat Enterprise Linux 기반의 최소 운영 체제이며 Red Hat Virtualization 환경에서 하이퍼바이저 역할을 하는 물리적 시스템을 간단하게 설정할 수 있도록 설계되었습니다.   
 참고 자료 : [RHV Document](https://access.redhat.com/documentation/ko-kr/red_hat_virtualization/4.1/html/installation_guide/red_hat_virtualization_hosts)   
+   
 ## RHVH 설치
 준비된 `RHVH 4.1` DVD 이미지를 통해 부팅을 합니다.   
 <center><img src="/assets/images/post/2020-01-03-rhvh/1.png" style="max-width: 95%; height: auto;"></center>   
