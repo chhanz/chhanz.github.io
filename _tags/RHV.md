@@ -1,5 +1,5 @@
 ---
 name: RHV
-title: RHV
+title: rhv
 image: /assets/images/author_cover.jpg
 ---
