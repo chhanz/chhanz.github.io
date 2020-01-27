@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[Kubernetes] IBM Cloud Kubernete Service 를 Free Tier 로 사용해보자!"
+title: "[Kubernetes] IBM Cloud Kubernetes Service 를 Free Tier 로 사용해보자!"
 description: " "
 author: chhanz
 date: 2020-01-27
@@ -9,10 +9,10 @@ category: kubernetes
 ---
 
 # 목차
-+ [IBM Cloud Kubernetes Service 생성](#IBM-Cloud-Kubernetes-Service-생성)   
-+ [IBM Cloud Cli 및 Kubectl 설치](#IBM-Cloud-Cli-및-Kubectl-설치)   
-+ [Deploy Sample Service](#Deploy-Sample-Service)   
-+ [Delete Kubernetes Cluster](#Delete-Kubernetes-Cluster)   
++ [IBM Cloud Kubernetes Service 생성](#ibm-cloud-kubernetes-service-생성)   
++ [IBM Cloud Cli 및 Kubectl 설치](#ibm-cloud-cli-및-kubectl-설치)   
++ [Deploy Sample Service](#deploy-sample-service)   
++ [Delete Kubernetes Cluster](#delete-kubernetes-cluster)   
 + [참고 자료](#참고-자료)   
    
 # 관리형 Kubernetes Service
