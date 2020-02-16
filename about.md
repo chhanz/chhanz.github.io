@@ -60,14 +60,15 @@ Linux Engineer
 * Openshift
 * Kubernetes
 
-## Red Hat Certified Architect in Infrastructure
+## Red Hat Certified Architect in Infrastructure Level II   
 > * Ansible 2.3
-* GFS2 for Red Hat Enterprise Linux 7
-* Red Hat Enterprise Linux 7
-* Red Hat Enterprise Linux High Availability Add-On 7
-* Red Hat Certified Specialist in Linux Performance Tuning 
-* Red Hat Enterprise Linux OpenStack Platform 6.0
-* Red Hat OpenShift Container Platform 3.5   
+* GFS2 for Red Hat Enterprise Linux 7   
+* Red Hat Enterprise Linux 7   
+* Red Hat Enterprise Linux High Availability Add-On 7   
+* Red Hat Certified Specialist in Linux Performance Tuning    
+* Red Hat Certified Specialist in Virtualization    
+* Red Hat Enterprise Linux OpenStack Platform 6.0   
+* Red Hat OpenShift Container Platform 3.5      
 <a href="https://www.redhat.com/rhtapps/services/verify/?certId=160-204-038">@ Go to Red Hat Certification Central </a>
 
 
