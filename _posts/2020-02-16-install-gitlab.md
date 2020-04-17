@@ -7,7 +7,11 @@ date: 2020-02-16
 tags: [devops]
 category: devops
 ---
-
+# 목차
++ [Gitlab-CE 설치](https://chhanz.github.io/devops/2020/02/16/install-gitlab/)   
++ [Jenkins 설치](https://chhanz.github.io/devops/2020/04/16/install-jenkins/)   
++ [Nexus Repository Manager 설치](https://chhanz.github.io/devops/2020/04/17/install-nexus-ce/)   
+   
 # Gitlab CE
 ## Gitlab 이란? 
 위키백과에서는 아래와 같이 설명하고 있습니다.   

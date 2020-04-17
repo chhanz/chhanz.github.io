@@ -11,6 +11,7 @@ category: devops
 # 목차
 + [Gitlab-CE 설치](https://chhanz.github.io/devops/2020/02/16/install-gitlab/)   
 + [Jenkins 설치](https://chhanz.github.io/devops/2020/04/16/install-jenkins/)   
++ [Nexus Repository Manager 설치](https://chhanz.github.io/devops/2020/04/17/install-nexus-ce/)      
    
 # Jenkins RPM 설치
 RPM 을 이용한 설치 과정입니다.   
