@@ -3,7 +3,7 @@ layout: post
 title: "[Devops] Jenkins CI Pipeline 구성"
 description: " "
 author: chhanz
-date: 2020-04-17
+date: 2020-05-04
 tags: [devops]
 category: devops
 ---
