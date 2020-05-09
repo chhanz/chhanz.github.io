@@ -24,42 +24,14 @@ Linux Engineer
 
 * * *
 
-안녕하세요.  chhanz 블로그에 방문해주셔서 감사합니다. :)   
+안녕하세요. chhanz 블로그에 방문해주셔서 감사합니다. :)   
 저는 현재 Linux Engineer 로 활동 중이며,   
-과거에는 H/W Engineer 및 IBM AIX(UNIX) Engineer 로 지냈습니다.
+이전에는 H/W Engineer 및 IBM AIX(UNIX) Engineer 로 지냈습니다.
 
 
 # __보유기술__
 
 * * *
-
-# H/W
->* IBM Power System
-* IBM X System Product
-* IBM V Series Storage 
-* IBM DS Series Storage(Midrange Storage) 
-* Lenovo System Product
-* HP Server Product
-* Dell Server Product
-* Brocade SAN Switch 
-* IBM Tape Library 
-
-## UNIX
->* IBM AIX 
-* IBM PowerVM (Virtualization Solution)
-* IBM PowerHA (High-Availability Solution)
-* IBM GPFS (General Parallel File System)
-
-## Opensource 
->* CentOS 
-* KVM
-* Pacemaker
-* Spacewalk
-* Openstack
-* Docker
-* Openshift
-* Kubernetes
-
 ## Red Hat Certified Architect in Infrastructure Level II   
 > * Ansible 2.3
 * GFS2 for Red Hat Enterprise Linux 7   
@@ -71,6 +43,34 @@ Linux Engineer
 * Red Hat OpenShift Container Platform 3.5      
 <a href="https://www.redhat.com/rhtapps/services/verify/?certId=160-204-038">@ Go to Red Hat Certification Central </a>
 
+## Opensource 
+>* CentOS 
+* KVM
+* Pacemaker
+* Spacewalk
+* Openstack
+* Docker
+* Openshift
+* Kubernetes
+* Ansible
+* oVirt
+
+## UNIX
+>* IBM AIX 
+* IBM PowerVM (Virtualization Solution)
+* IBM PowerHA (High-Availability Solution)
+* IBM GPFS (General Parallel File System)
+
+# H/W
+>* IBM Power System
+* IBM X System Product
+* IBM V Series Storage 
+* IBM DS Series Storage(Midrange Storage) 
+* Lenovo System Product
+* HP Server Product
+* Dell Server Product
+* Brocade SAN Switch 
+* IBM Tape Library 
 
 * * *
 

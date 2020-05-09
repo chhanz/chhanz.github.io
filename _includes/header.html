@@ -18,6 +18,7 @@
     <ul id="menu" class="nav">
         <li class="{% if page.url != '/about/' and page.url != '/books/' %} active {% endif %}"><a href="{{ base_path }}/">Blog</a></li>
         <li class="{% if page.url == '/about/' %} active {% endif %}"><a href="{{ base_path }}/about/">About</a></li>
+        <li class="{% if page.url == '/Links/' %} active {% endif %}"><a href="{{ base_path }}/Links/">Links</a></li>
         <li class="{% if page.url == '/tags/' %} active {% endif %}"><a href="{{ base_path }}/tags/">Tags</a></li>
     </ul>
 
