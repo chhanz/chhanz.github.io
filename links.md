@@ -12,4 +12,5 @@ sitemap:
 - chhanz: [https://chhanz.github.io/](https://chhanz.github.io/)   
 - Cyuu: [http://cyuu.tistory.com/](http://cyuu.tistory.com/)   
 - Jacobbaek: [http://jacobbaek.com/](http://jacobbaek.com/)   
+- Ondrej Faměra: [https://www.famera.cz/blog/index.html](https://www.famera.cz/blog/index.html)   
 
