@@ -11,6 +11,11 @@ category: openshift
 > 해당 자료는 사내 교육용으로 제작된 자료입니다.   
 > 자료 사용시 출처 부탁 드려요.   
      
+# 목차
++ [Deploying Applications From Images](/openshift/2020/06/18/ocp4-deploy-image/)   
++ [Deploying Applications From Source](/openshift/2020/06/22/ocp4-deploy-source/)   
++ [Deploying Applications From Template](/openshift/2020/06/24/ocp4-template/)   
+      
 # Deploying Applications From Source
 이번 Lab 은 Source 를 이용하여 App 을 배포 하도록 하겠습니다.   
 
