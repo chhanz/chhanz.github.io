@@ -30,5 +30,5 @@ gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # Performance-booster for watching directories on Windows
 gem "wdm", "~> 0.1.0" if Gem.win_platform?
 
-# Security path : CVE-2020-14001 
+# Security patch : CVE-2020-14001 
 gem "kramdown", ">= 2.3.0"
