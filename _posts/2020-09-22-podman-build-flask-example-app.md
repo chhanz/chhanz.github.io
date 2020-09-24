@@ -11,7 +11,10 @@ category: container
 + [Build APP - Container image](/container/2020/09/21/buildah/)   
 + Deploy APP
     + [Build APP](/container/2020/09/22/podman-build-flask-example-app/)   
-    + [Create The Deployment](/2020/09/23/create-deployment/)   
+    + [Create The Deployment](/kubernetes/2020/09/23/create-deployment/)   
++ Check APP
+    + [Check The Node](/kubernetes/2020/09/24/check-the-node/)   
+    + [Check The APP](/kubernetes/2020/09/24/check-the-app/)   
    
 # Build APP for Flask WEBAPP
 이 문서는 Kubernetes Hands on LAB 에서 활용할 Flask WEBAPP 를 Build 하는 방법에 대해 포함 되어 있습니다.   
