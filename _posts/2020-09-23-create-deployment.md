@@ -11,8 +11,11 @@ category: kubernetes
 + [Build APP - Container image](/container/2020/09/21/buildah/)   
 + Deploy APP
     + [Build APP](/container/2020/09/22/podman-build-flask-example-app/)   
-    + [Create The Deployment](/2020/09/23/create-deployment/)   
-   
+    + [Create The Deployment](/kubernetes/2020/09/23/create-deployment/)   
++ Check APP
+    + [Check The Node](/kubernetes/2020/09/24/check-the-node/)   
+    + [Check The APP](/kubernetes/2020/09/24/check-the-app/)   
+
 # Create the Deployment
 이 문서는 Kubernetes 의 Deployment 를 생성하는 방법에 대해 포함되어 있습니다.   
    
@@ -81,5 +84,7 @@ Events:
   Normal  ScalingReplicaSet  7m21s  deployment-controller  Scaled up replica set flask-example-app-959c5f88d to 1
 ```
    
-# 참고 자료
+# 참고 문서
 * [https://kubernetes.io/ko/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/](https://kubernetes.io/ko/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/)    
+* [https://github.com/chhanz/kubernetes-hands-on-lab](https://github.com/chhanz/kubernetes-hands-on-lab)   
+* [https://github.com/chhanz/kubernetes-hands-on-lab/blob/master/doc/create-the-deployment.md](https://github.com/chhanz/kubernetes-hands-on-lab/blob/master/doc/create-the-deployment.md)   
