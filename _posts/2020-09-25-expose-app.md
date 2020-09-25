@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[Kubernetes] Expose App (Create Service)"
+title: "[Kubernetes] Expose App (Service 생성)"
 description: " "
 author: chhanz
 date: 2020-09-25
