@@ -15,7 +15,9 @@ category: container
 + Check APP
     + [Check The Node](/kubernetes/2020/09/24/check-the-node/)   
     + [Check The APP](/kubernetes/2020/09/24/check-the-app/)   
-   
++ Expose APP   
+    + [Expose APP - `NodePort`](/kubernetes/2020/09/25/expose-app/)   
+      
 # Build APP for Flask WEBAPP
 이 문서는 Kubernetes Hands on LAB 에서 활용할 Flask WEBAPP 를 Build 하는 방법에 대해 포함 되어 있습니다.   
    
