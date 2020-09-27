@@ -17,7 +17,9 @@ category: kubernetes
     + [Check The APP](/kubernetes/2020/09/24/check-the-app/)   
 + Expose APP   
     + [Expose APP - `NodePort`](/kubernetes/2020/09/25/expose-app/)   
-      
++ Scale APP   
+    + [Scale APP](/kubernetes/2020/09/27/scale-app/)   
+   
 # Check The Node
 이 문서는 Kubernetes Node 를 확인하는 방법에 대해 포함되어 있습니다.   
 
