@@ -19,7 +19,9 @@ category: kubernetes
     + [Expose APP - `NodePort`](/kubernetes/2020/09/25/expose-app/)   
 + Scale APP   
     + [Scale APP](/kubernetes/2020/09/27/scale-app/)   
-   
++ Update APP
+    + [Update APP - `Rolling Update`/`Rollback`](/kubernetes/2020/09/28/update-app/)   
+      
 # Create the Deployment
 이 문서는 Kubernetes 의 Deployment 를 생성하는 방법에 대해 포함되어 있습니다.   
    
