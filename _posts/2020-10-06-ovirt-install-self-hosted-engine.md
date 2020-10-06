@@ -18,6 +18,7 @@ category: linux
 <center>
 <iframe src="//www.slideshare.net/slideshow/embed_code/key/v4DDeDA0XtU28I" width="668" height="714" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/CheolHeeHan2/ovirt-installation-guidev43" title="oVirt installation guide_v4.3" target="_blank">oVirt installation guide_v4.3</a> </strong> from <strong><a href="https://www.slideshare.net/CheolHeeHan2" target="_blank">CheolHee Han</a></strong> </div>
 </center>
-   
-
-
+      
+# 마치며
+해당 메뉴얼은 테스트 환경 기준으로 작성 되었습니다.   
+운영 환경에 적용하기 위해서는 `NAS or Storage` 환경을 권장드립니다.   
