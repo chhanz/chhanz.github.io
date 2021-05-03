@@ -33,3 +33,6 @@ gem "wdm", "~> 0.1.0" if Gem.win_platform?
 # Security patch : CVE-2020-14001 
 # Security patch : CVE-2021-28834 (2021/03/30)
 gem "kramdown", ">= 2.3.1"
+
+# Security patch : CVE-2021-28965 (2021/05/03)
+gem "rexml", ">= 3.2.5"
