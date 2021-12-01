@@ -24,7 +24,7 @@ echo -e " Start Systemd Test " | logger -t Testsystemd
 
 while :
 do
-	echo -e "Runniog systemd"
+	echo -e "Running systemd"
 	sleep 30
 done
 ~~~
