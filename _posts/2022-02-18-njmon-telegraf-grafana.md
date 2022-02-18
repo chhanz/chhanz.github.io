@@ -18,7 +18,7 @@ category: linux
 + [참고 자료](#reference)    
    
 # Njmon 이란? {#info}
-   <center><a href="http://nmon.sourceforge.net/pmwiki.php?n=Site.Njmon" target="_blank"><img src="http://nmon.sourceforge.net/docs/nmon_why.png" style="max-width: 95%; height: auto;"></a></center>   
+   <center><a href="http://nmon.sourceforge.net/pmwiki.php?n=Site.Njmon" target="_blank"><img src="/assets/images/post/2022-02-18-njmon/nmon_why.png" style="max-width: 95%; height: auto;"></a></center>   
 `njmon` 는 `nmon` 과 비슷하지만 더 많은 성능 및 구성 데이터를 수집하고 JSON 형식으로 출력하고 해당 데이터를 데이터베이스(if. InfluxDB, Prometheus)에 입력하는 기능을 수행합니다.   
 주로 `nmon` 에 익숙하여 다른 Metric 을 사용하기 힘들거나, Exporter 를 설치하는데 어려움이 있는 CASE 에서 사용하기 좋은 Tool 일 것 같습니다.   
    
