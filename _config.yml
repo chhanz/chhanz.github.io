@@ -58,7 +58,8 @@ image: '/assets/images/default_cover.jpg'
 asset_url: /assets
 
 google_analytics:
-  ua: UA-130421804-1
+#  ua: UA-130421804-1
+  ua: G-V74WNV4W31
 #facebook:
 #  app_id: ''
 #  username: 
