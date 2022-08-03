@@ -24,7 +24,16 @@ layout: default
 
 <div id="content" class="container post" role="main">
     <div id="post-content">{{ content }}</div>
-
+    <div id="post-comment">
+        <script src="https://utteranc.es/client.js"
+                repo="chhanz/chhanz.github.io"
+                issue-term="title"
+                label="comment"
+                theme="github-light"
+                crossorigin="anonymous"
+                async>
+        </script>
+    </div>
     <div id="post-footer">
         {% assign author = site.authors | where: 'name', page.author | first %}
         <a id="post-author" href="{{ author.url }}">
