@@ -3,7 +3,7 @@ layout: post
 title: "[Linux] noVNC 구성 with python3" 
 description: ""
 author: chhanz
-date: 2022-11-11
+date: 2022-12-19
 tags: [linux]
 category: linux
 ---
