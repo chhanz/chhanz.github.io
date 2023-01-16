@@ -31,5 +31,5 @@ $ sudo systemctl restart collectd
 위와 같이 LogLevel 을 수정하고 대량의 collectd 로그는 사라짐.
 
 # 참고 자료
-* https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_syslog
-* https://blog.bassbone.tokyo/archives/1184
+* [https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_syslog](https://collectd.org/documentation/manpages/collectd.conf.5.shtml#plugin_syslog)   
+* [https://blog.bassbone.tokyo/archives/1184](https://blog.bassbone.tokyo/archives/1184)   
