@@ -15,7 +15,6 @@ image: /assets/images/about_cover2.jpg
 <br>
 Cloud Engineer
 <br>
-(han0495@gmail.com)
 <br>
 <br>
 <a href="https://github.com/chhanz"><img src="/assets/images/pc/icon_git.png" width="20" height="20"></a>&emsp;
