@@ -33,6 +33,8 @@ Cloud Engineer
 * * *
 <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="73e13ef3-897c-4068-87f6-ff5ae22ae380" data-share-badge-host="https://www.credly.com"></div><script type="text/javascript" async src="//cdn.credly.com/assets/utilities/embed.js"></script>
 
+<div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="801c2180-bc46-4014-a5d4-2ea8b8c19d5c" data-share-badge-host="https://www.credly.com"></div><script type="text/javascript" async src="//cdn.credly.com/assets/utilities/embed.js"></script>
+
 <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="b73c7367-67eb-49ce-acf6-24d45c876067" data-share-badge-host="https://www.credly.com"></div><script type="text/javascript" async src="//cdn.credly.com/assets/utilities/embed.js"></script>
 
 <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="9ab47c0d-6a5f-43bf-8436-25a8b861bdf7" data-share-badge-host="https://www.credly.com"></div><script type="text/javascript" async src="//cdn.credly.com/assets/utilities/embed.js"></script>
