@@ -121,7 +121,7 @@ ingresscontroller.operator.openshift.io/default patched
 $ oc create secret tls api-certs --cert=fullchain.pem --key=key.pem -n openshift-config
 secret/api-certs created
 
-$ oc patch apiserver cluster --type merge '--patch={"spec": {"servingCerts": {"namedCertificates": [ { "names": [  ""  ], "servingCertificate": {"name": "api-certs" }}]}}}'
+$ oc patch apiserver cluster --type merge '--patch={"spec": {"servingCerts": {"namedCertificates": [ { "names": [  "api.lab.chhanz.xyz"  ], "servingCertificate": {"name": "api-certs" }}]}}}'
 apiserver.config.openshift.io/cluster patched
 ```
    
