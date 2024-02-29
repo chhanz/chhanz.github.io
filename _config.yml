@@ -7,6 +7,7 @@ description: |
   
 baseurl: ''
 url: https://chhanz.github.io
+cname: https://tech.chhanz.xyz
 timezone: Asia/Seoul
 facebook_comment: true
 
