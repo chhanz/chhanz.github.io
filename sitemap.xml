@@ -15,11 +15,27 @@ layout: null
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
+  <url>
+    <loc>{{ site.cname }}{{ post.url }}</loc>
+    {% if post.date %}
+    <lastmod>{{ post.date | date_to_xmlschema }}</lastmod>
+    {% endif %}
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
   {% endfor %}
   {% for page in site.pages %}
   {% if page.sitemap %}
   <url>
     <loc>{{ site.url }}{{ site.baseurl }}{{ page.url }}</loc>
+    {% if page.date %}
+    <lastmod>{{ page.date | date_to_xmlschema }}</lastmod>
+    {% endif %}
+    <changefreq>{{ sitemap.freq | default: 'monthly' }}</changefreq>
+    <priority>{{ sitemap.priority | default: '1.0' }}</priority>
+  </url>
+  <url>
+    <loc>{{ site.cname }}{{ page.url }}</loc>
     {% if page.date %}
     <lastmod>{{ page.date | date_to_xmlschema }}</lastmod>
     {% endif %}
