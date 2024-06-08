@@ -161,6 +161,21 @@ package_upgrade: true
 참고로 AWS 에서 제공하는 Amazon Linux 2023 Cloud image 의 경우, 기본적으로 ssh 를 Password 를 이용한 접근을 허용이 안 되어있습니다.   
 SSH 를 Password 를 이용하여 접근하기 위해서는 console 에서 `/etc/ssh/sshd_config` 를 수정이 필요합니다.   
    
+만약 초기 Cloud Image 를 수정하여 SSH 를 Password 를 이용한 접근을 활성화 하기 위해서는 아래와 같은 방법을 이용하면 쉽게 해결 할 수 있습니다.   
+   
+```console
+# apt install libguestfs-tools
+
+# virt-customize -a al2023-kvm-2023.4.20240528.0-kernel-6.1-x86_64.xfs.gpt.qcow2 --run-command "sed -i 's/ssh_pwauth:   false/ssh_pwauth:   true/g' /etc/cloud/cloud.cfg"
+[   0.0] Examining the guest ...
+[   1.9] Setting a random seed
+virt-customize: warning: random seed could not be set for this type of guest
+[   1.9] Running: sed -i 's/ssh_pwauth:   false/ssh_pwauth:   true/g' /etc/cloud/cloud.cfg
+[   1.9] Finishing off
+```
+   
+위와 같이 qcow2 이미지에 설정된 `ssh_pwauth` 설정을 `virt-customize` 명령어를 이용하여 수정하고 수정된 qcow2 이미지를 import 하는 방법입니다.   
+   
 # 참고 자료
 * [https://pve.proxmox.com/pve-docs/qm.1.html](https://pve.proxmox.com/pve-docs/qm.1.html)    
 * [Amazon EC2 외부에서 사용 시 Amazon Linux 2023 설정 및 cloud-init 구성](https://docs.aws.amazon.com/ko_kr/linux/al2023/ug/outside-ec2-configuration.html)    
