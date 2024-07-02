@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[Linux] CentOS 7 : `Could not resolve host: mirrorlist.centos.org; Unknown error`"
+title: "[Linux] CentOS 7 : Could not resolve host: mirrorlist.centos.org; Unknown error"
 description: "EOS CentOS 7 - yum error"
 author: chhanz
 date: 2024-07-02
