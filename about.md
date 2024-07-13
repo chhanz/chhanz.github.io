@@ -63,6 +63,8 @@ Cloud Engineer
 
 <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="fb744fdf-4cf4-4591-a53d-b48e358fa158" data-share-badge-host="https://www.credly.com"></div><script type="text/javascript" async src="//cdn.credly.com/assets/utilities/embed.js"></script>
 
+<a href="https://badges.suse.com/embed/456327eb-c841-4847-bbb5-7fa5828eb1bb" target="_blank"><img src="https://api.accredible.com/v1/frontend/credential_website_embed_image/badge/108571753"></a>
+
 # __보유기술__
 
 * * *
