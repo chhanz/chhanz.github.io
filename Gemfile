@@ -35,8 +35,8 @@ gem "wdm", "~> 0.1.0" if Gem.win_platform?
 gem "kramdown", ">= 2.3.1"
 
 # Security patch : CVE-2021-28965 (2021/05/03)
-# PR #138 - 2024/07/16
-gem "rexml", ">= 3.3.2"
+# PR #138 - 2024/07/16, PR #141 - 2024/08/23
+gem "rexml", ">= 3.3.6"
 
 # Upgrade Ruby v3
 gem "webrick"
