@@ -38,5 +38,5 @@ gem "kramdown", ">= 2.3.1"
 # PR #138 - 2024/07/16, PR #141 - 2024/08/23
 gem "rexml", ">= 3.3.6"
 
-# Upgrade Ruby v3
-gem "webrick"
+# Upgrade Ruby v3, for CVE-2024-47220
+gem "webrick", ">= 1.8.2"
