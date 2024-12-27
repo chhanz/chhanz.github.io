@@ -36,7 +36,8 @@ gem "kramdown", ">= 2.3.1"
 
 # Security patch : CVE-2021-28965 (2021/05/03)
 # PR #138 - 2024/07/16, PR #141 - 2024/08/23
-gem "rexml", ">= 3.3.6"
+# Dependabot #13 - CVE-2024-497619
+gem "rexml", ">= 3.3.9"
 
 # Upgrade Ruby v3, for CVE-2024-47220
 gem "webrick", ">= 1.8.2"
