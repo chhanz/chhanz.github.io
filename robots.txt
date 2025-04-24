@@ -1,6 +1,9 @@
 User-agent: GPTBot
 Disallow: /
+
 User-agent: *
 Allow: /
 Disallow: /assets/
-Sitemap: https://tech.chhanz.xyz/sitemap.xml
+
+Sitemap: https://tech.chhanz.xyz/sitemap1.xml
+Sitemap: https://chhanz.github.io/sitemap.xml
