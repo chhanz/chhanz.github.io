@@ -69,6 +69,8 @@ Cloud Engineer
 
 <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="f6a9acd3-65f3-4d39-9a07-a490f663bb17" data-share-badge-host="https://www.credly.com"></div><script type="text/javascript" async src="//cdn.credly.com/assets/utilities/embed.js"></script>
    
+<div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="98cac0d9-65bf-4d7c-bfe3-d87f2d0f8bf2" data-share-badge-host="https://www.credly.com"></div><script type="text/javascript" async src="//cdn.credly.com/assets/utilities/embed.js"></script>
+   
 <a href="https://badges.suse.com/embed/456327eb-c841-4847-bbb5-7fa5828eb1bb" target="_blank"><img src="https://api.accredible.com/v1/frontend/credential_website_embed_image/badge/108571753"></a>
    
 # __보유기술__
@@ -86,11 +88,13 @@ Cloud Engineer
 * Red Hat OpenShift Container Platform 3.5, Red Hat OpenShift Container Platform 4.5    
 * Red Hat Ceph Storage 3.0   
 * Red Hat Certified Specialist in Containers and Kubernetes   
+* Red Hat Certified Specialist in OpenShift Virtualization   
 <a href="https://www.redhat.com/rhtapps/services/verify/?certId=160-204-038">@ Go to Red Hat Certification Central </a>
    
 ## Amazon Web Services   
 > * AWS Certified Cloud Practitioner   
 * AWS Certified Solutions Architect – Associate   
+* AWS Certified Solutions Architect – Professional   
    
 ## Opensource 
 >* CentOS 
