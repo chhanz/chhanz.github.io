@@ -200,18 +200,22 @@ for small screen(<720px):
     padding: 0;
     border-bottom: 1px solid #e6e6e6;
     background-color: #fff;
+    height: 80px;
 }
 
 #logo {
     position: absolute;
-    top: 0;
+    top: 10px;
     left: 30px;
     width: 60px;
     height: 60px;
     margin: 0 0;
     padding: 0;
     background: url(../images/pc/default_blog_logo.png) no-repeat center;
-    background-size: 40px 40px;
+    background-size: 36px 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #menu {
@@ -231,7 +235,7 @@ for small screen(<720px):
     border-bottom: 1px solid #e6e6e6;
     color: #505050;
     font-size: 15px;
-    line-height: 59px; /* 59px = 60(height) - 1(border) */
+    line-height: 79px; /* 79px = 80(height) - 1(border) */
 }
 
 #menu > li > a {
@@ -253,19 +257,22 @@ for small screen(<720px):
 #search {
     position: absolute;
     z-index: 99;
-    top: 0;
+    top: 10px;
     right: 30px;
     height: 60px;
     margin: 0;
     padding: 0;
     line-height: 60px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 #search > input {
     margin: 0;
     width: 115px; /* 115px = 160(width) - 15(padding-left) - 30(padding-right) */
-    height: 33px;
-    border-radius: 17px;
+    height: 40px;
+    border-radius: 20px;
     border: 1px solid #e6e6e6;
     padding: 0 30px 0 15px; /* 30px(right-padding) = 15(right-padding) + 10(icon-width) + 5(@@iolo) */
     font-size: 14px;
@@ -358,10 +365,11 @@ for small screen(<720px):
 #links {
     float: right;
     text-align: right;
+    margin-bottom: 15px;
 }
 
 #footer-menu, #copyright {
-    text-align: left;
+    text-align: right;
 }
 
 #footer-menu > *, #links > * {
@@ -410,6 +418,7 @@ for small screen(<720px):
 
 #copyright {
     padding-top: 10px;
+    font-size: 15px;
 }
 
 /* cover */
@@ -679,11 +688,11 @@ a.tag:hover {
 #pagination > li {
     list-style: none;
     display: inline-block;
-    height: 30px;
+    height: 26px;
     width: 20px;
     color: #1e1e1e;
-    font-size: 25px;
-    line-height: 34px;
+    font-size: 17px;
+    line-height: 26px;
     vertical-align: middle;
 }
 

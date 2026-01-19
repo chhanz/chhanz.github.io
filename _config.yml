@@ -1,6 +1,4 @@
-title: |
-  chhanz 
-  기술 블로그
+title: chhanz's Tech Blog
 email: han0495@gmail.com
 description: |
   소소하게 기술 자료 공유하고 있습니다.
@@ -26,6 +24,15 @@ krandown:
 plugins:
   - jekyll-paginate
   - jekyll-sitemap
+
+# Performance optimization
+compress_html:
+  clippings: all
+  comments: all
+  endings: all
+  startings: []
+  blanklines: false
+  profile: false
 
 paginate: 10
 paginate_path: '/page/:num/'
