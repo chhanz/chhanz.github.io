@@ -10,16 +10,21 @@
     <!--form id="search"-->
     <div id="search">
         <!--input id="searchQueryEdit" name="q" type="search" placeholder="Search..." value="" /-->
+        <div id="dark-mode-toggle" class="dark-mode-switch">
+            <input type="checkbox" id="dark-mode-checkbox" />
+            <label for="dark-mode-checkbox" class="toggle-label">
+                <span class="toggle-slider"></span>
+            </label>
+        </div>
         <input id="search-input" type="search" placeholder="Search..." value="" />
     </div>
     <ul class="search__results" id="results-container"></ul>
     <!--/form-->
 
     <ul id="menu" class="nav">
-        <li class="{% if page.url != '/about/' and page.url != '/books/' %} active {% endif %}"><a href="{{ base_path }}/">Blog</a></li>
+        <li class="{% if page.url == '/' or page.url contains '/page/' %} active {% endif %}"><a href="{{ base_path }}/">Blog</a></li>
         <li class="{% if page.url == '/about/' %} active {% endif %}"><a href="{{ base_path }}/about/">About</a></li>
         <li class="{% if page.url == '/Links/' %} active {% endif %}"><a href="{{ base_path }}/Links/">Links</a></li>
-        <li class="{% if page.url == '/tags/' %} active {% endif %}"><a href="{{ base_path }}/tags/">Tags</a></li>
     </ul>
 
 <!--Search Script -->

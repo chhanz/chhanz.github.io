@@ -24,6 +24,22 @@ layout: default
 
 <div id="content" class="container post" role="main">
     <div id="post-content">{{ content }}</div>
+    <div id="post-footer">
+        {% assign author = site.authors | where: 'name', page.author | first %}
+        <a id="post-author" href="{{ author.url }}">
+            <div id="author-image" style="background-image:url({{ author.image | default: '' }});">
+                <span class="sr-only">{{ author.name }}'s profile image</span>
+            </div>
+            <p id="author-name">{{ author.name }}</p>
+        </a>
+        <p id="post-date">
+            {{ page.date | date: '%Y-%m-%d' }}{% if page.modified %} / {{ page.modified }}{% endif%}
+            {% include reading-time.html %}
+        </p>
+        <a id="post-more" href="{{ author.url }}">
+            <span>Read more posts by this author</span>
+        </a>
+    </div>
     <div id="post-comment">
         <script src="https://utteranc.es/client.js"
                 repo="chhanz/chhanz.github.io"
@@ -34,19 +50,7 @@ layout: default
                 async>
         </script>
     </div>
-    <div id="post-footer">
-        {% assign author = site.authors | where: 'name', page.author | first %}
-        <a id="post-author" href="{{ author.url }}">
-            <div id="author-image" style="background-image:url({{ author.image | default: '' }});">
-                <span class="sr-only">{{ author.name }}'s profile image</span>
-            </div>
-            <p id="author-name">{{ author.name }}</p>
-        </a>
-        <p id="post-date">{{ page.date | date: '%Y-%m-%d' }}{% if page.modified %} / {{ page.modified }}{% endif%}</p>
-        <a id="post-more" href="{{ author.url }}">
-            <span>Read more posts by this author</span>
-        </a>
-    </div>
+    {% include related-posts.html %}
 </div>
 
 <div id="post-links" class="container">

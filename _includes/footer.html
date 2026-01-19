@@ -1,34 +1,26 @@
 <div id="footer" class="container-fluid">
+    <p id="copyright">
+        Copyright © 2026 <a href="https://github.com/chhanz" target="_blank" rel="noopener noreferrer">Cheolhee Han</a>. All rights reserved.
+    </p>
     <ul id="links">
         {% if site.github %}
         <li>
-            <a id="link-github" href="http://github.com/{{ site.github.username }}" target="_blank">
-                <span class="sr-only">github</span>
-            </a>
-        </li>
-        {% endif %}
-        {% if site.facebook %}
-        <li>
-            <a id="link-facebook" href="http://facebook.com/{{ site.facebook.username }}" target="_blank">
-                <span class="sr-only">facebook</span>
+            <a href="http://github.com/{{ site.github.username }}" target="_blank" rel="noopener noreferrer">
+                <img src="https://img.shields.io/badge/GitHub-{{ site.github.username }}-181717?style=flat-square&logo=github&logoColor=white" alt="GitHub">
             </a>
         </li>
         {% endif %}
         {% if site.linkedin%}
         <li>
-            <a id="link-linkedin" href="http://www.linkedin.com/in/{{ site.linkedin.username }}" target="_blank">
-                <span class="sr-only">linkedin</span>
+            <a href="http://www.linkedin.com/in/{{ site.linkedin.username }}" target="_blank" rel="noopener noreferrer">
+                <img src="https://img.shields.io/badge/LinkedIn-{{ site.linkedin.username }}-0A66C2?style=flat-square&logo=linkedin&logoColor=white" alt="LinkedIn">
             </a>
         </li>
         {% endif %}
         <li>
-            <a id="link-rss" href="/rss" target="_blank">
-                <span class="sr-only">rss</span>
+            <a href="/rss" target="_blank">
+                <img src="https://img.shields.io/badge/RSS-Feed-FFA500?style=flat-square&logo=rss&logoColor=white" alt="RSS">
             </a>
         </li>
     </ul>
-    <p id="copyright">
-        <a href="https://github.com/chhanz">&copy;2025 chhanz.github.io.</a>
-        All rights reserved.
-    </p>
 </div><!--#footer-->
