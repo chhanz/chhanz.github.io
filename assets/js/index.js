@@ -20,7 +20,7 @@
             if ($('#menu').is(':visible')) {
                 $('#menu').hide();
             } else {
-                $('#search').hide();
+                $('#search').removeClass('active').hide();
                 $('#menu').show();
             }
         });
@@ -28,11 +28,11 @@
         $('#search-toggle').click(function (e) {
             e.stopPropagation();
             e.preventDefault();
-            if ($('#search').is(':visible')) {
-                $('#search').hide();
+            if ($('#search').hasClass('active')) {
+                $('#search').removeClass('active');
             } else {
                 $('#menu').hide();
-                $('#search').show();
+                $('#search').addClass('active');
             }
         });
 
@@ -41,6 +41,20 @@
             var q = $('#searchQueryEdit').val();
             var url = 'https://www.google.co.kr/#q=' + encodeURIComponent(q) + '+site:chhanz.github.io';
             window.open(url, '', '_blank');
+        });
+
+        // Reset mobile menu/search state on window resize
+        var resizeTimer;
+        $(window).resize(function() {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(function() {
+                var windowWidth = $(window).width();
+                if (windowWidth > 600) {
+                    // Desktop mode: ensure menu is visible and search is in normal state
+                    $('#menu').removeAttr('style');
+                    $('#search').removeClass('active').removeAttr('style');
+                }
+            }, 250);
         });
 
         $(window).scroll(function () {
