@@ -244,9 +244,23 @@ a.tag {
         background: var(--bg-primary);
     }
     
+    body.dark-mode #menu > li {
+        color: #ffffff;
+    }
+    
+    body.dark-mode #menu > li > a {
+        color: #ffffff;
+    }
+    
     body.dark-mode #menu > li.active,
     body.dark-mode #menu > li:hover {
         background-color: var(--bg-secondary);
+        color: #6eb5ff;
+    }
+    
+    body.dark-mode #menu > li.active > a,
+    body.dark-mode #menu > li:hover > a {
+        color: #6eb5ff;
     }
 }
 
