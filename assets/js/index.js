@@ -39,7 +39,7 @@
         $('#search').submit(function (e) {
             e.preventDefault();
             var q = $('#searchQueryEdit').val();
-            var url = 'https://www.google.co.kr/#q=' + encodeURIComponent(q) + '+site:chhanz.github.io';
+            var url = 'https://www.google.co.kr/#q=' + encodeURIComponent(q) + '+site:tech.chhanz.xyz';
             window.open(url, '', '_blank');
         });
 
