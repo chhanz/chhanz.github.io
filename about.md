@@ -19,7 +19,7 @@ image: /assets/images/about_cover2.jpg
     <!-- Certifications Section -->
     <div style="display: flex; flex-direction: column; gap: 10px; align-items: flex-start;">
         <b><a href="https://www.redhat.com/rhtapps/services/verify/?certId=160-204-038" style="text-decoration: none;">
-            <img src="https://img.shields.io/badge/Red_Hat-CERTIFIED_ARCHITECT_IN_INFRASTRUCTURE-EE0000?style=flat-square&logo=redhat&logoColor=white" alt="Red Hat Certified">
+            <img src="https://img.shields.io/badge/Red_Hat-RHCA:_RED_HAT_CERTIFIED_ARCHITECT_IN_INFRASTRUCTURE-EE0000?style=flat-square&logo=redhat&logoColor=white" alt="Red Hat Certified">
         </a></b>
         <b><a href="https://www.credly.com/badges/cfe1dfa3-8d06-4a87-aa96-6f72140a1ec0" style="text-decoration: none;">
             <img src="https://img.shields.io/badge/Kubernetes-CKA:_Certified_Kubernetes_Administrator-326CE5?style=flat-square&logo=kubernetes&logoColor=white" alt="CKA">
