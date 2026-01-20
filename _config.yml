@@ -25,15 +25,6 @@ plugins:
   - jekyll-paginate
   - jekyll-sitemap
 
-# Sitemap configuration
-# jekyll-sitemap will automatically generate sitemap.xml
-# Exclude unnecessary files from sitemap
-defaults:
-  - scope:
-      path: "assets/**/*"
-    values:
-      sitemap: false
-
 # Performance optimization
 compress_html:
   clippings: all
