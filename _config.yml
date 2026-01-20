@@ -4,8 +4,7 @@ description: |
   소소하게 기술 자료 공유하고 있습니다.
   
 baseurl: ''
-url: https://chhanz.github.io
-cname: https://tech.chhanz.xyz
+url: https://tech.chhanz.xyz
 timezone: Asia/Seoul
 facebook_comment: true
 
@@ -24,15 +23,6 @@ krandown:
 plugins:
   - jekyll-paginate
   - jekyll-sitemap
-
-# Sitemap configuration
-# jekyll-sitemap will automatically generate sitemap.xml
-# Exclude unnecessary files from sitemap
-defaults:
-  - scope:
-      path: "assets/**/*"
-    values:
-      sitemap: false
 
 # Performance optimization
 compress_html:
@@ -54,7 +44,13 @@ collections:
     output: true
     permalink: /tags/:path/
 
+# Sitemap configuration
+# jekyll-sitemap will automatically generate sitemap.xml
 defaults:
+  - scope:
+      path: "assets/**/*"
+    values:
+      sitemap: false
   - scope:
       path: ''
       type: authors
