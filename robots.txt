@@ -1,0 +1,8 @@
+User-agent: GPTBot
+Disallow: /
+
+User-agent: *
+Allow: /
+Disallow: /assets/
+
+Sitemap: https://tech.chhanz.xyz/sitemap.xml

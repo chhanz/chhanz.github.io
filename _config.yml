@@ -1,0 +1,87 @@
+title: chhanz's Tech Blog
+email: han0495@gmail.com
+description: |
+  소소하게 기술 자료 공유하고 있습니다.
+  
+baseurl: ''
+url: https://tech.chhanz.xyz
+timezone: Asia/Seoul
+facebook_comment: true
+
+repository: chhanz/chhanz.github.io
+
+permalink: /:categories/:year/:month/:day/:title/
+
+excerpt_separator: <!--more-->
+
+markdown: kramdown
+
+krandown:
+  input: GFM
+  highlighter: rouge
+
+plugins:
+  - jekyll-paginate
+  - jekyll-sitemap
+
+# Performance optimization
+compress_html:
+  clippings: all
+  comments: all
+  endings: all
+  startings: []
+  blanklines: false
+  profile: false
+
+paginate: 10
+paginate_path: '/page/:num/'
+
+collections:
+  authors:
+    output: true
+    permalink: /authors/:path/
+  tags:
+    output: true
+    permalink: /tags/:path/
+
+# Sitemap configuration
+# jekyll-sitemap will automatically generate sitemap.xml
+defaults:
+  - scope:
+      path: "assets/**/*"
+    values:
+      sitemap: false
+  - scope:
+      path: ''
+      type: authors
+    values:
+      layout: author
+  - scope:
+      path: ''
+      type: tags
+    values:
+      layout: tag
+
+exclude: [README.md, Gemfile, Gemfile.lock]
+
+keep_files: [assets, files]
+
+author: chhanz
+image: '/assets/images/default_cover.jpg'
+asset_url: /assets
+
+google_analytics:
+#  ua: UA-130421804-1
+  ua: G-V74WNV4W31
+#facebook:
+#  app_id: ''
+#  username: 
+#  comment: true
+#twitter:
+#  username:
+#google_plus:
+#  username:
+github:
+  username: chhanz
+linkedin:
+  username: chhanz

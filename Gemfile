@@ -1,0 +1,44 @@
+source "https://rubygems.org"
+
+# Hello! This is where you manage which Jekyll version is used to run.
+# When you want to use a different version, change it below, save the
+# file and run `bundle install`. Run Jekyll with `bundle exec`, like so:
+#
+#     bundle exec jekyll serve
+#
+# This will help ensure the proper Jekyll version is running.
+# Happy Jekylling!
+gem "jekyll", "~> 4.2.2"
+gem "jekyll-paginate"
+gem "jekyll-sitemap"
+
+# This is the default theme for new Jekyll sites. You may change this to anything you like.
+gem "minima", "~> 2.0"
+
+# If you want to use GitHub Pages, remove the "gem "jekyll"" above and
+# uncomment the line below. To upgrade, run `bundle update github-pages`.
+# gem "github-pages", group: :jekyll_plugins
+
+# If you have any plugins, put them here!
+group :jekyll_plugins do
+  gem "jekyll-feed", "~> 0.6"
+end
+
+# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+# Performance-booster for watching directories on Windows
+gem "wdm", "~> 0.1.0" if Gem.win_platform?
+
+# Security patch : CVE-2020-14001 
+# Security patch : CVE-2021-28834 (2021/03/30)
+gem "kramdown", ">= 2.3.1"
+
+# Security patch : CVE-2021-28965 (2021/05/03)
+# PR #138 - 2024/07/16, PR #141 - 2024/08/23
+# Dependabot #13 - CVE-2024-497619
+# Dependabot #14 - CVE-2025-58767
+gem "rexml", ">= 3.4.2"
+
+# Upgrade Ruby v3, for CVE-2024-47220
+gem "webrick", ">= 1.8.2"

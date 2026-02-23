@@ -1,0 +1,30 @@
+---
+layout: default
+---
+<div id="navbar" class="container">
+    <h5><a id="link-back" href="/">Main</a></h5>
+    {% include share.html %}
+</div>
+
+<div id="cover" class="container" style="background-image: url('/assets/images/author_cover.jpg');">
+    <div>
+        <div id="cover-author-image" style="width:0px; height: 0px;">
+            <span class="sr-only"></span>
+        </div>
+        <h1>{{ page.title | default: page.name }}</h1>
+        <p style="margin:0px; text-align: center; width: 100%; max-width: 100%;">All Posts by <em>{{ page.name }}</em></p>
+    </div>
+</div>
+
+<div id="content" class="container">
+    <div id="author-content" role="main">
+        <ul id="post-list">
+            {% for post in site.posts %}
+                {% if post.author == page.name %}
+                    {% include item.html %}
+                {% endif %}
+            {% endfor %}
+        </ul>
+        {% include pagination.html %}
+    </div>
+</div>
