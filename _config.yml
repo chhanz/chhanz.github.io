@@ -16,9 +16,9 @@ excerpt_separator: <!--more-->
 
 markdown: kramdown
 
-krandown:
+kramdown:
   input: GFM
-  highlighter: rouge
+  syntax_highlighter: null
 
 plugins:
   - jekyll-paginate
