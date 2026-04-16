@@ -9,7 +9,7 @@
 }
 
 body {
-    font-family: 'Noto Sans KR', 'NanumBarunGothic', sans-serif;
+    font-family: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
     font-weight: 300; /* @@iolo 200 -> 300, 200 for retina only! */
     color: #505050;
     background-color: #fff;
@@ -28,7 +28,7 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: 'Noto Sans KR', 'NanumBarunGothic', sans-serif;
+    font-family: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
     font-weight: 400;
     color: #1e1e1e;
 }
@@ -37,7 +37,7 @@ pre,
 code,
 tt,
 kbd {
-    font-family: Consolas, Monaco, 'Liberation Mono', 'Noto Sans KR', 'NanumBarunGothic', monospace;
+    font-family: Consolas, Monaco, 'Liberation Mono', 'Pretendard Variable', 'Pretendard', monospace;
     font-weight: 300;
 }
 
@@ -572,7 +572,7 @@ for small screen(<720px):
 #cover,
 #navbar,
 #footer {
-    font-family: 'Noto Sans KR', 'NanumBarunGothic', sans-serif;
+    font-family: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
 }
 
 /* list(loop) */
@@ -917,7 +917,7 @@ body.tag-template #navbar {
     padding: 28px;
     border-left: 3px solid #e5e5e5;
     font-style: italic;
-    font-family: 'Noto Sans KR', 'NanumBarunGothic', sans-serif;
+    font-family: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
 }
 
 #post-content blockquote > *:first-child {
