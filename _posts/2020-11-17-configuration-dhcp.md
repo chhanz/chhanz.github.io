@@ -5,7 +5,7 @@ description: " "
 author: chhanz
 date: 2020-11-17
 tags: [linux]
-category: linux, dhcp
+categories: [linux, dhcp]
 ---
    
 # DHCP 란?

@@ -1,6 +1,19 @@
 ---
 layout: default
 ---
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": {{ site.title | jsonify }},
+  "url": "{{ site.url }}",
+  "description": {{ site.description | strip_html | strip_newlines | jsonify }},
+  "author": {
+    "@type": "Person",
+    "name": {{ site.author | jsonify }}
+  }
+}
+</script>
 <div id="cover" class="container"
     {% if site.image %}style="background-image:url({{ site.image }});"{% endif %}>
     <div>

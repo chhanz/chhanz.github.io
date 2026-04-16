@@ -1,6 +1,40 @@
 ---
 layout: default
 ---
+{% assign author = site.authors | where: 'name', page.author | first %}
+{% assign post_image = page.image | default: site.image %}
+{% unless post_image contains '://' %}{% assign post_image = post_image | prepend: site.url %}{% endunless %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "description": {{ page.excerpt | strip_html | truncatewords: 75 | jsonify }},
+  "image": {{ post_image | jsonify }},
+  "datePublished": "{{ page.date | date_to_xmlschema }}",
+  {% if page.modified %}"dateModified": "{{ page.modified }}",{% endif %}
+  "author": {
+    "@type": "Person",
+    "name": {{ page.author | default: site.author | jsonify }},
+    "url": "{{ site.url }}{{ author.url }}"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": {{ site.title | jsonify }},
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ site.url }}/assets/favicon.png"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ site.url }}{{ page.url }}"
+  }
+  {% if page.tags %},
+  "keywords": {{ page.tags | jsonify }}
+  {% endif %}
+}
+</script>
 <div id="fb-root"></div>
 <div id="navbar" class="container">
     <h5><a id="link-back" href="/">Back to Posts</a></h5>
