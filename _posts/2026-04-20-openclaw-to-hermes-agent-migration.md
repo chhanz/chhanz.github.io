@@ -8,6 +8,8 @@ tags: [ai, devops]
 categories: [ai]
 ---
 
+![Hermes Agent](/assets/images/post/2026-04-20-openclaw-to-hermes-agent-migration/1.png)
+
 ## Hermes Agent 란?
 
 [Hermes Agent](https://github.com/nousresearch/hermes-agent)는 [Nous Research](https://nousresearch.com/)에서 MIT 라이선스로 공개한 AI 에이전트 프레임워크입니다.
