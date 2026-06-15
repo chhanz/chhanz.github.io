@@ -3,8 +3,7 @@ layout: page
 title: Links
 permalink: /Links/
 image: /assets/images/link_page.jpg
-sitemap:
-  priority: 0.7
+sitemap: false
 ---
 
 # Recommend Links
