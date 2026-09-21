@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /assets/images/
 
-Sitemap: https://tech.chhanz.xyz/sitemap.xml
+Sitemap: https://tech.chhanz.xyz/sitemap-chhanz.xml
