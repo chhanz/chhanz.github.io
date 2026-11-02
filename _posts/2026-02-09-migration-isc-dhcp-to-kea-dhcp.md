@@ -578,4 +578,4 @@ kea-dhcp4
 - Kea DHCP 공식 문서: [https://kea.readthedocs.io/](https://kea.readthedocs.io/)   
 - Kea Docker 이미지: [https://cloudsmith.io/~isc/repos/docker/packages/](https://cloudsmith.io/~isc/repos/docker/packages/)   
 - KeaMA 매뉴얼: [https://kb.isc.org/docs/kea-migration-assistant](https://kb.isc.org/docs/kea-migration-assistant)   
-- 이전 포스팅 - DHCP 서버 구성: [https://tech.chhanz.xyz/linux/2020/11/17/configuration-dhcp/](https://tech.chhanz.xyz/linux/2020/11/17/configuration-dhcp/)   
+- 이전 포스팅 - DHCP 서버 구성: [https://tech.chhanz.xyz/linux/dhcp/2020/11/17/configuration-dhcp/](https://tech.chhanz.xyz/linux/dhcp/2020/11/17/configuration-dhcp/)   

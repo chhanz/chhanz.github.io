@@ -1,0 +1,22 @@
+---
+layout: null
+sitemap: false
+permalink: /llms.txt
+---
+# {{ site.title }}
+
+> {{ site.description | strip_html | normalize_whitespace }} {{ site.owner.name }}({{ site.owner.alternate_name }}, {{ site.owner.job_title }})가 Linux, AWS, Kubernetes, OpenShift 등 인프라/클라우드 실무 경험을 정리한 한국어 기술 블로그입니다.
+
+- 작성자 소개: {{ site.url }}{{ site.owner.url }}
+- 전체 글 목록(Sitemap): {{ site.url }}/sitemap.xml
+- RSS: {{ site.url }}/rss/
+- 언어: 한국어(ko-KR)
+
+{% assign groups = site.posts | group_by_exp: 'p', 'p.categories | first | default: p.category | default: "etc" | downcase' | sort: 'size' | reverse %}
+{%- for g in groups %}
+## {{ g.name }}
+
+{% for post in g.items -%}
+- [{{ post.title | strip_html }}]({{ site.url }}{{ post.url }}): {{ post.date | date: '%Y-%m-%d' }}{% assign d = post.summary | first | default: post.description | strip_html | strip %}{% if d != '' %} - {{ d | normalize_whitespace }}{% endif %}
+{% endfor %}
+{% endfor %}

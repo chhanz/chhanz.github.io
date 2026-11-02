@@ -1,0 +1,17 @@
+{%- comment -%}
+  AEO: "결론 먼저" 요약 블록. front matter 의 summary(목록) / tested_on(문자열) 이 있을 때만 출력.
+  화면에 보이는 텍스트여야 구조화 데이터(abstract)와 일치한다.
+{%- endcomment -%}
+{%- if page.summary.size > 0 -%}
+<section class="post-tldr" aria-labelledby="post-tldr-title">
+    <p id="post-tldr-title" class="post-tldr-title">요약</p>
+    <ul>
+        {%- for line in page.summary %}
+        <li>{{ line | markdownify | remove: '<p>' | remove: '</p>' | strip }}</li>
+        {%- endfor %}
+    </ul>
+    {%- if page.tested_on %}
+    <p class="post-tldr-env"><strong>테스트 환경</strong> {{ page.tested_on }}</p>
+    {%- endif %}
+</section>
+{%- endif -%}

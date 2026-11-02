@@ -19,8 +19,8 @@
 {% endfor %}
 
 {% if relatedPosts.size > 0 %}
-<div class="related-posts">
-    <h3>🔗 관련 포스트</h3>
+<aside class="related-posts" aria-label="관련 포스트">
+    <h2>🔗 관련 포스트</h2>
     <ul>
     {% for post in relatedPosts limit: maxRelated %}
         <li>
@@ -29,5 +29,5 @@
         </li>
     {% endfor %}
     </ul>
-</div>
+</aside>
 {% endif %}

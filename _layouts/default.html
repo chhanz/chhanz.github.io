@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html lang="{{ site.lang | default: 'ko-KR' }}">
 <head>
     {% include head.html %}
-    {% if site.google_analytics %}
+    {% if site.google_analytics and jekyll.environment == 'production' %}
     {% include google_analytics.html %}
     {% include google_ad.html %}
     {% endif %}
 </head>
 <body class="{{ page.layout | append: '-template' }}">
+<script>if(localStorage.getItem('darkMode')==='true'){document.body.classList.add('dark-mode');}</script>
+<a href="#content" class="skip-to-main">본문으로 건너뛰기</a>
 
 {% include header.html %}
 
@@ -16,31 +18,31 @@
 
     <div class="clearfix"></div>
 
-    <a href="#" id="back-to-top"></a>
+    <a href="#" id="back-to-top" aria-label="맨 위로"></a>
 </div>
 
 {% include footer.html %}
 
-<script src="{{ site.asset_url }}/lib/jquery-1.12.0.min.js"></script>
-<script src="{{ site.asset_url }}/lib/jquery.magnific-popup.min.js"></script>
-<script src="{{ site.asset_url }}/js/index.js"></script>
-<script src="{{ site.asset_url }}/js/dark-mode.js"></script>
-<script src="{{ site.asset_url }}/js/enhancements.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
-<script>hljs.highlightAll();</script>
+<script src="{{ site.asset_url }}/lib/jquery-1.12.0.min.js" defer></script>
+{% if page.layout == 'post' or page.layout == 'page' %}
+<script src="{{ site.asset_url }}/lib/jquery.magnific-popup.min.js" defer></script>
+{% endif %}
+<script src="{{ site.asset_url }}/js/index.js" defer></script>
+<script src="{{ site.asset_url }}/js/dark-mode.js" defer></script>
+<script src="{{ site.asset_url }}/js/enhancements.js" defer></script>
+<script src="{{ site.asset_url }}/js/search.js" defer></script>
+{% if page.layout == 'post' or page.layout == 'page' %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded',function(){if(window.hljs){hljs.highlightAll();}});</script>
+{% endif %}
 
 {% if page.layout != 'home' %}
-
     {% if site.facebook %}
     {% include facebook_sdk.html %}
     {% endif %}
 
     {% if site.twitter %}
     {% include twitter_sdk.html %}
-    {% endif %}
-
-    {% if site.google_plus %}
-    {% include google_plus_sdk.html %}
     {% endif %}
 {% endif %}
 </body>

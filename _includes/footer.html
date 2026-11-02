@@ -1,26 +1,26 @@
-<div id="footer" class="container-fluid">
+<footer id="footer" class="container-fluid">
     <p id="copyright">
-        Copyright © 2026 <a href="https://github.com/chhanz" target="_blank" rel="noopener noreferrer">Cheolhee Han</a>. All rights reserved.
+        Copyright © {{ site.time | date: "%Y" }} <a href="https://github.com/chhanz" target="_blank" rel="noopener noreferrer">Cheolhee Han</a>. All rights reserved.
     </p>
     <ul id="links">
         {% if site.github %}
         <li>
-            <a href="http://github.com/{{ site.github.username }}" target="_blank" rel="noopener noreferrer">
-                <img src="https://img.shields.io/badge/GitHub-{{ site.github.username }}-181717?style=flat-square&logo=github&logoColor=white" alt="GitHub">
+            <a href="https://github.com/{{ site.github.username }}" target="_blank" rel="noopener noreferrer">
+                <img src="https://img.shields.io/badge/GitHub-{{ site.github.username }}-181717?style=flat-square&logo=github&logoColor=white" alt="GitHub" width="113" height="20" loading="lazy">
             </a>
         </li>
         {% endif %}
         {% if site.linkedin%}
         <li>
-            <a href="http://www.linkedin.com/in/{{ site.linkedin.username }}" target="_blank" rel="noopener noreferrer">
-                <img src="https://img.shields.io/badge/LinkedIn-{{ site.linkedin.username }}-0A66C2?style=flat-square&logo=linkedin&logoColor=white" alt="LinkedIn">
+            <a href="https://www.linkedin.com/in/{{ site.linkedin.username }}" target="_blank" rel="noopener noreferrer">
+                <img src="https://img.shields.io/badge/LinkedIn-{{ site.linkedin.username }}-0A66C2?style=flat-square&logo=linkedin&logoColor=white" alt="LinkedIn" width="106" height="20" loading="lazy">
             </a>
         </li>
         {% endif %}
         <li>
-            <a href="/rss" target="_blank">
-                <img src="https://img.shields.io/badge/RSS-Feed-FFA500?style=flat-square&logo=rss&logoColor=white" alt="RSS">
+            <a href="/rss/" target="_blank" rel="noopener">
+                <img src="https://img.shields.io/badge/RSS-Feed-FFA500?style=flat-square&logo=rss&logoColor=white" alt="RSS" width="87" height="20" loading="lazy">
             </a>
         </li>
     </ul>
-</div><!--#footer-->
+</footer><!--#footer-->

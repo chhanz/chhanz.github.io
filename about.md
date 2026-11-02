@@ -2,7 +2,7 @@
 layout: page
 title: About chhanz
 permalink: /about/
-image: /assets/images/about_cover2.jpg
+image: /assets/images/about_cover2.webp
 ---
 <center>
 <br>
