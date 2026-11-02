@@ -1,0 +1,26 @@
+# AEO data for _posts/2019-06-07-install-okd-all-in-one.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "CentOS 7.6에서 openshift-ansible로 Openshift Origin v3.11 All-in-one 클러스터를 설치하고 S2I로 Sample APP을 배포하는 과정을 정리합니다."
+keywords:
+- "Openshift Origin v3.11"
+- "OKD"
+- "openshift-ansible"
+- "All-in-one Inventory"
+- "prerequisites.yml"
+- "deploy_cluster.yml"
+- "htpasswd"
+- "S2I"
+summary:
+- "openshift-ansible의 `prerequisites.yml`, `deploy_cluster.yml` Playbook으로 All-in-one Openshift Origin v3.11을 배포합니다."
+- "설치 전에 SELinux Enforcing, NetworkManager 활성화, Internal DNS와 wildcard DNS 설정이 필요합니다."
+- "htpasswd로 admin 계정을 만들고 `oc new-app wildfly~<git 주소>`로 S2I 빌드한 Sample APP을 `oc expose`로 Route 연결해 서비스합니다."
+tested_on: "CentOS Linux release 7.6.1810 (Core), Openshift Origin v3.11, Docker v1.13.1"
+faq:
+- q: "Openshift Origin v3.11을 설치하기 전에 필요한 OS 설정은 무엇인가요?"
+  a: "SELinux를 Enforcing으로 두고 NetworkManager를 활성화해야 하며, Firewalld 비활성화와 iptables 활성화는 설치 중 자동으로 설정됩니다. 추가로 Internal DNS 서버와 wildcard DNS 설정이 필요합니다."
+- q: "openshift-ansible로 Openshift 클러스터를 배포하는 순서는 어떻게 되나요?"
+  a: "Inventory를 작성한 뒤 먼저 `ansible-playbook -i inventory/hosts.localhost playbooks/prerequisites.yml`을 실행하고, 이어서 `playbooks/deploy_cluster.yml`을 실행합니다. 배포 후 `oc get all`로 설치 상태를 확인합니다."
+- q: "Openshift에 관리자 로그인 계정은 어떻게 만드나요?"
+  a: "Inventory의 `openshift_master_identity_providers`에 HTPasswdPasswordIdentityProvider를 설정한 뒤 `htpasswd /etc/origin/master/htpasswd admin`으로 사용자를 추가합니다. 이후 `oc login -u admin`으로 로그인합니다."
+- q: "Openshift에서 Git 소스로 앱을 배포하려면 어떻게 하나요?"
+  a: "S2I 기능을 쓰는 `oc new-app wildfly~https://github.com/chhanz/openshift-deploy --name sampleapp`처럼 실행합니다. 이미지가 빌드되어 내부 registry에 Push되고, `oc expose service/sampleapp`으로 Route를 만들면 외부에서 접속할 수 있습니다."

@@ -1,0 +1,24 @@
+# AEO data for _posts/2026-04-09-aws-s3-files.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+keywords:
+- "Amazon S3 Files"
+- "amazon-efs-utils"
+- "mount -t s3files"
+- "NFS v4.2"
+- "AmazonS3FilesClientFullAccess"
+- "마운트 타겟"
+- "S3 Versioning"
+summary:
+- "Amazon S3 Files를 사용하면 S3 버킷을 NFS v4.1/v4.2 파일 시스템으로 마운트해 `ls`, `cp`, `cat` 같은 일반 파일 명령으로 접근할 수 있습니다."
+- "EC2에서 마운트하려면 amazon-efs-utils 3.0.0 이상, 버킷 Versioning, `AmazonS3FilesClientFullAccess` 정책, TCP 2049 보안 그룹 규칙이 필요합니다."
+- "마운트한 디렉터리에서 만든 파일은 60초 배치 윈도우 후 S3 버킷에 자동으로 동기화됩니다."
+tested_on: "Amazon EC2, Amazon Linux 2023, amazon-efs-utils 3.0.1"
+faq:
+- q: "Amazon Linux 2023 기본 amazon-efs-utils로 S3 Files를 마운트할 수 있나요?"
+  a: "아닙니다. 기본 패키지 버전 2.4.2는 S3 Files를 지원하지 않습니다. `curl https://amazon-efs-utils.aws.com/efs-utils-installer.sh | sudo sh -s -- --install`로 3.0.0 이상 버전을 설치해야 합니다."
+- q: "EC2에서 S3 Files 파일 시스템은 어떻게 마운트하나요?"
+  a: "`sudo mount -t s3files fs-xxxxxxxx:/ /root/s3files`처럼 파일 시스템 ID를 지정해 마운트합니다. 마운트 후 `df -hT`에서 `nfs4` 타입으로 표시됩니다."
+- q: "S3 Files 마운트를 위한 보안 그룹은 어떻게 설정하나요?"
+  a: "EC2 보안 그룹에서 마운트 타겟 보안 그룹으로 TCP 2049 Outbound를, 마운트 타겟 보안 그룹에서 EC2 보안 그룹으로부터 TCP 2049 Inbound를 허용합니다."
+- q: "S3 Files에서 쓴 파일은 언제 S3에 반영되나요?"
+  a: "고성능 스토리지에 먼저 기록된 뒤 60초 배치 윈도우 후 S3에 자동 동기화되며, 보통 수 분 이내에 반영됩니다. 60초 안의 연속 쓰기는 단일 S3 PUT으로 통합됩니다."

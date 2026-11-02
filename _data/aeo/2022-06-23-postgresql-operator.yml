@@ -1,0 +1,25 @@
+# AEO data for _posts/2022-06-23-postgresql-operator.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "Helm 으로 CloudNativePG Operator 를 설치해 PostgreSQL Primary/Standby Cluster 를 만들고, rw/ro/any Service, Pod 장애 시 Primary 전환, imageName 변경을 통한 업그레이드를 테스트합니다."
+keywords:
+- "CloudNativePG"
+- "cnpg"
+- "kubectl cnpg"
+- "PostgreSQL Operator"
+- "Streaming Replication"
+- "mycluster-rw"
+- "pg_restore"
+summary:
+- "CloudNativePG 는 Primary/Standby 구조와 Native Streaming Replication 으로 PostgreSQL Cluster 를 만들고 관리하는 Kubernetes Operator 입니다."
+- "Operator 는 `-rw`(Primary), `-ro`(Standby), `-any` Service 를 제공하며, Primary Pod 가 삭제되면 Standby 가 승격되고 `rw` Endpoint 도 바뀝니다."
+- "Cluster CRD 의 `imageName` 만 바꾸면 Standby 부터 순서대로 업그레이드하고 Primary 를 전환한 뒤 마지막 인스턴스를 업그레이드합니다."
+tested_on: "CloudNativePG 1.15.1, PostgreSQL 14.2 (14.3 업그레이드 테스트)"
+faq:
+- q: "CloudNativePG 는 어떻게 설치하나요?"
+  a: "`helm repo add cnpg https://cloudnative-pg.github.io/charts` 후 `helm upgrade --install cnpg --namespace cnpg-system --create-namespace cnpg/cloudnative-pg` 로 설치합니다. `cnpg-1.15.1.yaml` 같은 Manifest 를 `kubectl apply -f` 로 적용하는 방법도 있습니다."
+- q: "CloudNativePG Cluster 의 상세 상태는 어떻게 확인하나요?"
+  a: "`install-cnpg-plugin.sh` 로 kubectl plugin 을 설치한 뒤 `kubectl cnpg status mycluster` 를 실행하면 Primary, 인증서, Streaming Replication, 인스턴스별 역할을 확인할 수 있습니다. 간단한 상태는 `kubectl get cluster` 로도 볼 수 있습니다."
+- q: "Standby 인스턴스에서 CREATE TABLE 이 실패하는 이유는 무엇인가요?"
+  a: "Primary/Standby 구조라 Standby 는 Read 만 가능하기 때문에 `cannot execute CREATE TABLE in a read-only transaction` 오류가 납니다. 쓰기는 Primary 를 가리키는 `mycluster-rw` Service 로 접근해야 합니다."
+- q: "CloudNativePG 에서 PostgreSQL 마이너 버전은 어떻게 업그레이드하나요?"
+  a: "`kubectl edit cluster mycluster` 로 `imageName` 을 `ghcr.io/cloudnative-pg/postgresql:14.3` 처럼 바꾸면 됩니다. Operator 가 Standby 부터 업그레이드하고 Primary 를 업그레이드된 인스턴스로 전환한 뒤 기존 Primary 를 업그레이드합니다."

@@ -1,0 +1,23 @@
+# AEO data for _posts/2022-05-09-ubuntu-apt.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+keywords:
+- "APT Repository"
+- "sources.list"
+- "apt-add-repository"
+- "add-apt-repository"
+- "Repository Component"
+- "Ubuntu 22.04"
+summary:
+- "Ubuntu Repository 는 Main, Universe, Restricted, Multiverse 네 가지 Component 로 구분됩니다."
+- "`/etc/apt/sources.list` 나 `sources.list.d/` 에 `<package version> <mirror url> <release code> <component>` 형식으로 저장소를 추가합니다."
+- "Ubuntu 22.04 의 `apt-add-repository` 는 `-L` 로 목록 확인, `-U` 로 추가, `-c` 로 특정 Component 지정, `-r` 로 제거를 할 수 있습니다."
+tested_on: "Ubuntu 22.04 (jammy)"
+faq:
+- q: "Ubuntu Repository 의 Main, Universe, Restricted, Multiverse 는 어떻게 다른가요?"
+  a: "Main 은 Ubuntu 무료 오픈소스, Universe 는 Linux 커뮤니티의 무료 오픈소스, Restricted 는 Vendor 장치 드라이버와 소프트웨어, Multiverse 는 저작권 등 법적 제한이 있는 소프트웨어입니다."
+- q: "sources.list 의 deb, deb-i386, deb-amd64 는 무엇을 의미하나요?"
+  a: "`deb` 는 현재 OS Bit 와 일치하는 패키지를, `deb-i386` 과 `deb-amd64` 는 각각 32bit 와 64bit 패키지를 뜻합니다."
+- q: "apt-add-repository 로 저장소의 특정 Component 만 추가하거나 제거하려면 어떻게 하나요?"
+  a: "`apt-add-repository -U <URL> -c multiverse` 처럼 `-c` 로 Component 를 지정해 추가하고, `apt-add-repository -r <URL> -c restricted` 로 해당 Component 만 제거합니다."
+- q: "현재 등록된 APT Repository 목록은 어떻게 확인하나요?"
+  a: "Ubuntu 22.04 에서는 `apt-add-repository -L` 로 확인할 수 있습니다."

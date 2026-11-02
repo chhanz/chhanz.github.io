@@ -1,0 +1,24 @@
+# AEO data for _posts/2021-10-22-deploy-osp-wallaby-kolla-ansible.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "python venv 에 kolla-ansible 을 설치하고 globals.yml 과 multinode inventory 를 수정해 OpenStack Wallaby 를 multinode 로 배포하는 절차를 정리합니다."
+keywords:
+- "kolla-ansible"
+- "OpenStack Wallaby"
+- "globals.yml"
+- "multinode inventory"
+- "kolla-genpwd"
+- "admin-openrc.sh"
+summary:
+- "kolla-ansible 은 OpenStack 서비스를 Docker 컨테이너로 배포하는 도구이며, python venv 에 `pip install kolla-ansible` 로 설치합니다."
+- "`globals.yml` 과 `multinode` inventory 를 환경에 맞게 수정한 뒤 bootstrap-servers, prechecks, pull, deploy 순서로 배포합니다."
+- "`kolla-ansible post-deploy` 로 `admin-openrc.sh` 를 만들고, `passwords.yml` 의 admin password 로 Horizon 에 접속합니다."
+tested_on: "OpenStack Wallaby (kolla_base_distro: ubuntu, source 이미지)"
+faq:
+- q: "kolla-ansible 로 OpenStack 을 배포하는 순서는 어떻게 되나요?"
+  a: "`kolla-genpwd` 로 패스워드를 생성한 뒤 `kolla-ansible -i ./multinode` 에 `bootstrap-servers`, `prechecks`, `pull`, `deploy` 를 차례로 실행합니다. 배포 후 `kolla-ansible post-deploy` 로 `admin-openrc.sh` 를 생성합니다."
+- q: "kolla-ansible 의 globals.yml 에서 주로 무엇을 수정하나요?"
+  a: "`kolla_base_distro`, `kolla_install_type`, `openstack_release`, VIP 주소, `docker_registry`, `network_interface`, `neutron_external_interface` 등 배포 환경에 맞는 값을 지정합니다."
+- q: "kolla-ansible 로 배포한 Horizon 의 admin 패스워드는 어디서 확인하나요?"
+  a: "`kolla-genpwd` 로 생성된 `passwords.yml` 파일에서 확인합니다."
+- q: "kolla-ansible 설치 전에 Ansible 은 어떤 버전을 설치하나요?"
+  a: "글에서는 venv 에서 `pip install -U pip` 후 `pip install 'ansible<3.0'` 으로 3.0 미만 버전을 설치했습니다."

@@ -1,0 +1,21 @@
+# AEO data for _posts/2024-12-27-depercation-ami.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "AWS CLI의 describe-images에 --include-deprecated 옵션을 사용해 지원 중단(Deprecated)된 Amazon Linux AMI와 RHEL 7 이전 버전 AMI를 생성일 순으로 조회하는 방법입니다."
+keywords:
+- "Deprecated AMI"
+- "aws ec2 describe-images"
+- "--include-deprecated"
+- "AWS CLI"
+- "RHEL 7 AMI"
+- "Amazon Linux AMI"
+summary:
+- "`aws ec2 describe-images`에 `--include-deprecated` 옵션을 추가하면 지원 중단(Deprecated)된 AMI까지 포함해 조회할 수 있습니다."
+- "`--query 'sort_by(Images, &CreationDate)...'`와 이름 필터를 함께 쓰면 오래된 AMI를 생성일 순으로 정리해 볼 수 있습니다."
+- "RHEL 이전 버전 AMI는 `--owners 309956199498`과 `RHEL-7*` 이름 필터로 찾을 수 있습니다."
+faq:
+- q: "Deprecated 처리된 AMI는 어떻게 조회하나요?"
+  a: "`aws ec2 describe-images`에 `--include-deprecated` 옵션을 추가해 조회합니다. 예를 들어 `--filters \"Name=name,Values=amzn*\"`를 함께 쓰면 지원 중단된 Amazon Linux AMI까지 볼 수 있습니다."
+- q: "AMI 목록을 생성일 순으로 정렬해서 보려면 어떻게 하나요?"
+  a: "`--query 'sort_by(Images, &CreationDate)[*].[CreationDate,Name,ImageId]'`를 지정하고 `--output table`로 출력하면 생성일, 이름, AMI ID가 생성일 순으로 표시됩니다."
+- q: "RHEL 7 이전 버전 AMI를 찾으려면 어떻게 하나요?"
+  a: "`--owners 309956199498`, `--filters \"Name=name,Values=RHEL-7*\"`, `--region`, `--include-deprecated`를 함께 지정해 `aws ec2 describe-images`를 실행합니다."

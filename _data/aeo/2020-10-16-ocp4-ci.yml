@@ -1,0 +1,23 @@
+# AEO data for _posts/2020-10-16-ocp4-ci.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "OpenShift 4.5에서 gogs 저장소의 PHP 소스로 이미지를 빌드·배포하고, Webhook을 연동해 소스 변경 시 자동으로 빌드되는 CI를 구성하는 방법을 소개합니다."
+keywords:
+- "OpenShift 4.5"
+- "Continuous Integration"
+- "gogs"
+- "Webhook"
+- "build config"
+- "Start-Build"
+- "PHP Builder"
+summary:
+- "OpenShift에 gogs 저장소 주소를 입력하고 Builder로 PHP를 선택하면 소스로 이미지를 빌드해 앱을 배포할 수 있습니다."
+- "소스를 수정한 뒤 `Start-Build`를 선택하면 수동으로 새 버전을 빌드하고 배포할 수 있습니다."
+- "build config의 Webhook URL을 gogs 저장소 Webhook에 등록하면 소스 변경 시 OpenShift가 자동으로 빌드를 시작합니다."
+tested_on: "OpenShift 4.5"
+faq:
+- q: "OpenShift에서 Git 소스가 바뀌면 자동으로 빌드하려면 어떻게 하나요?"
+  a: "Build 메뉴의 build config에서 Webhook의 `Copy URL with Secret`을 복사해 Git 저장소 Webhook의 페이로드 URL로 등록하면 됩니다. 이후 소스가 update되면 OpenShift가 이를 감지해 자동으로 build를 시작합니다."
+- q: "gogs Webhook과 OpenShift 연동이 잘 됐는지 어떻게 확인하나요?"
+  a: "gogs에서 만든 Webhook의 페이로드 URL을 선택하고 하단의 전달 시험 기능으로 테스트하면 연동 여부를 확인할 수 있습니다."
+- q: "gogs 대신 GitHub나 GitLab으로도 같은 CI를 구성할 수 있나요?"
+  a: "OpenShift가 외부 도메인으로 노출되어 있으면 GitHub나 GitLab에서도 같은 방법으로 CI를 구성할 수 있습니다."

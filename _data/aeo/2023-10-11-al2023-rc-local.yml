@@ -1,0 +1,22 @@
+# AEO data for _posts/2023-10-11-al2023-rc-local.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "Amazon Linux 2023에서 /etc/rc.d/rc.local 파일 생성, 실행 권한과 SELinux Context 설정으로 rc-local 서비스를 활성화하는 방법을 정리합니다."
+keywords:
+- "Amazon Linux 2023"
+- "rc.local"
+- "/etc/rc.d/rc.local"
+- "rc-local.service"
+- "systemd-rc-local-generator"
+- "initrc_exec_t"
+summary:
+- "Amazon Linux 2023에서는 `/etc/rc.d/rc.local`을 만들고 실행 권한을 주면 `rc-local` 서비스로 부팅 스크립트를 실행할 수 있습니다."
+- "기존 `/etc/rc.local`이 아니라 `/etc/rc.d/rc.local`이 존재하고 실행 가능할 때 systemd-rc-local-generator가 rc-local.service를 부팅 과정에 추가합니다."
+- "SELinux를 사용한다면 `chcon -t initrc_exec_t`로 Context를 추가해야 하며, `systemctl status rc-local`로 실행 결과를 확인합니다."
+tested_on: "Amazon Linux 2023"
+faq:
+- q: "Amazon Linux 2023에서 rc.local 파일은 어느 경로에 만들어야 하나요?"
+  a: "`/etc/rc.d/rc.local`에 만들어야 합니다. `man systemd-rc-local-generator`에 따르면 이 파일이 존재하고 실행 가능할 때 rc-local.service가 부팅 과정에 포함됩니다."
+- q: "rc.local을 만들었는데 실행되지 않으면 무엇을 확인해야 하나요?"
+  a: "`sudo chmod u+x /etc/rc.d/rc.local`로 실행 권한을 줬는지 확인합니다. SELinux를 사용 중이라면 `sudo chcon -t initrc_exec_t /etc/rc.d/rc.local`로 Context도 추가해야 합니다."
+- q: "rc.local이 정상 동작하는지 어떻게 확인하나요?"
+  a: "`sudo systemctl start rc-local`로 서비스를 기동한 뒤 `systemctl status rc-local`에서 Active 상태와 스크립트가 남긴 로그를 확인합니다."

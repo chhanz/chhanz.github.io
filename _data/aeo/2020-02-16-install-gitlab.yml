@@ -1,0 +1,24 @@
+# AEO data for _posts/2020-02-16-install-gitlab.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "CentOS 7에 Postfix와 Gitlab CE를 yum으로 설치하고 사용자와 Project 생성, clone/push, Web IDE와 PR 기능까지 확인하는 과정을 정리합니다."
+keywords:
+- "Gitlab CE"
+- "gitlab-ctl"
+- "EXTERNAL_URL"
+- "Postfix"
+- "Web IDE"
+- "CentOS 7"
+summary:
+- "Gitlab CE repository를 등록하고 `EXTERNAL_URL`을 지정해 `yum install -y gitlab-ce`로 설치한 뒤 `gitlab-ctl status`로 상태를 확인합니다."
+- "Gitlab의 Notification 메일 발송을 위해 Postfix를 설치하고 `/etc/postfix/main.cf`를 환경에 맞게 설정합니다."
+- "첫 접속 때 root 비밀번호를 정하고 Admin Area에서 사용자와 Project를 만든 뒤 clone, commit, push와 Web IDE의 PR 기능까지 확인했습니다."
+tested_on: "CentOS 7 (Memory 4GB 이상, Disk 100GB 이상)"
+faq:
+- q: "Gitlab CE 설치에 필요한 시스템 사양은 어느 정도인가요?"
+  a: "글에서는 Memory 최소 4GB 이상, Disk 100GB 이상인 CentOS 7 최신 버전 시스템을 사용했습니다. Firewalld와 SELinux는 Disabled로 두었고 필요에 따라 Enable합니다."
+- q: "Gitlab 설치 시 Postfix는 왜 필요한가요?"
+  a: "Gitlab이 Notification 메일을 보내기 위해 필요합니다. 예를 들어 사용자를 생성하면 입력한 이메일로 비밀번호 초기화 메일이 전송됩니다."
+- q: "Gitlab CE 서비스 상태는 어떻게 확인하나요?"
+  a: "`gitlab-ctl status` 명령으로 nginx, postgresql, redis, sidekiq, unicorn 등 구성 요소의 실행 상태를 확인합니다."
+- q: "Gitlab 첫 접속 시 관리자 계정은 어떻게 설정하나요?"
+  a: "설치 때 지정한 주소(예: `https://gitlab.example.com`)로 처음 접속하면 `root` 관리자 비밀번호를 설정하는 화면이 나옵니다."

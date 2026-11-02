@@ -1,0 +1,25 @@
+# AEO data for _posts/2026-06-15-fast-aws-clientvpn.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+keywords:
+- "AWS Client VPN"
+- "fast-aws-clientvpn"
+- "mgt-clientvpn.sh"
+- "CloudFormation"
+- "easy-rsa"
+- "ACM"
+- "Split Tunnel"
+- ".ovpn"
+summary:
+- "`fast-aws-clientvpn`의 `mgt-clientvpn.sh`로 인증서 발급, ACM import, Client VPN 엔드포인트 배포, `.ovpn` 파일 생성까지 명령 한 줄로 처리할 수 있습니다."
+- "인증서 생성은 easy-rsa 기반 셸 스크립트가, VPN 자원 상태는 CloudFormation 템플릿이 담당하며 상호 인증(X.509) 방식을 사용합니다."
+- "`configure`, `deploy`, `status`, `gen`, `destroy` 순서로 사용하며, ACM 인증서 태그를 기준으로 멱등하게 동작해 같은 명령을 다시 실행해도 안전합니다."
+tested_on: "macOS 실행 호스트, AWS CLI v2"
+faq:
+- q: "fast-aws-clientvpn으로 Client VPN을 배포하려면 어떤 순서로 실행하나요?"
+  a: "`./mgt-clientvpn.sh configure`로 리전, VPC, 서브넷, CIDR 등을 입력해 `clientvpn.conf`를 만들고 `./mgt-clientvpn.sh deploy`로 배포합니다. 이후 `status`로 상태를 확인하고 `gen`으로 `.ovpn` 파일을 재생성하며, 필요 없으면 `destroy`로 삭제합니다."
+- q: "Split Tunnel과 Full Tunnel은 어떻게 다른가요?"
+  a: "Split(기본)은 사내망(`TargetCidr`) 트래픽만 VPN으로 보내고 나머지는 일반 인터넷 회선을 사용합니다. `deploy --full-tunnel`로 배포하면 모든 트래픽(`0.0.0.0/0`)을 VPN으로 보내며 인터넷용 인가 규칙이 자동으로 추가됩니다."
+- q: "배포 후 Client CIDR을 바꿀 수 있나요?"
+  a: "아닙니다. Client CIDR은 엔드포인트 생성 후 변경할 수 없으므로 `destroy` 후 다시 배포해야 합니다."
+- q: "생성된 .ovpn 파일은 어떻게 사용하나요?"
+  a: "스크립트와 같은 디렉터리의 `clientvpn-certs/`에 생성되며, AWS VPN Client 또는 OpenVPN 호환 클라이언트에서 그대로 불러와 접속합니다. 클라이언트 인증서와 키가 파일 안에 포함되어 별도 설정이 필요 없습니다."

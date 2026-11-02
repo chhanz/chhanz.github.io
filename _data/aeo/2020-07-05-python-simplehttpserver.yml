@@ -1,0 +1,18 @@
+# AEO data for _posts/2020-07-05-python-simplehttpserver.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "Python의 SimpleHTTPServer 모듈로 별도 웹서버 설치 없이 로컬에서 jekyll 같은 정적 웹 페이지를 띄워 테스트하는 방법을 소개합니다."
+keywords:
+- "Python"
+- "SimpleHTTPServer"
+- "python -m SimpleHTTPServer"
+- "정적 웹서비스"
+- "로컬 웹서버"
+- "jekyll"
+summary:
+- "웹 소스가 있는 디렉토리에서 `python -m SimpleHTTPServer`를 실행하면 바로 웹서비스를 띄울 수 있습니다."
+- "8000번 포트로 서비스되므로 `http://127.0.0.1:8000`으로 접속해 정적 웹 결과물을 로컬에서 테스트할 수 있습니다."
+faq:
+- q: "Python으로 간단한 웹서버를 띄우는 명령어는 무엇인가요?"
+  a: "웹 소스가 있는 디렉토리로 이동해 `python -m SimpleHTTPServer`를 실행하면 됩니다. 실행되면 `Serving HTTP on 0.0.0.0 port 8000` 메시지가 출력됩니다."
+- q: "SimpleHTTPServer로 띄운 웹서비스에는 어떤 주소로 접속하나요?"
+  a: "8000번 포트로 서비스되므로 `http://127.0.0.1:8000`으로 접속해 테스트할 수 있습니다."

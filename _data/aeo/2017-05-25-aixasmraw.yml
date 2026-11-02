@@ -1,0 +1,18 @@
+# AEO data for _posts/2017-05-25-aixasmraw.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "AIX에서 VG의 PP Size를 기준으로 필요한 PP 수를 계산하고 mklv -t raw로 Oracle ASM용 raw Logical Volume을 만드는 방법입니다."
+keywords:
+- "Oracle ASM"
+- "raw Logical Volume"
+- "mklv -t raw"
+- "PP SIZE"
+- "lsvg"
+- "AIX"
+summary:
+- "AIX에서 Oracle ASM용 raw device 용량은 VG의 PP Size를 기준으로 필요한 PP 개수를 계산해 정합니다."
+- "PP Size가 64MB인 VG에서 10GB raw device를 만들려면 PP 160개가 필요하며, `mklv -y rawlv1 -t raw RAWVG 160`처럼 생성합니다."
+faq:
+- q: "AIX에서 raw LV 크기는 어떻게 계산하나요?"
+  a: "`lsvg <VG명>`으로 PP SIZE를 확인한 뒤 원하는 용량을 PP Size로 나눠 PP 개수를 구합니다. 예를 들어 PP Size 64MB에서 10GB(10240MB)는 160개입니다."
+- q: "Oracle ASM용 raw Logical Volume을 만드는 명령은 무엇인가요?"
+  a: "`mklv -y <LV명> -t raw <VG명> <PP 개수>` 형식을 사용합니다. 글에서는 `mklv -y rawlv1 -t raw RAWVG 160`처럼 rawlv1, rawlv2, rawlv3을 생성합니다."

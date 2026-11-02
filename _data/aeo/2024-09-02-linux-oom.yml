@@ -1,0 +1,22 @@
+# AEO data for _posts/2024-09-02-linux-oom.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+keywords:
+- "OOM Killer"
+- "Out of Memory"
+- "Flask"
+- "psutil"
+- "sar"
+- "Amazon Linux 2023"
+- "Docker"
+summary:
+- "메모리를 대량으로 사용하는 Flask 테스트 앱에 요청을 동시에 보내면 Out of Memory 상황을 재현하고 oom-killer 동작을 확인할 수 있습니다."
+- "sar로 보면 `%memused`가 96%까지 오른 뒤 python 프로세스가 oom-killer로 종료되면서 `kbavail`이 다시 확보됩니다."
+- "같은 앱을 `python:3.9-alpine` 기반 컨테이너 이미지로 빌드해 Docker로 테스트 환경을 재사용할 수 있습니다."
+tested_on: "Amazon Linux 2023 (kernel 6.1.102-108.177.amzn2023.x86_64), Amazon EC2 c5.xlarge"
+faq:
+- q: "Out of Memory 상황을 테스트용으로 재현하려면 어떻게 하나요?"
+  a: "요청마다 큰 리스트를 만들어 메모리를 사용하는 Flask 앱을 실행하고, for 루프로 `curl localhost:5000 &`를 100번 실행해 요청을 동시에 보내면 됩니다."
+- q: "프로세스가 oom-killer로 종료되었는지 어떻게 확인하나요?"
+  a: "`messages` 로그에서 `python invoked oom-killer` 같은 커널 메시지를 확인합니다. sar에서 `%memused`가 높아졌다가 급격히 줄어드는 구간도 함께 볼 수 있습니다."
+- q: "OOM 테스트 Flask 앱을 실행하려면 어떤 패키지가 필요한가요?"
+  a: "Python virtual environment를 만든 뒤 `pip install Flask psutil`로 Flask와 psutil을 설치합니다. psutil은 현재 프로세스의 메모리 사용량을 출력하는 데 사용됩니다."

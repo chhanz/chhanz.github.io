@@ -1,0 +1,24 @@
+# AEO data for _posts/2025-06-03-rhel-lightspeed.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "RHEL Lightspeed의 command-line-assistant를 설치하고 c 명령으로 오류 분석, 데이터 가공, 명령어 생성, httpd 설정 점검을 해본 사용기입니다."
+keywords:
+- "RHEL Lightspeed"
+- "command-line-assistant"
+- "CLA"
+- "c 명령어"
+- "RHEL 10"
+- "Red Hat Enterprise Linux 9.6"
+- "subscription-manager"
+summary:
+- "RHEL Lightspeed의 command-line-assistant(CLA)를 설치하면 `c \"질문\"` 형식으로 터미널에서 바로 RHEL 관련 도움을 받을 수 있습니다."
+- "파이프(`|`)로 오류 메시지나 출력을 넘겨 원인 분석, JSON 데이터의 테이블 변환, 조건에 맞는 one line 명령어 생성을 요청할 수 있습니다."
+- "잘못된 `Listen` 설정으로 httpd가 시작되지 않는 문제를 CLA에 설정 파일 검토를 요청해 찾아낸 사례를 보여줍니다."
+faq:
+- q: "RHEL Lightspeed는 어떤 RHEL 버전에서 사용할 수 있나요?"
+  a: "Red Hat Enterprise Linux 9.6 및 10에서 사용할 수 있습니다. Developers Subscription 이상의 서브스크립션이 필요하고 `rhc` 또는 `subscription-manager`로 서브스크립션이 활성화되어 있어야 합니다."
+- q: "command-line-assistant는 어떻게 설치하고 사용하나요?"
+  a: "`sudo dnf install command-line-assistant`로 설치합니다. 이후 `c \"질문\"` 형식으로 질문하거나, 파이프(`|`)로 명령 출력을 넘겨 질의할 수 있습니다."
+- q: "RHEL Lightspeed에 한글로 질문하면 한글로 답변하나요?"
+  a: "아닙니다. 한글로 질문할 수는 있지만 테스트에서는 답변이 영문으로만 제공되었습니다."
+- q: "RHEL Lightspeed를 직접 실습해 볼 수 있는 곳이 있나요?"
+  a: "Red Hat이 제공하는 interactive lab인 'Solve problems with Command Line Assistant'에서 직접 실습해 볼 수 있습니다."

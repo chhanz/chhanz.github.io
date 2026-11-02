@@ -1,0 +1,23 @@
+# AEO data for _posts/2023-11-14-ansibe-pcs-on-aws.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "ansible.ha-cluster-pacemaker 플레이북과 fence_aws를 이용해 EC2 인스턴스 2대로 Pacemaker Cluster 테스트 환경을 자동으로 구성하는 방법을 정리합니다."
+keywords:
+- "Pacemaker"
+- "pcs"
+- "ansible.ha-cluster-pacemaker"
+- "OndrejHome.pcs-modules-2"
+- "fence_aws"
+- "STONITH"
+- "RHEL-HA AMI"
+summary:
+- "`ansible.ha-cluster-pacemaker` 플레이북으로 EC2 인스턴스 2대에 fence_aws STONITH를 포함한 Pacemaker Cluster를 자동 구성할 수 있습니다."
+- "RHEL-HA AMI로 인스턴스를 만들고 `cluster.yml`에 `cluster_configure_fence_aws: true`와 `fence_aws_region`을 지정하면 AWS용 펜싱 장치가 함께 설정됩니다."
+- "인스턴스 프로파일이 정상 연결되어 있으면 `fence_aws -o status` 명령으로 stonith 장치를 테스트할 수 있습니다."
+tested_on: "RHEL-HA AMI 기반 EC2 인스턴스 2대 (Pacemaker 2.1.5-9.el9_2.3), OndrejHome.pcs-modules-2 28.0.0"
+faq:
+- q: "EC2에서 Pacemaker 클러스터를 Ansible로 구성하려면 어떤 role이 필요한가요?"
+  a: "`ansible-galaxy role install OndrejHome.pcs-modules-2`로 pcs-modules-2를 설치하고, `ansible.ha-cluster-pacemaker`를 roles 경로에 git clone합니다. 이후 `ondrejhome.pcs-modules-2` 이름으로 심볼릭 링크를 만들어 둡니다."
+- q: "ansible.ha-cluster-pacemaker에서 fence_aws를 사용하려면 어떻게 설정하나요?"
+  a: "`cluster.yml`에 `cluster_configure_fence_aws: true`, `cluster_configure_fence_xvm: false`, `fence_aws_region`을 지정하고, inventory의 각 호스트에 `instance_id` 변수를 넣습니다."
+- q: "구성된 Pacemaker 클러스터와 펜싱 장치 상태는 어떻게 확인하나요?"
+  a: "`sudo pcs status`로 노드가 Online인지와 `fence-aws (stonith:fence_aws)` 리소스가 Started인지 확인합니다. 인스턴스 프로파일이 연결되어 있다면 `sudo fence_aws -o status -r ap-northeast-2 -n <인스턴스 ID>`로 펜싱 테스트도 할 수 있습니다."

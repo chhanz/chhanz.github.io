@@ -1,0 +1,21 @@
+# AEO data for _posts/2024-08-30-al2023-change-editor.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "Amazon Linux 2023에서 update-alternatives로 vim과 nano를 editor 대안으로 등록하고 기본 Editor를 변경하는 방법을 정리합니다."
+keywords:
+- "update-alternatives"
+- "Amazon Linux 2023"
+- "default editor"
+- "/usr/bin/editor"
+- "vim"
+- "nano"
+summary:
+- "Amazon Linux 2023에서 `update-alternatives --install`로 vim과 nano를 editor로 등록하고 `--config editor`로 기본 Editor를 바꿀 수 있습니다."
+- "auto 상태에서는 priority가 높은 nano가 선택되며, `--config`로 직접 고르면 status가 manual로 바뀝니다."
+tested_on: "Amazon Linux 2023"
+faq:
+- q: "update-alternatives에 editor를 등록하려면 어떻게 하나요?"
+  a: "`sudo update-alternatives --install /usr/bin/editor editor /usr/bin/vim 1`처럼 링크 경로, 이름, 실제 경로, priority를 지정해 등록합니다. 등록 결과는 `sudo update-alternatives --display editor`로 확인합니다."
+- q: "등록된 editor 중 기본 Editor를 바꾸려면 어떤 명령을 쓰나요?"
+  a: "`sudo update-alternatives --config editor`를 실행하고 목록에서 사용할 Editor 번호를 입력합니다. 이후 `--display editor`에서 link가 선택한 Editor를 가리키는지 확인합니다."
+- q: "update-alternatives에서 priority는 어떤 역할을 하나요?"
+  a: "auto 상태에서는 priority가 높은 항목이 선택됩니다. 글에서는 priority 2인 nano가 best 버전으로 선택되었고, `--config`로 vim을 고르자 status가 manual로 바뀌었습니다."

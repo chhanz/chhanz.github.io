@@ -1,0 +1,25 @@
+# AEO data for _posts/2026-02-09-migration-isc-dhcp-to-kea-dhcp.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+keywords:
+- "ISC DHCP"
+- "Kea DHCP"
+- "KeaMA"
+- "kea-dhcp4"
+- "dhcpd.conf"
+- "reservations-global"
+- "ISC DHCP EOL"
+- "Docker"
+summary:
+- "유지보수가 종료된 ISC DHCP의 `dhcpd.conf`를 KeaMA Docker 이미지로 Kea JSON 설정으로 변환해 Docker 기반 Kea DHCP로 옮길 수 있습니다."
+- "KeaMA 변환 결과는 그대로 쓸 수 없어 주석 제거, `interfaces-config`, `lease-database`, `loggers` 추가, `reservation-mode` 키워드 변경이 필요합니다."
+- "`kea-dhcp4 -t`로 설정을 검증하고 기존 `dhcpd`를 중지한 뒤 `--net host`로 컨테이너를 실행하면 IP 할당과 호스트 예약이 정상 동작합니다."
+tested_on: "Amazon Linux 2, Kea DHCPv4 3.0.2 (docker.cloudsmith.io/isc/docker/kea-dhcp4), KeaMA 4.5.0"
+faq:
+- q: "ISC DHCP 설정을 Kea 설정으로 자동 변환할 수 있나요?"
+  a: "네. ISC가 제공하는 KeaMA(Kea Migration Assistant) Docker 이미지로 `keama -4 -i dhcpd.conf -o kea-dhcpd.conf`를 실행하면 서브넷과 호스트 예약이 Kea JSON 설정으로 변환됩니다. 다만 변환 결과는 수동 보완이 필요합니다."
+- q: "KeaMA로 변환한 설정 파일을 그대로 쓰면 안 되는 이유는 무엇인가요?"
+  a: "Kea는 표준 JSON을 쓰므로 KeaMA가 남긴 `#`, `///` 주석을 지원하지 않고, `interfaces-config`, `lease-database`, `loggers` 같은 항목도 빠져 있기 때문입니다. 또 `reservation-mode`는 Kea 2.6 이상에서 deprecated되어 `reservations-global`, `reservations-in-subnet`으로 바꿔야 합니다."
+- q: "Kea DHCP 설정 파일 문법은 어떻게 검증하나요?"
+  a: "컨테이너에서 `kea-dhcp4 -t /etc/kea/kea-dhcp4.conf`를 실행합니다. ERROR 없이 출력이 끝나면 설정 파일에 문제가 없는 것입니다."
+- q: "Kea DHCP 컨테이너를 실행할 때 --net host가 필요한 이유는 무엇인가요?"
+  a: "DHCP 서버는 브로드캐스트 패킷을 수신해야 하기 때문입니다. 또한 같은 UDP 67/68 포트를 쓰므로 기존 `dhcpd` 서비스를 먼저 중지해야 합니다."

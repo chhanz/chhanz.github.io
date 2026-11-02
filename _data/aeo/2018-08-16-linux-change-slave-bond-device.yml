@@ -1,0 +1,22 @@
+# AEO data for _posts/2018-08-16-linux-change-slave-bond-device.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+keywords:
+- "Bonding"
+- "ifenslave"
+- "Currently Active Slave"
+- "/proc/net/bonding/bond0"
+- "active-backup"
+- "RHEL"
+- "CentOS 7"
+summary:
+- "`ifenslave -c bond0 eth2`로 bond 인터페이스를 중단하지 않고 Currently Active Slave를 eth2로 전환할 수 있습니다."
+- "`ifenslave -d bond0 eth1`로 slave를 제거하고 `ifenslave bond0 eth1`로 다시 추가할 수 있어, slave 포트 장애나 포트 변경 시 유용합니다."
+- "변경 결과는 `/proc/net/bonding/bond0`의 Currently Active Slave와 Slave Interface 항목으로 확인합니다."
+tested_on: "RHEL / CentOS 7 (Ethernet Channel Bonding Driver v3.7.1)"
+faq:
+- q: "본딩의 Active Slave를 다른 인터페이스로 바꾸려면 어떻게 하나요?"
+  a: "`ifenslave -c bond0 eth2`처럼 `-c` 옵션에 bond 장치와 전환할 인터페이스를 지정합니다. 이후 `cat /proc/net/bonding/bond0`에서 Currently Active Slave가 바뀌었는지 확인합니다."
+- q: "bond 장치에서 slave 인터페이스를 제거하거나 추가하는 명령은 무엇인가요?"
+  a: "제거는 `ifenslave -d bond0 eth1`, 추가는 `ifenslave bond0 eth1`입니다."
+- q: "현재 Active Slave는 어디에서 확인하나요?"
+  a: "`/proc/net/bonding/bond0` 파일의 `Currently Active Slave` 항목에서 확인합니다. 같은 파일에서 Bonding Mode와 각 Slave Interface의 MII Status도 볼 수 있습니다."

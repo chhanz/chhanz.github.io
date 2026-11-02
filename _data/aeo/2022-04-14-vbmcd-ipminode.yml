@@ -1,0 +1,23 @@
+# AEO data for _posts/2022-04-14-vbmcd-ipminode.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+keywords:
+- "VirtualBMC"
+- "vbmc"
+- "vbmcd"
+- "IPMI"
+- "libvirt"
+- "KVM"
+- "ipmitool lanplus"
+summary:
+- "VirtualBMC 를 사용하면 Libvirt(KVM) VM 마다 IPMI 포트를 만들어 `ipmitool` 로 VM 전원을 제어할 수 있습니다."
+- "IPMI Node 에서 KVM 으로 SSH key 를 배포하고 `pip3 install virtualbmc` 로 설치한 뒤 `vbmcd` 를 실행합니다."
+- "`vbmc add --libvirt-uri qemu+ssh://root@<KVM>/system <VM>` 로 포트를 추가하고 `vbmc start` 로 활성화합니다."
+faq:
+- q: "pip3 install virtualbmc 설치 중 libvirt, gcc, Python.h 관련 오류가 나면 어떻게 하나요?"
+  a: "`yum install -y libvirt-devel gcc python3-devel ipmitool` 로 필요한 패키지를 설치한 뒤 다시 설치합니다."
+- q: "VirtualBMC 에 VM 용 IPMI 포트는 어떻게 추가하나요?"
+  a: "`vbmc add --username admin --password testtest --port 6250 --libvirt-uri qemu+ssh://root@kvm/system u20` 처럼 계정, 포트, libvirt URI, VM 이름을 지정합니다. 추가 후 `vbmc start u20` 으로 포트 서비스를 시작합니다."
+- q: "VirtualBMC 로 만든 IPMI 포트로 VM 전원을 어떻게 제어하나요?"
+  a: "`ipmitool -I lanplus -p 6250 -Uadmin -Ptesttest -H ipmi-node chassis power status` 처럼 vBMC 포트를 지정해 조회하고, `chassis power <on | off>` 로 전원을 켜고 끕니다."
+- q: "vBMC 포트가 정상적으로 열렸는지 어떻게 확인하나요?"
+  a: "`vbmc list` 에서 Status 가 running 인지 보고, `netstat -anup` 으로 해당 UDP 포트가 python3 프로세스로 열려 있는지 확인합니다."

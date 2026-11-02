@@ -1,0 +1,17 @@
+# AEO data for _posts/2020-03-12-deploy-warfile.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "Tomcat의 webapps 디렉터리에 War 파일을 두어 /sample 같은 SubPath로 배포하거나 ROOT.war로 이름을 바꿔 루트 경로로 서비스하는 방법입니다."
+keywords:
+- "Tomcat"
+- "War file"
+- "ROOT.war"
+- "/var/lib/tomcat/webapps"
+- "SubPath"
+summary:
+- "`sample.war`를 `/var/lib/tomcat/webapps`에 두고 Tomcat을 기동하면 `http://localhost:8080/sample`로 접근할 수 있습니다."
+- "War 파일 이름을 `ROOT.war`로 바꿔 두면 `http://localhost:8080/` 루트 경로로 서비스됩니다."
+faq:
+- q: "Tomcat에서 War 파일을 루트 경로(/)로 서비스하려면 어떻게 하나요?"
+  a: "`/var/lib/tomcat/webapps`에 둔 War 파일 이름을 `ROOT.war`로 바꾸고 Tomcat을 기동하면 `http://localhost:8080/`으로 접근할 수 있습니다."
+- q: "Tomcat webapps에 sample.war를 그대로 두면 어떤 주소로 접근하나요?"
+  a: "SubPath로 배포되어 `http://localhost:8080/sample`로 접근합니다."

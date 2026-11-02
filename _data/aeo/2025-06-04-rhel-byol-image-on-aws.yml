@@ -1,0 +1,25 @@
+# AEO data for _posts/2025-06-04-rhel-byol-image-on-aws.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+keywords:
+- "RHEL BYOL"
+- "Red Hat Insights"
+- "Insights image builder"
+- "AMI"
+- "OpenSCAP"
+- "Blueprint"
+- "Developers Subscription"
+- "subscription-manager"
+summary:
+- "Red Hat Insights의 Images 메뉴에서 Blueprint를 만들어 OpenSCAP 프로파일, 파일시스템 구성, 패키지 등을 반영한 커스텀 RHEL BYOL AMI를 생성할 수 있습니다."
+- "생성된 이미지는 입력한 AWS 계정 ID로 공유 AMI로 제공되며, 이 AMI로 인스턴스를 만들 수 있습니다."
+- "BYOL 인스턴스는 처음에 서브스크립션 미등록 상태이므로 `subscription-manager register`로 등록해야 RHEL 저장소를 사용할 수 있습니다."
+tested_on: "AWS EC2, Red Hat Enterprise Linux 10.0 (Coughlan) BYOL AMI"
+faq:
+- q: "RHEL BYOL AMI를 만들려면 무엇이 필요한가요?"
+  a: "Red Hat Developers Subscription 등록이 필요합니다. 등록 후 Red Hat Insights > Inventory > Images에서 이미지를 생성합니다."
+- q: "Insights image builder로 만든 AMI는 어떻게 내 AWS 계정에서 사용하나요?"
+  a: "이미지 생성 시 공유할 AWS 계정 ID를 입력하면 빌드 후 해당 계정에 공유 AMI로 제공됩니다. 이 공유 AMI로 인스턴스를 생성하면 됩니다."
+- q: "BYOL AMI로 만든 인스턴스에서 `yum repolist`에 저장소가 보이지 않는 이유는 무엇인가요?"
+  a: "시스템이 서브스크립션에 등록되지 않았기 때문입니다. `subscription-manager register`로 등록하면 BaseOS와 AppStream 저장소가 표시됩니다."
+- q: "AWS 외의 환경용 이미지도 만들 수 있나요?"
+  a: "네. AWS 외에도 GCP, Azure, Oracle Cloud, VMWare, qcow2, iso 형태로 사용할 수 있는 이미지 생성에도 활용할 수 있습니다."

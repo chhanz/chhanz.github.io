@@ -1,0 +1,22 @@
+# AEO data for _posts/2020-07-21-centos6-install-latest-openssl.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "CentOS 6에서 저장소가 제공하지 않는 OpenSSL 1.1.1g를 소스로 설치하고, make test 오류를 Perl 5.32.0 소스 설치로 해결하는 방법을 정리합니다."
+keywords:
+- "OpenSSL 1.1.1g"
+- "CentOS 6"
+- "소스 설치"
+- "Perl 5.32.0"
+- "Test::More"
+- "ldconfig"
+summary:
+- "CentOS 6 저장소는 openssl 1.0.1e-58.el6_10까지만 제공하므로 OpenSSL 1.1.1g는 소스로 설치해야 합니다."
+- "`make test`의 `Test::More version 0.96 required` 오류는 perl 버전이 낮아서이며 perl 5.32.0을 소스 설치해 해결합니다."
+- "라이브러리 경로를 `ldconfig`로 등록하고 `/usr/bin/openssl`을 새 바이너리로 링크하면 `OpenSSL 1.1.1g`가 확인됩니다."
+tested_on: "CentOS 6, OpenSSL 1.1.1g, Perl 5.32.0"
+faq:
+- q: "CentOS 6에서 yum으로 최신 OpenSSL을 설치할 수 있나요?"
+  a: "설치할 수 없습니다. CentOS 6 저장소는 openssl 1.0.1e-58.el6_10까지만 제공하므로 openssl-1.1.1g 같은 최신 버전은 소스 설치가 필요합니다."
+- q: "OpenSSL 빌드 중 `Test::More version 0.96 required` 오류가 나면 어떻게 하나요?"
+  a: "CentOS 6의 perl 버전이 낮아서 생기는 오류입니다. perl-5.32.0을 소스로 설치하고 기존 `/usr/bin/perl`을 백업한 뒤 새 perl로 링크하면 됩니다."
+- q: "소스로 설치한 OpenSSL을 기본 openssl 명령으로 쓰려면 어떻게 하나요?"
+  a: "`/etc/ld.so.conf.d/`에 `/usr/local/ssl/lib` 경로를 담은 conf 파일을 만들고 `ldconfig -v`를 실행합니다. 이후 `ln -s /usr/local/ssl/bin/openssl /usr/bin/openssl`로 링크하면 `openssl version`에 1.1.1g가 표시됩니다."

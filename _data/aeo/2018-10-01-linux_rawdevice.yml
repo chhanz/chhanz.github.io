@@ -1,0 +1,23 @@
+# AEO data for _posts/2018-10-01-linux_rawdevice.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "CentOS 7에서 /etc/udev/rules.d/60-raw.rules에 udev 규칙을 작성해 SCSI, multipath, LVM 장치를 raw device로 바인딩하는 방법입니다."
+keywords:
+- "raw device"
+- "udev rules"
+- "60-raw.rules"
+- "udevadm trigger"
+- "raw -qa"
+- "multipath"
+- "CentOS 7"
+summary:
+- "CentOS 7에서는 `/etc/udev/rules.d/60-raw.rules`에 udev 규칙을 작성해 raw device를 생성합니다."
+- "SCSI 장치는 `KERNEL`, multipath 장치는 `ENV{DM_NAME}`, LVM 장치는 `ENV{DM_VG_NAME}`과 `ENV{DM_LV_NAME}`으로 대상을 지정합니다."
+- "`OWNER`, `GROUP`, `MODE` 규칙으로 권한을 설정한 뒤 `udevadm trigger --action=add`로 적용하고 `raw -qa`로 확인합니다."
+tested_on: "CentOS 7"
+faq:
+- q: "CentOS 7에서 multipath 장치를 raw device로 만들려면 어떻게 하나요?"
+  a: "60-raw.rules에 `ENV{DM_NAME}==\"mpath1\"` 조건과 `RUN+=\"/usr/bin/raw /dev/raw/raw1 %N\"`을 넣은 규칙을 추가합니다. 이후 `udevadm trigger --action=add`로 규칙을 갱신합니다."
+- q: "raw device의 소유자와 권한은 어떻게 지정하나요?"
+  a: "`ACTION==\"add\", KERNEL==\"raw*\", OWNER=\"oracle\", GROUP=\"dba\", MODE=\"0660\"` 같은 udev 규칙을 추가합니다."
+- q: "raw device가 제대로 바인딩되었는지 어떻게 확인하나요?"
+  a: "`raw -qa`로 바인딩된 major/minor 번호를 확인하고 `ls -l /dev/raw`로 장치 파일과 권한을 확인합니다."

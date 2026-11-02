@@ -1,0 +1,21 @@
+# AEO data for _posts/2024-07-02-centos-7-yum-error.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+keywords:
+- "CentOS 7"
+- "mirrorlist.centos.org"
+- "vault.centos.org"
+- "yum repolist"
+- "End of Service"
+- "CentOS-Base.repo"
+summary:
+- "CentOS 7의 `Could not resolve host: mirrorlist.centos.org` 오류는 mirrorlist를 주석 처리하고 baseurl을 vault.centos.org로 바꾸면 해결됩니다."
+- "CentOS 7은 2024년 6월 30일 이후 End of Service가 되면서 기존 Mirror site가 Vault로 전환되었습니다."
+- "yum은 다시 쓸 수 있지만 EOS 운영체제는 패키지 유지보수가 없어 보안에 취약하므로 다른 배포판으로 전환이 필요합니다."
+tested_on: "CentOS 7 (x86_64)"
+faq:
+- q: "CentOS 7에서 Could not resolve host: mirrorlist.centos.org 오류가 나는 이유는 무엇인가요?"
+  a: "CentOS 7의 EOS로 기존 Mirror site가 Vault로 전환되어 Mirror Site를 찾을 수 없기 때문입니다."
+- q: "CentOS 7에서 yum을 다시 사용하려면 어떻게 하나요?"
+  a: "`sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*`로 mirrorlist를 주석 처리하고 `sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*`로 baseurl을 Vault로 바꿉니다. 이후 `yum clean all`과 `yum repolist`로 저장소 목록을 확인합니다."
+- q: "Vault 저장소로 바꾸면 CentOS 7을 계속 써도 되나요?"
+  a: "권장하지 않습니다. EOS된 운영체제는 패키지 유지보수가 없어 보안에 취약하므로 CentOS Stream이나 RHEL 계열 등 다른 배포판으로 전환해야 합니다."

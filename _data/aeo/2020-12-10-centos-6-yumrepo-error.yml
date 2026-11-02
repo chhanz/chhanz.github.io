@@ -1,0 +1,24 @@
+# AEO data for _posts/2020-12-10-centos-6-yumrepo-error.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+keywords:
+- "CentOS 6"
+- "YumRepo Error"
+- "CentOS Vault"
+- "vault.centos.org"
+- "mirrorlist"
+- "CentOS-Base.repo"
+- "CentOS 6 EOL"
+summary:
+- "CentOS 6의 `YumRepo Error: All mirror URLs are not using ftp, http[s] or file.`은 2020-11-30 EOL로 미러에서 패키지가 제거되어 발생합니다."
+- "`mirrorlist.txt`에 vault.centos.org 주소를 넣으면 임시로 해결되지만 `yum clean all` 후에는 다시 발생합니다."
+- "`CentOS-Base.repo`의 mirrorlist를 주석 처리하고 baseurl을 `https://vault.centos.org`로 바꾸면 영구적으로 해결됩니다."
+tested_on: "CentOS 6.10"
+faq:
+- q: "CentOS 6에서 `YumRepo Error: All mirror URLs are not using ftp, http[s] or file.`이 나는 이유는 무엇인가요?"
+  a: "CentOS 6이 2020-11-30에 EOL되면서 미러 사이트에서 CentOS 6 패키지가 제거되었기 때문입니다."
+- q: "yum clean all 이후에도 CentOS 6 저장소를 계속 쓰려면 어떻게 하나요?"
+  a: "`/etc/yum.repos.d/CentOS-Base.repo`에서 `mirrorlist=` 줄을 주석 처리하고, 주석 처리된 `#baseurl=http://mirror.centos.org` 줄을 `baseurl=https://vault.centos.org`로 바꿉니다. 본문에 이를 위한 `sed` 명령이 정리되어 있습니다."
+- q: "임시 해결 방법은 무엇인가요?"
+  a: "`/var/cache/yum/x86_64/6/base/mirrorlist.txt` 등 base, extras, updates의 `mirrorlist.txt`에 `https://vault.centos.org/6.10/os/x86_64/` 같은 Vault 주소를 넣는 방법입니다. 다만 `yum clean all`을 실행하면 다시 같은 문제가 발생합니다."
+- q: "CentOS Vault 저장소로 바꾸면 속도는 어떤가요?"
+  a: "본문 기준으로 Vault는 매우 느립니다."

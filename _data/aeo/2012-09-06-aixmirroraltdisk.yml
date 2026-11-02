@@ -1,0 +1,18 @@
+# AEO data for _posts/2012-09-06-aixmirroraltdisk.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "Mirror된 rootvg를 image.data 수정과 alt_disk_install -i 옵션으로 target PV 한 개에 복제하는 방법입니다."
+keywords:
+- "alt_disk_install"
+- "image.data"
+- "rootvg"
+- "Mirror VG"
+- "LV_SOURCE_DISK_LIST"
+- "AIX"
+summary:
+- "Mirror된 VG를 그대로 alt_disk_install하면 target PV가 2개 필요하지만, 수정한 image.data를 `-i` 옵션으로 지정하면 PV 한 개로 진행할 수 있습니다."
+- "image.data의 lv_data 항목에서 `LV_SOURCE_DISK_LIST`를 디스크 하나로 줄이고 `COPIES`와 `PP` 값을 2에서 1로 바꿉니다."
+faq:
+- q: "Mirror된 rootvg를 디스크 한 개에 alt_disk_install하려면 어떻게 하나요?"
+  a: "image.data를 수정한 뒤 `alt_disk_install -COB -i /image.data hdisk2`처럼 `-i` 옵션으로 지정해 실행합니다. 수정하지 않으면 Mirror된 VG는 target PV가 2개 필요합니다."
+- q: "alt_disk_install -i 옵션에 쓸 image.data에서는 무엇을 바꿔야 하나요?"
+  a: "lv_data 항목의 `LV_SOURCE_DISK_LIST`를 `hdisk0 hdisk1`에서 `hdisk0`으로, `COPIES`와 `PP`를 2에서 1로 변경합니다. Source PV 하나를 빼고 LV 복사본 수와 용량을 줄이는 것입니다."

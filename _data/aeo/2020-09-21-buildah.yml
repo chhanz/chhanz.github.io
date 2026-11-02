@@ -1,0 +1,21 @@
+# AEO data for _posts/2020-09-21-buildah.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "Podman의 이미지 빌드 도구인 Buildah로 CentOS 7 이미지에 패키지를 설치해 컨테이너 이미지를 만들고 Podman으로 실행하는 과정을 소개합니다."
+keywords:
+- "Buildah"
+- "Podman"
+- "buildah from"
+- "buildah run"
+- "buildah commit"
+- "컨테이너 이미지 빌드"
+summary:
+- "`buildah from`, `buildah run`, `buildah commit` 순서로 베이스 이미지에서 컨테이너 이미지를 단계별로 만들 수 있습니다."
+- "`podman build`도 내부적으로 Buildah를 이용해 이미지를 빌드합니다."
+- "만든 `sl-test-app` 이미지는 `podman run sl-test-app /usr/bin/sl`로 실행해 확인합니다."
+faq:
+- q: "Buildah와 Podman은 어떤 관계인가요?"
+  a: "Buildah는 Podman의 컨테이너 이미지 빌드와 push 등을 지원하는 도구입니다. `podman build`를 사용하면 내부적으로 Buildah가 이미지를 빌드합니다."
+- q: "CentOS에서 Buildah는 어떻게 설치하나요?"
+  a: "CentOS 7은 `yum install -y buildah`, CentOS 8은 `dnf install -y buildah`로 설치합니다."
+- q: "Buildah 명령으로 이미지를 단계별로 만들려면 어떻게 하나요?"
+  a: "`buildah from centos:7`로 작업 컨테이너를 만들고 `buildah run <CONTAINER ID> -- yum -y install sl`처럼 패키지를 설치한 뒤 `buildah commit <CONTAINER ID> sl-test-app`으로 이미지를 저장합니다."

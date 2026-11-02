@@ -1,0 +1,24 @@
+# AEO data for _posts/2026-01-13-github-container-registry.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+keywords:
+- "GitHub Container Registry"
+- "ghcr.io"
+- "GitHub CLI"
+- "gh auth login"
+- "gh auth token"
+- "write:packages"
+- "podman push"
+- "package visibility"
+summary:
+- "`gh auth login --scopes write:packages`로 로그인한 뒤 `gh auth token`으로 받은 토큰을 사용해 `ghcr.io`에 로그인하면 토큰을 평문으로 따로 보관하지 않고 이미지를 PUSH할 수 있습니다."
+- "이미지를 `ghcr.io/네임스페이스/이미지 이름:태그` 형식으로 태그하고 `podman push`로 올리며, docker도 같은 방법으로 사용할 수 있습니다."
+- "PUSH된 이미지는 기본적으로 private이므로 Repository를 연결한 뒤 Package settings의 Change visibility에서 public으로 바꿀 수 있습니다."
+faq:
+- q: "GitHub CLI로 ghcr.io에 로그인하려면 어떻게 하나요?"
+  a: "`export CR_PAT=$(gh auth token) && echo $CR_PAT | podman login ghcr.io -u <USERNAME> --password-stdin`처럼 `gh`에서 토큰을 받아 표준 입력으로 전달합니다."
+- q: "이미지 PUSH를 위해 gh 로그인 시 어떤 권한이 필요한가요?"
+  a: "`write:packages` 권한이 필요합니다. 로그인할 때 `--scopes write:packages`로 부여하고, 나중에 권한이 더 필요하면 `gh auth refresh`로 추가합니다."
+- q: "GitHub Container Registry에 올린 이미지를 public으로 바꾸려면 어떻게 하나요?"
+  a: "GitHub의 Package 메뉴에서 `Connect Repository`로 저장소를 연결하고, `Package settings` 하단의 `Change visibility`에서 public으로 변경합니다."
+- q: "현재 gh 로그인 상태와 토큰 권한은 어떻게 확인하나요?"
+  a: "`gh auth status`로 로그인 계정, Git 프로토콜, 토큰 scopes를 확인할 수 있습니다."

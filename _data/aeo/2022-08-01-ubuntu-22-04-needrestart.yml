@@ -1,0 +1,23 @@
+# AEO data for _posts/2022-08-01-ubuntu-22-04-needrestart.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "Ubuntu 22.04에서 apt 사용 시 나타나는 needrestart의 Kernel Hint와 daemon 재시작 확인 화면을 설정으로 끄거나 목록만 출력하도록 바꾸는 방법입니다."
+keywords:
+- "needrestart"
+- "Ubuntu 22.04"
+- "needrestart.conf"
+- "kernelhints"
+- "nrconf{restart}"
+- "99needrestart"
+- "apt"
+summary:
+- "Ubuntu 22.04에서 apt 실행 후 나오는 재시작 안내는 needrestart 패키지가 출력하며, `/etc/needrestart/needrestart.conf`로 동작을 바꿀 수 있습니다."
+- "`$nrconf{kernelhints} = 0;`으로 Kernel Hint를 끄고, `$nrconf{restart} = 'l';`로 재시작이 필요한 daemon 목록만 출력하게 할 수 있습니다."
+- "안정적인 운영을 위해 needrestart를 제거하기보다 list only 모드로 바꿔 사용자가 직접 재시작하도록 하는 것을 권장합니다."
+tested_on: "Ubuntu 22.04 (Kernel 5.15.0-25-generic), needrestart 3.5-5ubuntu2.1"
+faq:
+- q: "Ubuntu 22.04에서 apt 설치 후 daemon 재시작 선택 화면이 뜨지 않게 하려면 어떻게 하나요?"
+  a: "`/etc/needrestart/needrestart.conf`에서 `$nrconf{restart} = 'l';`로 설정해 list only 모드로 바꿉니다. 그러면 선택 화면 대신 재시작이 필요한 서비스 목록만 출력됩니다."
+- q: "needrestart의 Kernel Hint 메시지를 끄려면 어떻게 하나요?"
+  a: "`/etc/needrestart/needrestart.conf`에서 `$nrconf{kernelhints} = 0;`으로 설정하면 커널 확인이 완전히 비활성화됩니다."
+- q: "needrestart를 임시로 또는 완전히 제거하는 방법은 무엇인가요?"
+  a: "임시로는 `/etc/apt/apt.conf.d/99needrestart` 파일을 다른 곳으로 옮기거나 삭제하면 APT 실행 시 needrestart가 호출되지 않습니다. 완전히 제거하려면 `sudo apt remove needrestart`를 실행하고, 다시 필요하면 `sudo apt install needrestart`로 설치합니다."

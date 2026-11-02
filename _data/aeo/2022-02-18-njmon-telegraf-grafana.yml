@@ -1,0 +1,24 @@
+# AEO data for _posts/2022-02-18-njmon-telegraf-grafana.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+keywords:
+- "njmon"
+- "nimon"
+- "Telegraf"
+- "Prometheus"
+- "Grafana Dashboard 15776"
+- "prometheus_client"
+- "socket_listener"
+summary:
+- "`nimon` 이 수집한 데이터를 Telegraf 로 보내면 Telegraf 가 Node Exporter 처럼 Prometheus 용 metric 을 expose 합니다."
+- "Telegraf 에 `outputs.prometheus_client`(8088) 와 `inputs.socket_listener`(8888) 를 설정하고 `nimon` 으로 8888 포트에 데이터를 전송합니다."
+- "Prometheus scrape target 에 Telegraf 주소를 추가하고, 작성자가 만든 Grafana Dashboard 15776 을 Import 해 시각화할 수 있습니다."
+tested_on: "Rocky Linux 8, njmon v78"
+faq:
+- q: "njmon 데이터를 Prometheus 로 수집하려면 어떻게 구성하나요?"
+  a: "njmon 을 `nimon` 으로 링크해 Telegraf 의 `socket_listener` 로 데이터를 보내고, Telegraf 의 `prometheus_client` 출력이 `/metrics` 로 expose 한 metric 을 Prometheus 가 scrape 하도록 구성합니다."
+- q: "Telegraf 설정 후 서비스가 기동되지 않으면 무엇을 확인해야 하나요?"
+  a: "`telegraf.conf` 에 기본으로 들어 있는 `[[outputs.XXXXXX]]` 설정을 제외해야 정상적으로 기동됩니다."
+- q: "nimon 이 Telegraf 로 데이터를 잘 보내는지 어떻게 확인하나요?"
+  a: "`curl -s localhost:8088/metrics` 를 실행해 `cpu_total_idle` 같은 Telegraf collected metric 이 출력되는지 확인합니다."
+- q: "njmon 용 Grafana Dashboard 가 있나요?"
+  a: "njmon 은 기본 Dashboard 를 제공하지 않으며, 작성자가 Linux 용으로 만든 Dashboard 를 grafana.com 의 ID 15776 으로 Import 할 수 있습니다."

@@ -1,0 +1,24 @@
+# AEO data for _posts/2026-02-02-open-webui-db-migration.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+keywords:
+- "Open WebUI"
+- "SQLite"
+- "PostgreSQL"
+- "open-webui-postgres-migration"
+- "DATABASE_URL"
+- "Foreign Key Check"
+- "orphaned records"
+summary:
+- "open-webui-postgres-migration 도구로 Open WebUI의 SQLite 데이터베이스를 PostgreSQL로 옮겨 다중 사용자 환경의 데이터베이스 잠금 문제를 해결할 수 있습니다."
+- "임시 Open WebUI 컨테이너를 PostgreSQL에 연결해 테이블을 먼저 생성하고, SQLite 백업과 기존 컨테이너 중지 후 `migrate.py`를 실행합니다."
+- "마이그레이션이 끝나면 `DATABASE_URL`을 PostgreSQL 연결 문자열로 지정해 Open WebUI 컨테이너를 다시 시작합니다."
+tested_on: "Amazon Linux 2023, ghcr.io/open-webui/open-webui:main, postgres:18-alpine (Docker)"
+faq:
+- q: "Open WebUI를 SQLite에서 PostgreSQL로 바꾸는 이유는 무엇인가요?"
+  a: "다수의 사용자가 동시에 접근하는 환경에서는 SQLite의 동시 접근성 한계로 데이터베이스 잠금(lock) 이슈가 발생할 수 있기 때문입니다. PostgreSQL로 전환하면 이런 잠금 이슈 없이 안정적으로 운영할 수 있습니다."
+- q: "마이그레이션 전에 PostgreSQL 테이블은 어떻게 만드나요?"
+  a: "`DATABASE_URL`을 PostgreSQL로 지정한 임시 Open WebUI 컨테이너를 구동하면 필요한 테이블이 자동으로 생성됩니다. 생성이 끝나면 임시 컨테이너를 중지하고 삭제합니다."
+- q: "migrate.py 실행 시 'Failed Foreign Key Check' 오류가 나면 어떻게 하나요?"
+  a: "`chat_file`, `knowledge_file` 테이블에 부모 레코드가 없는 고아 레코드가 남아 있어 발생합니다. `sqlite3`로 `DELETE FROM chat_file WHERE chat_id NOT IN (SELECT id FROM chat);`와 `DELETE FROM knowledge_file WHERE knowledge_id NOT IN (SELECT id FROM knowledge);`를 실행한 뒤 다시 마이그레이션합니다."
+- q: "마이그레이션 후 Open WebUI가 PostgreSQL을 쓰게 하려면 어떻게 하나요?"
+  a: "컨테이너 실행 시 `-e DATABASE_URL=postgres://<user>:<password>@<host ip>:5432/postgres` 환경 변수를 지정해 Open WebUI를 재시작합니다."

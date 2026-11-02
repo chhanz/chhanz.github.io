@@ -1,0 +1,23 @@
+# AEO data for _posts/2019-04-01-linux--use-ssacil.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "CentOS 7에서 HP ssacli를 설치하고 Smart Array 컨트롤러, Logical Drive, Physical Drive 상태를 확인하는 명령어 사용법을 정리합니다."
+keywords:
+- "ssacli"
+- "HP Smart Storage Administrator"
+- "Smart Array P410i"
+- "hpssacli"
+- "하드웨어 RAID"
+- "Logical Drive"
+- "Physical Drive"
+summary:
+- "HP 서버에서는 ssacli로 Linux 운영체제 안에서 하드웨어 RAID 구성과 상태를 확인하고 변경할 수 있습니다."
+- "`ssacli ctrl all show detail`, `ssacli ctrl slot=0 ld all show`, `ssacli ctrl slot=0 pd all show`로 컨트롤러와 Logical/Physical Drive 상태를 확인합니다."
+- "특정 Logical Drive를 조회하면 OS의 Disk Name(/dev/sda 등)과 구성 Physical Drive를, 특정 Physical Drive를 조회하면 Failed 원인을 볼 수 있습니다."
+tested_on: "CentOS 7, ssacli 3.40-3.0, HP Smart Array P410i"
+faq:
+- q: "HP 서버의 RAID 상태를 Linux에서 확인하려면 어떤 도구를 쓰나요?"
+  a: "HP가 제공하는 ssacli를 사용합니다. 예전에는 hpssacli 같은 명령어였고, HP Support 페이지에서 rpm을 받아 `yum -y install ssacli-3.40-3.0.x86_64.rpm`처럼 설치합니다."
+- q: "ssacli로 Logical Drive와 Physical Drive 상태를 보려면 어떤 명령을 쓰나요?"
+  a: "전체 Logical Drive는 `ssacli ctrl slot=0 ld all show`, 전체 Physical Drive는 `ssacli ctrl slot=0 pd all show`로 확인합니다. 특정 장치는 `ssacli ctrl slot=0 ld 1 show`, `ssacli ctrl slot=0 pd 2I:1:5 show`처럼 지정합니다."
+- q: "ssacli에서 특정 Logical Drive가 OS의 어떤 디스크인지 알 수 있나요?"
+  a: "네, `ssacli ctrl slot=0 ld 1 show` 출력의 Disk Name 항목에 /dev/sda처럼 OS에서 쓰는 디스크 이름과 Mount Points가 표시됩니다."

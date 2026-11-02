@@ -1,0 +1,25 @@
+# AEO data for _posts/2022-01-17-openstack-dashboard-skyline.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "kolla-ansible 로 배포한 OpenStack Wallaby 환경에 새로운 대시보드 Skyline 을 Docker 컨테이너로 배포하고 화면을 살펴본 미리보기 후기입니다."
+keywords:
+- "Skyline"
+- "skyline-apiserver"
+- "OpenStack Dashboard"
+- "Horizon"
+- "99cloud/skyline"
+- "skyline.yaml"
+- "kolla-ansible"
+summary:
+- "Skyline 은 새로운 OpenStack Dashboard 프로젝트로, 직접 사용해 보니 Horizon 보다 빠르고 화면이 깔끔했습니다."
+- "skyline 사용자와 데이터베이스를 만들고 `/etc/skyline/skyline.yaml` 의 `database_url`, `keystone_url`, `system_user_password` 를 수정한 뒤 컨테이너로 배포합니다."
+- "`KOLLA_BOOTSTRAP` 환경 변수를 준 bootstrap 컨테이너로 DB 를 초기화한 다음, 본 컨테이너를 실행하면 8080 포트로 접속할 수 있습니다."
+tested_on: "OpenStack Wallaby (all-in-one, kolla-ansible), Ubuntu 20.04"
+faq:
+- q: "Skyline 을 배포하기 전에 OpenStack 에서 어떤 준비가 필요한가요?"
+  a: "`openstack user create` 로 skyline 사용자를 만들고 `openstack role add --project service --user skyline admin` 으로 admin role 을 부여합니다. 이어서 skyline 데이터베이스를 생성하고 권한을 줍니다."
+- q: "skyline.yaml 에서 반드시 수정해야 하는 항목은 무엇인가요?"
+  a: "접근 가능한 주소로 바꾼 `database_url`, OpenStack 의 `keystone_url`, skyline 사용자 생성 시 입력한 `system_user_password` 를 수정합니다."
+- q: "Skyline 컨테이너는 어떤 순서로 실행하나요?"
+  a: "먼저 `-e KOLLA_BOOTSTRAP=\"\"` 를 준 `skyline_bootstrap` 컨테이너로 DB 를 초기화하고, 이를 제거한 뒤 `--restart=always --net=host` 로 `99cloud/skyline:latest` 컨테이너를 실행합니다."
+- q: "Skyline 콘솔이 중국어로 나오면 어떻게 하나요?"
+  a: "초기 설치 후 콘솔이 중국어로 표시될 수 있지만 언어를 English 로 변경하면 문제없이 사용할 수 있습니다."

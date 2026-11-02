@@ -1,0 +1,25 @@
+# AEO data for _posts/2019-09-04-kubernetes-install-1_15_3.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "CentOS 7.6에서 Kubernetes Preinstaller playbook과 kubeadm으로 Master 1대, Worker 2대의 Kubernetes v1.15.3 클러스터를 구성합니다."
+keywords:
+- "kubeadm"
+- "Kubernetes v1.15.3"
+- "kubeadm init"
+- "kubeadm join"
+- "Calico CNI"
+- "Kubernetes Preinstaller"
+- "ansible-playbook"
+summary:
+- "Kubernetes Preinstaller playbook으로 firewalld, SELinux, SWAP 해제와 커널 파라미터, Docker-CE와 Kubernetes Repository 설정을 자동으로 처리합니다."
+- "Master node에서 `kubeadm init`으로 초기화하고 kubeconfig를 만든 뒤 Calico CNI를 배포하고, 출력된 token으로 Worker node를 `kubeadm join`합니다."
+- "httpd Pod을 만들고 `kubectl expose`로 Service를 연결해 클러스터가 정상 동작하는지 확인합니다."
+tested_on: "CentOS 7.6, Docker v18.6.1, Kubernetes v1.15.3"
+faq:
+- q: "kubeadm으로 Kubernetes를 설치하기 전에 어떤 OS 설정이 필요한가요?"
+  a: "firewalld 중지, SELinux 비활성화, SWAP 해제, 커널 파라미터 설정, Docker-CE와 Kubernetes Repository 등록, 필요 패키지 설치, systemd 설정이 필요합니다. 글에서는 Kubernetes Preinstaller playbook으로 이를 자동 처리한 뒤 Reboot했습니다."
+- q: "kubeadm init 후 kubectl을 사용하려면 무엇을 해야 하나요?"
+  a: "`mkdir -p $HOME/.kube`, `cp -i /etc/kubernetes/admin.conf $HOME/.kube/config`, `chown $(id -u):$(id -g) $HOME/.kube/config`로 kubeconfig를 만들면 kubectl이 정상 동작합니다."
+- q: "Worker node는 어떻게 클러스터에 연결하나요?"
+  a: "Master node에서 `kubeadm init`이 끝날 때 출력된 `kubeadm join <Master IP>:6443 --token ... --discovery-token-ca-cert-hash sha256:...` 명령을 각 Worker node에서 실행합니다."
+- q: "kubeadm 클러스터에 Calico CNI는 어떻게 설치하나요?"
+  a: "`kubectl apply -f https://docs.projectcalico.org/v3.8/manifests/calico.yaml`로 배포합니다. kube-system의 calico 관련 Pod이 Running 상태가 되면 CNI 설치가 완료된 것입니다."

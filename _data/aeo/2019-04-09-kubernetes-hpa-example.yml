@@ -1,0 +1,21 @@
+# AEO data for _posts/2019-04-09-kubernetes-hpa-example.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+keywords:
+- "Kubernetes"
+- "Horizontal Pod Autoscaler"
+- "HPA"
+- "kubectl autoscale"
+- "php-apache"
+- "busybox"
+- "부하 테스트"
+summary:
+- "CPU 부하를 만드는 php-apache 이미지를 배포하고 `kubectl autoscale`로 HPA를 생성해 Kubernetes Auto-Scale 동작을 확인합니다."
+- "busybox Pod에서 반복 요청으로 부하를 주자 CPU 사용률이 477%까지 오르며 Pod이 MAXPODS 값인 10개까지 늘어났습니다."
+- "부하를 중지하면 HPA가 다시 Pod 수를 줄이는 것을 확인할 수 있습니다."
+faq:
+- q: "Kubernetes에서 HPA는 어떻게 생성하나요?"
+  a: "Deployment에 CPU requests를 지정해 실행한 뒤 `kubectl autoscale deployment php-apache --cpu-percent=50 --min=1 --max=10`을 실행합니다. 글에서는 `--requests=cpu=200m`으로 Pod을 만들었습니다."
+- q: "HPA 테스트용 부하는 어떻게 만들 수 있나요?"
+  a: "`kubectl run -i --tty load-generator --image=busybox /bin/sh`로 busybox Pod에 접속한 뒤 `while true; do wget -q -O- http://php-apache.default.svc.cluster.local; done`으로 서비스에 계속 요청을 보냅니다."
+- q: "부하가 사라지면 HPA는 Pod 수를 어떻게 조절하나요?"
+  a: "부하가 중지되면 HPA가 Pod 수를 다시 줄입니다. 글의 테스트에서는 CPU 사용률이 0%로 떨어진 뒤 늘어났던 Pod들이 Terminating 상태로 정리되었습니다."

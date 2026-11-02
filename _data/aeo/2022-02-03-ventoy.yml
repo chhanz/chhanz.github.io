@@ -1,0 +1,23 @@
+# AEO data for _posts/2022-02-03-ventoy.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+keywords:
+- "Ventoy"
+- "Ventoy2Disk.sh"
+- "IODD"
+- "ISO 부팅 USB"
+- "exfat-utils"
+- "OS 설치 USB"
+summary:
+- "Ventoy 로 USB 를 한 번 설치해 두면 별도 부팅 이미지 작업 없이 ISO 파일을 복사하는 것만으로 OS 설치 장치로 쓸 수 있습니다."
+- "Linux 에서는 `./Ventoy2Disk.sh -i /dev/sdX` 로 설치하며, 생성된 exfat 파티션에 ISO 를 넣으면 부팅 메뉴에 목록이 표시됩니다."
+- "IODD 처럼 간편하면서 무료로 쓸 수 있는 오픈소스 도구이며, Windows 에서도 같은 방식으로 장치를 만들 수 있습니다."
+tested_on: "Ventoy 1.0.64 (Ubuntu 에서 장치 생성, CentOS 7.9 Minimal ISO 설치 테스트)"
+faq:
+- q: "Linux 에서 Ventoy USB 는 어떻게 만드나요?"
+  a: "GitHub Release 에서 Linux 용 tar.gz 를 받아 압축을 풀고 `./Ventoy2Disk.sh -i /dev/sdX` 를 실행합니다. 대상 디스크의 데이터는 모두 삭제됩니다."
+- q: "Ventoy USB 에 ISO 이미지는 어떻게 추가하나요?"
+  a: "Ventoy 설치로 생성된 exfat 파티션(예: `/dev/vdc1`)을 mount 한 뒤 ISO 파일을 복사하고 umount 하면 됩니다. Ubuntu 에서 exfat 을 mount 하려면 `apt install exfat-utils` 가 필요합니다."
+- q: "이미 Ventoy 가 설치된 디스크에 다시 설치하거나 업데이트하려면 어떻게 하나요?"
+  a: "`-i` 는 이미 Ventoy 가 설치된 디스크에서는 실패하므로 강제 설치는 `-I`, 업데이트는 `-u` 옵션을 사용합니다."
+- q: "Ventoy2Disk.sh 에서 GPT 파티션이나 Secure Boot 를 사용할 수 있나요?"
+  a: "네, 설치 시 `-g` 로 GPT 파티션 스타일을, `-s` 로 secure boot 지원을 켤 수 있습니다. 기본값은 MBR 이며 secure boot 는 비활성화입니다."

@@ -1,0 +1,24 @@
+# AEO data for _posts/2019-11-12-configuration-squid-proxy.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "인터넷이 안 되는 on-premise 서버가 Squid Proxy 서버를 거쳐 Yum으로 패키지를 받을 수 있도록 구성하는 방법을 정리합니다."
+keywords:
+- "Squid"
+- "Proxy 서버"
+- "squid.conf"
+- "http_access"
+- "http_port"
+- "yum.conf proxy"
+summary:
+- "인터넷이 되는 서버 한 대에 Squid를 설치하면 인터넷이 안 되는 Server Farm 서버도 Proxy를 거쳐 Yum을 사용할 수 있습니다."
+- "squid.conf에서 `http_access allow all`과 `http_port 8080`을 설정하고, 클라이언트의 `/etc/yum.conf`에 `proxy=http://<Proxy IP>:8080`을 추가합니다."
+- "이 구성에서는 Yum만 인터넷을 쓸 수 있고 ping 같은 그 밖의 통신은 여전히 불가능합니다."
+tested_on: "CentOS 7"
+faq:
+- q: "인터넷이 안 되는 서버에서 Yum을 쓰려면 어떻게 하나요?"
+  a: "인터넷이 되는 서버에 Squid Proxy를 구성하고, 내부 서버의 `/etc/yum.conf`에 `proxy=http://192.168.200.151:8080`처럼 Proxy 주소를 추가합니다."
+- q: "Squid Proxy 포트는 어디서 바꾸나요?"
+  a: "`/etc/squid/squid.conf`의 `http_port` 값을 바꿉니다. 글에서는 기본 3128 대신 `http_port 8080`을 지정했습니다."
+- q: "Squid를 시작했는데 Proxy가 동작하지 않으면 어떻게 하나요?"
+  a: "커널 파라미터 `net.ipv6.conf.all.disable_ipv6 = 1`과 `net.ipv4.ip_forward = 1`을 추가합니다."
+- q: "yum.conf에 proxy를 설정하면 서버 전체가 인터넷을 쓸 수 있나요?"
+  a: "아닙니다. Yum만 Proxy를 통해 인터넷을 쓰고 그 밖의 통신은 불가능하며, `ping 1.1.1.1`도 Network is unreachable로 실패합니다."

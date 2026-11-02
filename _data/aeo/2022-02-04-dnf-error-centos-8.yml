@@ -1,0 +1,20 @@
+# AEO data for _posts/2022-02-04-dnf-error-centos-8.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+keywords:
+- "CentOS 8"
+- "dnf"
+- "No URLs in mirrorlist"
+- "vault.centos.org"
+- "CentOS 8 EOS"
+- "CentOS Stream"
+summary:
+- "CentOS 8 의 `Failed to download metadata for repo 'appstream'` 오류는 2021년 12월 31일 EOS 이후 Mirror site 가 vault 로 전환되어 발생합니다."
+- "repo 파일의 `mirrorlist` 를 주석 처리하고 `baseurl` 을 `vault.centos.org` 로 바꾸면 `dnf` 를 다시 사용할 수 있습니다."
+- "vault repo 는 더 이상 패키지 유지보수가 없어 보안에 취약하므로, 근본적으로는 CentOS 8 Stream, RHEL 8, Rocky Linux 등으로 전환해야 합니다."
+faq:
+- q: "CentOS 8 에서 'No URLs in mirrorlist' 오류는 왜 발생하나요?"
+  a: "CentOS 8 이 `December 31, 2021` 부로 EOS 되면서 Mirror site 가 vault 로 전환되어 기존 mirrorlist 를 찾지 못하기 때문입니다."
+- q: "CentOS 8 에서 dnf 를 다시 사용하려면 어떻게 하나요?"
+  a: "`sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-Linux-*` 와 `sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-Linux-*` 를 실행해 repo 를 vault 로 바꿉니다."
+- q: "vault repo 로 바꾸면 계속 써도 되나요?"
+  a: "당장은 동작하지만 패키지 유지보수가 없어 보안에 취약합니다. Rocky Linux 같은 다른 배포판이나 CentOS 8 Stream, RHEL 8 로 전환하는 것이 근본적인 해결책입니다."

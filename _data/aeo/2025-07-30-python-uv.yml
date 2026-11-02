@@ -1,0 +1,26 @@
+# AEO data for _posts/2025-07-30-python-uv.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "Rust로 작성된 Python 패키지 관리자 uv를 설치하고 프로젝트 초기화, 의존성 추가와 제거, 잠금, 가상 환경 생성, 실행 방법을 정리합니다."
+keywords:
+- "uv"
+- "uvx"
+- "pyproject.toml"
+- "uv.lock"
+- "uv add"
+- "uv run"
+- "pip 대안"
+- "Rust"
+summary:
+- "uv는 Rust로 작성된 Python 패키지 및 프로젝트 관리자로, pip, pip-tools, pipx, poetry, pyenv, virtualenv 등을 하나로 대체합니다."
+- "`curl -LsSf https://astral.sh/uv/install.sh | sh`로 설치한 뒤 `uv init`, `uv add`, `uv remove`, `uv lock`, `uv venv`, `uv run`으로 프로젝트를 관리할 수 있습니다."
+- "직접 테스트해 보니 기존 pip 방식보다 훨씬 빠르게 패키지를 설치하고 관리할 수 있었습니다."
+tested_on: "uv 0.8.4 (x86_64-unknown-linux-gnu), CPython 3.7.16"
+faq:
+- q: "uv는 어떻게 설치하나요?"
+  a: "`curl -LsSf https://astral.sh/uv/install.sh | sh`로 설치합니다. 설치 후 `uv`, `uvx`가 `$HOME/.local/bin`에 위치하며, 셸을 재시작하거나 `source $HOME/.local/bin/env`를 실행해 PATH에 추가합니다."
+- q: "uv에서 패키지 의존성을 추가하고 제거하려면 어떻게 하나요?"
+  a: "`uv add flask`처럼 추가하고 `uv remove flask-cors`처럼 제거합니다. 추가 시 가상 환경 `.venv`가 없으면 자동으로 생성되고 `uv.lock`에 버전이 기록됩니다."
+- q: "uv 프로젝트에서 requirements.txt를 만들 수 있나요?"
+  a: "네. `uv pip freeze > requirements.txt`로 현재 설치된 패키지 목록을 requirements.txt로 저장할 수 있습니다."
+- q: "프로젝트 디렉터리 밖에서 uv 프로젝트를 실행하려면 어떻게 하나요?"
+  a: "`uv run --project /root/uv-test /root/uv-test/main.py`처럼 `--project` 옵션으로 프로젝트 경로를 지정해 실행합니다."

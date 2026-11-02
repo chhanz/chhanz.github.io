@@ -1,0 +1,19 @@
+# AEO data for _posts/2024-01-10-ceph-quincy-install-err.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+keywords:
+- "ceph-ansible"
+- "Ceph Quincy"
+- "openstack.config_template"
+- "requirements.yml"
+- "ansible-galaxy"
+- "site-container.yml"
+summary:
+- "ceph-ansible로 Ceph Quincy 설치 시 `openstack.config_template` 모듈을 찾지 못하는 오류는 `ansible-galaxy install -r requirements.yml`로 해결됩니다."
+- "Python 가상환경에서 pip로 `requirements.txt`만 설치하면 playbook에 꼭 필요한 `ansible-config_template`이 빠져 이 오류가 발생합니다."
+faq:
+- q: "ceph-ansible 실행 시 couldn't resolve module/action 'openstack.config_template.config_template' 오류가 나면 어떻게 하나요?"
+  a: "`ansible-galaxy install -r requirements.yml`로 ceph-ansible의 `requirements.yml`에 정의된 Ansible collection을 설치하면 해결됩니다."
+- q: "requirements.txt를 설치했는데도 왜 이 오류가 발생하나요?"
+  a: "pip로 설치하는 `requirements.txt`만으로는 playbook에 꼭 필요한 `ansible-config_template`이 설치되지 않기 때문입니다. 이 모듈은 `requirements.yml`에 collection으로 정의되어 있습니다."
+- q: "ceph-ansible의 requirements.yml에는 어떤 collection이 포함되어 있나요?"
+  a: "opendev.org의 `ansible-config_template`(1.2.1), `ansible.utils`(>=2.5.0), `community.general`, `ansible.posix`가 포함되어 있습니다."

@@ -1,0 +1,25 @@
+# AEO data for _posts/2019-08-16-linux-fast-vm.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "libvirtd 기반 VM Provisioning 도구 Fast-VM을 ansible-galaxy role로 설치하고 이미지 Import, hack file 수정, VM 생성과 삭제를 해봅니다."
+keywords:
+- "Fast-VM"
+- "libvirtd"
+- "ansible-galaxy"
+- "ondrejhome.fast-vm-server"
+- "fast-vm import_image"
+- "hack file"
+- "guestfish"
+- "KVM"
+summary:
+- "Fast-VM은 Ondrej Faměra가 만든 libvirtd 기반 VM Provisioning 도구로, `fast-vm` 명령 하나로 VM을 생성하고 관리할 수 있습니다."
+- "`ansible-galaxy install ondrejhome.fast-vm-server`로 role을 받고 defaults/main.yml에 `fastvm_vg`, `fastvm_lv_size`를 설정한 뒤 Playbook으로 설치합니다."
+- "`fast-vm import_image`로 OS 이미지를 가져오고 hack file에서 guestfish로 Timezone을 Asia/Seoul로 바꾼 뒤 `create`, `start`, `ssh`, `delete`로 VM을 운영합니다."
+faq:
+- q: "Fast-VM을 설치하려면 무엇이 필요한가요?"
+  a: "CentOS/RHEL 7.6 또는 Fedora 28, 29, 30 환경, KVM용 CPU 가상화 기능, LVM Pool로 쓸 여유 VG 공간, 패키지 설치를 위한 Public Network 연결이 필요합니다. 설치는 ansible로 진행합니다."
+- q: "Fast-VM은 어떻게 설치하나요?"
+  a: "`ansible-galaxy install ondrejhome.fast-vm-server`로 role을 받고 `/etc/ansible/roles/ondrejhome.fast-vm-server/defaults/main.yml`을 환경에 맞게 수정합니다. 이후 이 role을 localhost에 적용하는 Playbook을 `ansible-playbook install.yaml`로 실행합니다."
+- q: "Fast-VM 기본 이미지의 Timezone을 한국 시간으로 바꿀 수 있나요?"
+  a: "네, 기본 이미지는 유럽 Timezone이므로 `/etc/fast-vm/hacks-centos-6.9.sh` 같은 hack file에 guestfish로 /etc/localtime을 /usr/share/zoneinfo/Asia/Seoul로 연결하는 내용을 추가합니다. 이렇게 수정한 이미지로 VM을 만들면 KST로 표시됩니다."
+- q: "Fast-VM으로 만든 VM의 기본 root 비밀번호는 무엇인가요?"
+  a: "기본으로 제공되는 이미지의 root 비밀번호는 `testtest`입니다. `fast-vm ssh <VM ID>`로 접속하면 ssh 서비스가 뜰 때까지 기다렸다가 연결합니다."

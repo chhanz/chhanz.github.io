@@ -1,0 +1,25 @@
+# AEO data for _posts/2016-05-13-sanswitchops.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "SAN Switch에 telnet, ssh로 접속해 스위치 이름, Domain ID, IP, 포트 속도와 Alias, Zone, Config를 CLI로 설정하는 명령을 정리했습니다."
+keywords:
+- "SAN Switch"
+- "Zoning"
+- "Domain ID"
+- "alicreate"
+- "zonecreate"
+- "cfgenable"
+- "switchshow"
+- "ipaddrset"
+summary:
+- "Java 버전 문제로 Web Console 접속이 안 될 때 telnet이나 ssh CLI로 SAN Switch의 이름, Domain ID, IP, 포트 속도를 설정할 수 있습니다."
+- "Zoning은 alicreate로 Alias를, zonecreate로 Zone을 만든 뒤 cfgcreate로 Config Group에 넣고 cfgenable로 적용하는 순서입니다."
+- "설정 결과는 zoneshow로 Zone 구성을, switchshow로 전체 포트 연결 상태와 WWN 정보를 확인합니다."
+faq:
+- q: "SAN Switch의 Domain ID는 어떻게 변경하나요?"
+  a: "`switchdisable` 후 `configure`에서 Fabric parameters에 y를 입력하고 Domain 값에 새 ID를 넣은 다음 `switchenable`로 다시 활성화합니다. Domain ID는 fabric 안에서 유일해야 하며, 나머지 항목은 보통 Enter로 기본값을 유지합니다."
+- q: "SAN Switch의 기본 IP는 무엇이고 어떻게 바꾸나요?"
+  a: "기본 접속 IP는 10.77.77.77입니다. `ipaddrset`으로 Ethernet IP와 Subnetmask를 입력해 변경하고 `ipaddrshow`로 확인합니다."
+- q: "SAN Switch에서 Zone 설정을 적용하려면 어떻게 하나요?"
+  a: "Zone을 Config Group에 추가한 뒤 그 Group을 활성화해야 합니다. `cfgcreate \"test_zone\",\"test_fc0__stg_fc1\"`로 Group을 만들고 `cfgenable \"test_zone\"`으로 적용합니다."
+- q: "Zone 멤버로 Port 번호와 WWN 중 무엇을 써야 하나요?"
+  a: "둘 다 직접 입력할 수 있지만 관리 편의를 위해 alias를 만들어 쓰는 것을 권장합니다. alias는 `alicreate`로 Port 번호(예: `1,0`)나 WWN을 지정해 만듭니다."

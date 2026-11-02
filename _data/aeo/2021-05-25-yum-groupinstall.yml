@@ -1,0 +1,21 @@
+# AEO data for _posts/2021-05-25-yum-groupinstall.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "yum grouplist, groupinfo, groupinstall 로 Group Package 를 조회하고 설치하는 방법과, hidden ids 옵션으로 확인한 그룹 ID 를 Ansible 자동화에 활용하는 예제를 정리합니다."
+keywords:
+- "yum groupinstall"
+- "yum grouplist hidden ids"
+- "yum groupinfo"
+- "Group Package"
+- "Ansible yum 모듈"
+- "graphical-server-environment"
+summary:
+- "`yum grouplist hidden ids` 를 사용하면 Group Package 이름과 함께 `graphical-server-environment` 같은 ID 값을 확인할 수 있습니다."
+- "`yum groupinfo` 로 그룹의 Mandatory/Optional sub-group 목록을 보고, `yum groupinstall @그룹ID` 로 설치합니다."
+- "그룹 ID 를 사용하면 Ansible Playbook 이나 Shell script 에서 그룹 설치를 자동화할 수 있습니다."
+faq:
+- q: "yum 에서 Group Package 의 ID 값은 어떻게 확인하나요?"
+  a: "`yum grouplist hidden ids` 를 실행하면 각 그룹 이름 옆 괄호에 ID 가 표시됩니다. 예를 들어 `Server with GUI` 의 ID 는 `graphical-server-environment` 입니다."
+- q: "yum groupinstall 에서 패키지 이름 앞의 @ 는 무슨 의미인가요?"
+  a: "해당 이름이 group package 임을 명시하는 표기입니다. 예를 들어 `sudo yum groupinstall @gnome-desktop` 처럼 사용합니다."
+- q: "Ansible 에서 yum 그룹을 설치하려면 어떻게 작성하나요?"
+  a: "yum 모듈의 `name` 에 그룹 ID 를 넣습니다. 글의 예제에서는 CentOS 에 `@^gnome-desktop-environment`, RedHat 에 `@gnome-desktop` 을 `state: present` 로 지정합니다."

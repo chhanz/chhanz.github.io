@@ -1,0 +1,23 @@
+# AEO data for _posts/2026-01-05-about-mcpo.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+keywords:
+- "mcpo"
+- "MCP 서버"
+- "OpenAPI"
+- "Open WebUI"
+- "stdio"
+- "mcpo.json"
+- "Docker"
+summary:
+- "mcpo는 stdio 기반 MCP 서버를 표준 RESTful OpenAPI로 노출해 주는 프록시로, Open WebUI 같은 도구와 연동할 때 유용합니다."
+- "mcpo 저장소를 클론해 컨테이너 이미지로 빌드하고, `mcpo.json`에 여러 MCP 서버를 선언한 뒤 `--config`로 지정해 한 번에 통합 실행할 수 있습니다."
+- "실행 후 `/openapi.json`과 `/<서버명>/openapi.json`으로 각 MCP 서버의 OpenAPI 스키마를 확인할 수 있습니다."
+faq:
+- q: "mcpo를 쓰면 stdio 방식 MCP 서버보다 무엇이 좋나요?"
+  a: "stdio 방식의 보안 취약성, 도구 호환성 부족, 인증과 오류 처리 같은 표준 기능 부족을 보완하고 여러 MCP 서버를 한 곳에서 통합 관리할 수 있습니다. 사용자 노트북 리소스 사용이나 LLM 재시작에 따른 MCP 서버 재시작 같은 관리 불편도 줄일 수 있습니다."
+- q: "mcpo에 여러 MCP 서버를 등록하려면 어떻게 하나요?"
+  a: "`mcpo.json`의 `mcpServers` 아래에 서버별 `command`와 `args`를 선언하고 `mcpo --config /app/mcpo.json`으로 실행합니다. 본문에서는 `time`과 `memory` MCP 서버를 등록했습니다."
+- q: "mcpo API에 인증을 걸 수 있나요?"
+  a: "네. `--api-key \"top-secret\"`처럼 옵션을 추가하면 API 인증을 설정할 수 있습니다. `--strict-auth`를 쓰면 모든 엔드포인트와 문서까지 API 키로 보호합니다."
+- q: "mcpo가 노출한 API는 어떻게 확인하나요?"
+  a: "`curl -s localhost:8000/openapi.json`으로 전체 목록을, `curl -s localhost:8000/time/openapi.json`처럼 서버 경로를 붙여 개별 MCP 서버의 OpenAPI 스키마를 확인합니다."

@@ -1,0 +1,22 @@
+# AEO data for _posts/2025-09-29-loop-mount.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "Loop device로 단일 파티션 이미지와 RHEL Cloud Image 같은 다중 파티션 이미지 파일을 mount하는 방법을 parted와 losetup 예제로 정리합니다."
+keywords:
+- "Loop device"
+- "losetup"
+- "mount -o loop"
+- "parted"
+- "Cloud Image"
+- "qemu-img"
+- "raw 이미지"
+summary:
+- "단일 파티션 이미지 파일은 `mount -o loop,nouuid`로 ISO처럼 바로 마운트할 수 있습니다."
+- "다중 파티션 Cloud Image는 `parted ... unit B print`로 파티션 시작 바이트를 확인한 뒤 `losetup -o`로 오프셋을 지정해 loop device를 만들고 마운트합니다."
+tested_on: "RHEL 9.6 KVM Cloud Image (rhel-9.6-x86_64-kvm.raw)"
+faq:
+- q: "dd로 백업한 단일 파티션 이미지는 어떻게 마운트하나요?"
+  a: "`mount -o loop,nouuid part-image-backup.img /mnt`로 마운트합니다. 일반적인 ISO 이미지를 마운트하는 방법과 유사합니다."
+- q: "여러 파티션이 있는 디스크 이미지에서 특정 파티션만 마운트하려면 어떻게 하나요?"
+  a: "`parted <이미지> unit B print`로 대상 파티션의 시작 위치(바이트)를 확인하고 `losetup -o <시작 바이트> /dev/loop0 <이미지>`로 loop device를 만든 뒤 `mount /dev/loop0 /mnt`로 마운트합니다."
+- q: "생성한 loop device의 오프셋은 어떻게 확인하나요?"
+  a: "`losetup -l`을 실행하면 loop device별 OFFSET과 BACK-FILE을 확인할 수 있습니다."

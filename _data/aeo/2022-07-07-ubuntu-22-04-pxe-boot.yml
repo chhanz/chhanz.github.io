@@ -1,0 +1,25 @@
+# AEO data for _posts/2022-07-07-ubuntu-22-04-pxe-boot.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+keywords:
+- "PXE Boot"
+- "Ubuntu 22.04"
+- "tftpd-hpa"
+- "isc-dhcp-server"
+- "apache2"
+- "pxelinux"
+- "ramdisk_size"
+- "autoinstall"
+summary:
+- "Ubuntu 22.04에서 apache2(ISO 배포), tftpd-hpa(bootloader 배포), isc-dhcp-server(IP 임대)로 PXE Boot 서버를 구성할 수 있습니다."
+- "`pxelinux.0`, `ldlinux.c32`와 ISO의 `vmlinuz`, `initrd`를 TFTP 경로에 두고 `pxelinux.cfg/default`에서 ISO URL을 지정합니다."
+- "설치 중 `No space left on device` 오류가 나면 `APPEND`에 `ramdisk_size=1500000` 옵션을 추가해 해결합니다."
+tested_on: "Ubuntu 22.04 (ubuntu-22.04-live-server-amd64.iso)"
+faq:
+- q: "Ubuntu 22.04 PXE 설치 중 No space left on device 오류는 왜 발생하나요?"
+  a: "Ubuntu ISO 이미지를 ramdisk에 내려받는데 ramdisk 크기가 부족해서 발생합니다. `pxelinux.cfg/default`의 `APPEND` 줄에 `ramdisk_size=1500000` 옵션을 추가하면 해결됩니다."
+- q: "PXE Boot를 위해 dhcpd.conf에 무엇을 추가해야 하나요?"
+  a: "subnet 설정에 TFTP 서버 주소인 `next-server`와 bootloader 경로인 `filename \"u22/pxelinux.0\"`을 추가합니다. 설정 후 `sudo systemctl restart isc-dhcp-server`로 재시작합니다."
+- q: "isc-dhcp-server가 특정 네트워크 인터페이스에서만 동작하게 하려면 어떻게 하나요?"
+  a: "`/etc/default/isc-dhcp-server` 파일의 `INTERFACESv4` 옵션에 인터페이스 이름(예: `INTERFACESv4=\"ens8\"`)을 입력합니다."
+- q: "PXE Boot로 Ubuntu 자동 설치(autoinstall)를 하려면 어떻게 하나요?"
+  a: "autoinstall 설정 파일을 Web 서버의 DocumentRoot에 두고, `pxelinux.cfg/default`의 `APPEND`에 `autoinstall ds=nocloud-net;s=<스크립트 URL>`을 추가합니다."

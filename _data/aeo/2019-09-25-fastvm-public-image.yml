@@ -1,0 +1,23 @@
+# AEO data for _posts/2019-09-25-fastvm-public-image.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "fast-vm에 CentOS 8 public image가 없을 때 RHEL 8용 kickstart와 hack 파일을 고쳐 CentOS 8 custom image를 만드는 과정을 정리합니다."
+keywords:
+- "fast-vm"
+- "CentOS 8"
+- "custom image"
+- "kickstart"
+- "virt-install"
+- "libguestfs"
+- "guestfish"
+summary:
+- "fast-vm에 CentOS 8 public image가 아직 없어 RHEL 8용 xml, kickstart, hack 파일을 받아 CentOS 8용으로 수정해 custom image를 만들었습니다."
+- "`import_custom_image`로 빈 이미지를 만들고 virt-install로 설치한 뒤 `export_image`, `remove_image`, `import_image` 순서로 6GB 이미지를 등록합니다."
+- "RHEL/CentOS 7.x 일부 시스템의 libguestfs가 xfs 새 기능 때문에 동작하지 않는 문제는 fast-vm 가이드의 appliance 1.39.11로 해결합니다."
+tested_on: "CentOS Linux 8.0.1905 (Kernel 4.18.0-80.el8.x86_64) 게스트 이미지"
+faq:
+- q: "RHEL 8용 fast-vm 파일을 CentOS 8용으로 바꾸려면 무엇을 수정하나요?"
+  a: "kickstart의 볼륨 그룹 이름(r8vg를 c8vg로), virt-install 스크립트의 VM 이름(rhel-8-fastvm-install을 centos-8-fastvm-install로), hack 파일의 guestfish 마운트 경로(/dev/r8vg/root_lv를 /dev/c8vg/root_lv로)를 바꿉니다."
+- q: "fast-vm에서 6GB 이미지로 import하려면 어떻게 하나요?"
+  a: "export한 `centos-8.0.img.gz`의 이름을 `6g__centos-8.0.img.gz`로 바꾼 뒤 `fast-vm import_image centos-8.0 6g__centos-8.0.img.gz centos-6.3-current.xml 6g_centos-8-hacks.sh`로 import합니다."
+- q: "CentOS 8 이미지로 VM을 만들 때 libguestfs 오류가 나면 어떻게 하나요?"
+  a: "xfs 새 기능 때문에 libguestfs가 정상 동작하지 못해 생기는 문제입니다. `appliance-1.39.11.tar.xz`를 `/var/tmp/fedora29`에 풀고 `/etc/tmpfiles.d/fast-vm-fedora29-appliance.conf`에 `x /var/tmp/fedora29`를 등록합니다."

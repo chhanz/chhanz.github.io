@@ -1,0 +1,23 @@
+# AEO data for _posts/2022-08-17-kubernetes-sops.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+keywords:
+- "SOPS"
+- "age"
+- "age-keygen"
+- "Kubernetes Secret 암호화"
+- "kubeseal"
+- "GitOps"
+- "sopsdiffer"
+- ".gitattributes"
+summary:
+- "SOPS와 age 키를 사용하면 Kubernetes Secret/ConfigMap YAML을 암호화한 상태로 Git에 보관할 수 있습니다."
+- "`sops -d test.yml | kubectl create -f -`처럼 복호화와 동시에 클러스터에 적용할 수 있고, `sops <파일>`로 암호화된 파일을 바로 편집할 수 있습니다."
+- "`.gitattributes`와 `git config diff.sopsdiffer.textconv \"sops -d\"`를 설정하면 git diff에서 복호화된 변경 내용을 볼 수 있습니다."
+tested_on: "sops 3.7.3, age v1.0.0"
+faq:
+- q: "SOPS와 kubeseal 중 무엇을 쓰는 것이 좋나요?"
+  a: "GitOps 초기 보안 강화가 목적이라면 SOPS가 더 편리합니다. kubeseal은 클러스터에 CRD와 Operator를 배포해야 하고, Sealed 후 원본 YAML을 실수로 push할 위험이 있기 때문입니다."
+- q: "SOPS에서 age 키로 파일을 암호화하려면 어떻게 하나요?"
+  a: "`age-keygen -o key.txt`로 키를 만들고 `SOPS_AGE_RECIPIENTS`와 `SOPS_AGE_KEY_FILE` 환경 변수를 설정한 뒤 `sops -e test.yml > test.enc.yml`로 암호화합니다. `-i` 옵션을 쓰면 원본 파일에 바로 덮어씁니다."
+- q: "SOPS로 암호화한 파일의 git diff를 평문으로 보려면 어떻게 하나요?"
+  a: "`.gitattributes`에 `*.yml diff=sopsdiffer`를 추가하고 `git config diff.sopsdiffer.textconv \"sops -d\"`를 설정하면 복호화된 내용 기준으로 diff가 표시됩니다."

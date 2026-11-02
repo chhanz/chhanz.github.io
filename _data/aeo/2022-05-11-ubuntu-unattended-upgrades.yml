@@ -1,0 +1,24 @@
+# AEO data for _posts/2022-05-11-ubuntu-unattended-upgrades.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+keywords:
+- "unattended-upgrades"
+- "50unattended-upgrades"
+- "20auto-upgrades"
+- "dpkg-reconfigure"
+- "Package-Blacklist"
+- "Automatic-Reboot"
+- "Ubuntu 22.04"
+summary:
+- "`unattended-upgrades` 는 Ubuntu 에 기본 설치되어 보안 패치 등 업데이트를 자동으로 수행하는 서비스입니다."
+- "안정적인 운영이 필요한 시스템은 `sudo dpkg-reconfigure unattended-upgrades` 에서 `<No>` 를 선택해 자동 업데이트를 끄는 것이 좋습니다."
+- "`50unattended-upgrades` 의 `Package-Blacklist` 로 특정 패키지를 제외하고, `Automatic-Reboot` 계열 설정으로 업데이트 후 자동 재부팅을 제어할 수 있습니다."
+tested_on: "Ubuntu 22.04"
+faq:
+- q: "Ubuntu 에서 unattended-upgrades 자동 업데이트를 끄려면 어떻게 하나요?"
+  a: "`sudo dpkg-reconfigure unattended-upgrades` 를 실행하고 Text UI 에서 `<No>` 를 선택합니다. 그러면 `/etc/apt/apt.conf.d/20auto-upgrades` 의 두 값이 `0` 으로 바뀝니다."
+- q: "unattended-upgrades 에서 특정 패키지만 자동 업데이트에서 제외할 수 있나요?"
+  a: "네, `/etc/apt/apt.conf.d/50unattended-upgrades` 의 `Unattended-Upgrade::Package-Blacklist` 에 `\"nginx\";` 처럼 패키지 이름을 추가하면 됩니다."
+- q: "unattended-upgrades 는 언제 실행되나요?"
+  a: "기본적으로 매일 06:25 에 수행되는 cron.daily 에 등록되어 `/usr/lib/apt/apt.systemd.daily` 로 실행됩니다. 시간은 시스템 설정에 따라 다를 수 있습니다."
+- q: "unattended-upgrades 가 실제로 업데이트한 내역은 어디서 확인하나요?"
+  a: "`/var/log/unattended-upgrades/unattended-upgrades-dpkg.log` 와 `/var/log/apt/history.log` 에서 확인할 수 있습니다."

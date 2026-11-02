@@ -1,0 +1,21 @@
+# AEO data for _posts/2019-01-30-ansible-vault-create-groupvars.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "ansible-vault로 group_vars/all에 담긴 SSH 접속 계정과 비밀번호를 암호화하고 --ask-vault-pass로 Playbook을 실행하는 방법을 설명합니다."
+keywords:
+- "ansible-vault"
+- "ansible-playbook"
+- "group_vars"
+- "--ask-vault-pass"
+- "ansible_ssh_pass"
+- "AES256"
+summary:
+- "`ansible-vault create`로 group_vars/all을 만들면 SSH 계정과 비밀번호 같은 접속 정보를 암호화해 보관할 수 있습니다."
+- "암호화된 변수 파일을 사용하는 Playbook은 `ansible-playbook -i inventory --ask-vault-pass apache.yml`로 Vault 비밀번호를 입력해 실행합니다."
+- "암호화된 파일은 `ansible-vault view`로 내용을 볼 수 있고, `cat`으로 열면 `$ANSIBLE_VAULT;1.1;AES256` 형식의 암호문만 보입니다."
+faq:
+- q: "Ansible inventory에 비밀번호를 평문으로 넣지 않으려면 어떻게 하나요?"
+  a: "접속 정보를 group_vars/all 파일에 넣고 `ansible-vault create ~/group_vars/all`로 암호화합니다. vars나 inventory에 평문으로 넣는 것은 보안에 취약하기 때문입니다."
+- q: "ansible-vault로 암호화한 변수 파일로 Playbook을 실행하려면 어떻게 하나요?"
+  a: "`--ask-vault-pass` 옵션을 붙여 실행합니다. `ansible-playbook -i inventory --ask-vault-pass apache.yml`을 실행하면 Vault 비밀번호를 묻고, 입력하면 암호화된 변수를 읽어 작업을 수행합니다."
+- q: "ansible-vault로 암호화된 파일 내용은 어떻게 확인하나요?"
+  a: "`ansible-vault view ~/group_vars/all`을 실행하고 Vault 비밀번호를 입력하면 평문 내용을 볼 수 있습니다."

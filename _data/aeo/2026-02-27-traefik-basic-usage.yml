@@ -1,0 +1,25 @@
+# AEO data for _posts/2026-02-27-traefik-basic-usage.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+keywords:
+- "Traefik"
+- "리버스 프록시"
+- "Docker 레이블"
+- "EntryPoints"
+- "Routers"
+- "Middlewares"
+- "basicAuth"
+- "File Provider"
+summary:
+- "Traefik은 Docker 컨테이너에 레이블만 추가하면 라우팅을 자동으로 감지하고 설정하는 리버스 프록시이자 로드 밸런서입니다."
+- "Docker Compose로 Traefik을 띄우고 Host, PathPrefix 기반 라우팅, `dynamic.yml`의 basicAuth 미들웨어, ELB 헬스체크용 라우터를 구성하는 예시를 다룹니다."
+- "Docker 레이블의 Host rule에는 반드시 백틱을 써야 하며, 파일 프로바이더 미들웨어는 `@file` 접미사로 참조해야 합니다."
+tested_on: "Amazon Linux 2023, Traefik v3.3"
+faq:
+- q: "Traefik에서 Docker 컨테이너로 라우팅하려면 어떻게 하나요?"
+  a: "컨테이너에 `traefik.enable=true`, `traefik.http.routers.<이름>.rule=Host(...)`, entrypoints, 서비스 포트 레이블을 추가하면 Traefik이 자동으로 라우팅을 설정합니다. `exposedByDefault: false`이면 레이블이 없는 컨테이너는 노출되지 않습니다."
+- q: "Traefik의 Host rule이 동작하지 않는 이유는 무엇인가요?"
+  a: "Host 값을 큰따옴표로 감싸면 동작하지 않습니다. Docker 레이블의 Host rule은 반드시 백틱 문자로 도메인을 감싸야 합니다. 예: ``Host(`myapp.example.com`)``"
+- q: "Traefik에서 특정 서비스에 Basic 인증을 걸려면 어떻게 하나요?"
+  a: "`htpasswd -nb username password`로 해시를 만든 뒤 `dynamic.yml`에 basicAuth 미들웨어로 정의하고, 컨테이너 레이블에서 `middlewares=my-auth@file`처럼 `@file` 접미사를 붙여 참조합니다."
+- q: "AWS ELB 뒤에 Traefik을 두면 헬스체크가 실패하는 이유는 무엇인가요?"
+  a: "ELB 헬스체크 요청에는 Host 헤더가 포함되지 않기 때문입니다. 파일 프로바이더에 Host 조건 없이 `/health` 경로 규칙(Path)만 가진 라우터를 등록하면 헬스체크가 정상 통과합니다."

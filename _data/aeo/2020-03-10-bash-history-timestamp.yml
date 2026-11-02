@@ -1,0 +1,17 @@
+# AEO data for _posts/2020-03-10-bash-history-timestamp.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "/etc/profile에 HISTTIMEFORMAT을 설정해 bash history 기록에 명령 실행 시각 timestamp를 함께 표시하는 방법을 정리합니다."
+keywords:
+- "HISTTIMEFORMAT"
+- ".bash_history"
+- "/etc/profile"
+- "history"
+- "timestamp"
+summary:
+- "`/etc/profile`에 `HISTTIMEFORMAT=\"[%Y-%m-%d %H:%M:%S] \"`를 지정하고 export하면 `history` 출력에 명령 실행 시각이 함께 표시됩니다."
+- "적용 후 history 각 줄이 `[2020-01-13 17:34:40] ls`처럼 날짜와 시간이 붙은 형식으로 출력됩니다."
+faq:
+- q: "bash history에 명령 실행 시간을 표시하려면 어떻게 하나요?"
+  a: "`/etc/profile`에 `HISTTIMEFORMAT=\"[%Y-%m-%d %H:%M:%S] \"`와 `export HISTTIMEFORMAT`을 추가합니다."
+- q: "HISTTIMEFORMAT 적용 후 history 출력은 어떻게 바뀌나요?"
+  a: "각 명령 앞에 `[%Y-%m-%d %H:%M:%S]` 형식의 시각이 붙어 `[2020-01-13 17:34:40] ip a`처럼 출력됩니다."

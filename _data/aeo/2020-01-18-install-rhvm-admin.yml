@@ -1,0 +1,22 @@
+# AEO data for _posts/2020-01-18-install-rhvm-admin.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "RHVM 관리 포탈에서 RHVH 호스트를 추가하고 DATA/ISO Storage Domain을 만든 뒤 새 VM을 생성해 CD-ROM으로 OS를 설치하는 과정을 정리합니다."
+keywords:
+- "RHVM"
+- "RHVH"
+- "Storage Domain"
+- "ISO Domain"
+- "한번 실행"
+- "virt-viewer"
+- "remote-viewer"
+summary:
+- "RHVM 관리 포탈의 호스트 탭에서 RHVH 주소와 SSH 접속 정보를 입력하면 호스트 관리용 설치가 자동으로 진행되고 실행중 상태가 됩니다."
+- "VMware의 Datastore처럼 RHV에서는 DATA Domain과 ISO 이미지용 ISO Domain을 Storage Domain으로 추가해야 클러스터를 사용할 수 있습니다."
+- "새 VM을 만든 뒤 `한번 실행`으로 CD를 붙이고 CD-ROM을 First Boot device로 지정해 콘솔에서 OS를 설치합니다."
+faq:
+- q: "RHV에서 새 VM을 처음 DVD로 부팅하려면 어떻게 하나요?"
+  a: "VM 생성 후 `한번 실행`을 선택해 CD를 추가하고 설치 이미지를 고른 뒤, CD-ROM 부팅 순서를 `First Boot device`로 설정합니다."
+- q: "RHV 콘솔을 열려면 어떤 프로그램이 필요한가요?"
+  a: "Windows는 virt-viewer Windows 버전, Linux는 `virt-viewer` 패키지, Mac은 `remote-viewer` 패키지 설치가 필요합니다."
+- q: "RHV에서 ISO 이미지는 어디에 두나요?"
+  a: "ISO 이미지 관리를 위한 `ISO Domain`을 Storage Domain으로 생성해 사용합니다."

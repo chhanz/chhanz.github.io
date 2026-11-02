@@ -1,0 +1,24 @@
+# AEO data for _posts/2026-10-30-asahi-linux-macos-keymap.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+keywords:
+- "Asahi Linux"
+- "Fedora Asahi Remix"
+- "Toshy"
+- "macOS 키맵"
+- "Caps Lock 한/영 전환"
+- "ibus-hangul"
+- "GNOME Wayland"
+summary:
+- "Toshy를 bootstrap 스크립트로 설치하면 Asahi Linux에서 ⌘C, ⌘V 같은 macOS 단축키를 사용할 수 있습니다."
+- "GNOME Wayland에서 앱별 키 매핑을 쓰려면 Focused Window D-Bus 같은 GNOME Shell 확장이 필요합니다."
+- "Toshy 설정의 `user_custom_modmaps` 영역에 `CAPSLOCK -> HANGEUL` 매핑을 추가하고 입력 소스를 `Korean (Hangul)` 하나만 두면 Caps Lock으로 한/영 전환이 됩니다."
+tested_on: "Fedora Linux Asahi Remix 44 (GNOME 50.6, Wayland), Toshy 20260803, ibus-hangul 1.5.5"
+faq:
+- q: "Toshy 설치 중 pywayland 빌드 오류가 발생하면 어떻게 하나요?"
+  a: "`wayland-protocols`를 pkg-config로 찾지 못해 발생하는 오류입니다. `sudo dnf install wayland-protocols-devel wayland-devel`로 개발 패키지를 설치한 뒤 bootstrap 스크립트를 다시 실행하면 됩니다."
+- q: "GNOME Wayland에서 Toshy를 쓰려면 Shell 확장이 꼭 필요한가요?"
+  a: "⌘C/⌘V 같은 일부 단축키는 확장 없이도 동작하지만, 앱별 키 매핑(예: 터미널의 복사/붙여넣기 변환)은 Focused Window D-Bus 같은 확장이 있어야 동작합니다."
+- q: "Toshy에서 Caps Lock을 한/영 전환키로 쓰려면 어떻게 설정하나요?"
+  a: "`~/.config/toshy/toshy_config.py`의 `SLICE_MARK_START`와 `SLICE_MARK_END` 사이에 `Key.CAPSLOCK: Key.HANGEUL` modmap을 추가하고 `toshy-services-restart`로 재시작합니다. 트레이 메뉴의 CapsLock 모드는 기본값인 `Caps is Caps`로 유지해야 합니다."
+- q: "Caps Lock을 한/영 전환키로 바꾸면 대문자 고정은 어떻게 되나요?"
+  a: "Caps Lock 본래의 대문자 고정 기능은 사용할 수 없게 됩니다."

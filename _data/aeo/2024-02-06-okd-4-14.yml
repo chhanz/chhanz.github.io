@@ -1,0 +1,25 @@
+# AEO data for _posts/2024-02-06-okd-4-14.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "openshift-install로 install-config를 생성하고 OKD 4.14 Cluster를 AWS 서울 리전에 배포하는 과정과 필요한 사전 준비 사항을 정리합니다."
+keywords:
+- "OKD 4.14"
+- "openshift-install"
+- "install-config.yaml"
+- "AWS"
+- "Route53"
+- "Pull Secret"
+- "kubeadmin"
+summary:
+- "`openshift-install create install-config`와 `create cluster`로 OKD 4.14 Cluster를 AWS에 배포할 수 있으며, 테스트에서는 약 38분이 걸렸습니다."
+- "사전에 AWS Credential을 추가하고 Route53에 Base Domain을 등록해야 하며, OKD의 Pull Secret은 fake auth 값을 입력하면 됩니다."
+- "설치가 끝나면 kubeadmin 계정 정보와 OKD web-console URL, kubeconfig 경로가 출력됩니다."
+tested_on: "OKD 4.14.0-0.okd-2024-01-26-175629, AWS ap-northeast-2 리전"
+faq:
+- q: "OKD를 AWS에 설치할 때 Pull Secret에는 무엇을 입력하나요?"
+  a: "OKD의 경우 `{\"auths\":{\"fake\":{\"auth\":\"aWQ6cGFzcwo=\"}}}`를 입력하면 됩니다. Pull Secret은 Red Hat OpenShift를 배포할 때 Red Hat의 Repository 접근에 사용됩니다."
+- q: "OKD를 AWS에 배포하기 전에 준비해야 할 것은 무엇인가요?"
+  a: "`aws configure`로 AWS Credential을 추가하고 Route53에 사용할 Base Domain을 등록해야 합니다. OKD 노드에 사용할 SSH Public Key도 install-config 생성 시 지정합니다."
+- q: "openshift-install로 생성한 install-config의 기본 노드 구성은 어떻게 되나요?"
+  a: "글에서 생성된 install-config.yaml 기준으로 master 3대, worker 3대이며 networkType은 OVNKubernetes입니다."
+- q: "OKD 설치가 완료되었는지 어떻게 알 수 있나요?"
+  a: "`openshift-install create cluster` 출력에 `kubeadmin` 계정 정보와 OKD web-console URL이 나오면 설치가 완료된 것입니다."

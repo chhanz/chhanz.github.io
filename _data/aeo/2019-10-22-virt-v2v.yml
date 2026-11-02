@@ -1,0 +1,23 @@
+# AEO data for _posts/2019-10-22-virt-v2v.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "virt-v2v로 VMware ESXi의 Linux VM을 ssh 키 인증으로 읽어 KVM(libvirt) VM으로 변환하고 네트워크 설정을 맞추는 과정을 정리합니다."
+keywords:
+- "virt-v2v"
+- "VMware ESXi"
+- "KVM"
+- "libvirt"
+- "ssh-keygen"
+- "authorized_keys"
+- "LIBGUESTFS_BACKEND"
+- "virsh edit"
+summary:
+- "KVM 호스트에 virt-v2v를 설치하고 ESXi에 ssh 키를 등록하면 `virt-v2v -i vmx -it ssh`로 ESXi 데이터스토어의 VM을 KVM으로 변환할 수 있습니다."
+- "변환이 끝나면 `virsh edit`로 네트워크 인터페이스를 KVM 환경(예: bridge br0)에 맞게 고치고, VM 부팅 후 ifcfg 파일도 수정합니다."
+tested_on: "CentOS Linux 7.4.1708 게스트 (VMware ESXi에서 KVM/libvirt로 이관)"
+faq:
+- q: "virt-v2v가 ESXi에 비밀번호 없이 접근하게 하려면 어떻게 하나요?"
+  a: "ESXi Web Console에서 SSH 서비스를 켜고, KVM 호스트에서 `ssh-keygen`으로 만든 `id_rsa.pub`를 ESXi의 `/etc/ssh/keys-root/authorized_keys`로 복사한 뒤 `chmod 600`을 적용합니다."
+- q: "ESXi VM을 KVM으로 변환하는 virt-v2v 명령은 무엇인가요?"
+  a: "`export LIBGUESTFS_BACKEND=direct` 후 `virt-v2v -i vmx -it ssh \"ssh://root@<ESXi IP>/vmfs/volumes/<datastore>/<VM>/<VM>.vmx\"`를 실행합니다. 디스크는 `/var/lib/libvirt/images/`에 raw 형식으로 복사되고 libvirt에 도메인이 정의됩니다."
+- q: "virt-v2v 변환 후 네트워크는 어떻게 맞추나요?"
+  a: "`virsh edit <VM name>`으로 `<interface type='network'>`를 `<interface type='bridge'>`와 `<source bridge='br0'/>`처럼 KVM 환경에 맞게 바꿉니다. VM 부팅 후에는 `/etc/sysconfig/network-scripts/ifcfg-XXX` 파일도 수정합니다."

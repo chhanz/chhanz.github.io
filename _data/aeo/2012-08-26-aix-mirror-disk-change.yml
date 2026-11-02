@@ -1,0 +1,23 @@
+# AEO data for _posts/2012-08-26-aix-mirror-disk-change.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "AIX rootvg 미러링 환경에서 장애 디스크를 unmirrorvg, reducevg로 제거하고 새 디스크로 mirrorvg와 bootlist를 다시 구성하는 절차입니다."
+keywords:
+- "AIX"
+- "rootvg"
+- "unmirrorvg"
+- "mirrorvg"
+- "reducevg"
+- "migratepv"
+- "bosboot"
+- "bootlist"
+summary:
+- "rootvg 미러에서 장애 디스크를 unmirrorvg, reducevg, rmdev로 제거한 뒤 새 디스크를 extendvg와 mirrorvg로 다시 미러링하는 16단계 절차입니다."
+- "디스크 제거 후와 미러 재구성 후에 각각 `bosboot -ad hdisk0`를 수행하고, 마지막에 `bootlist -om normal hdisk0 hdisk1`로 부트 목록을 다시 등록합니다."
+- "장애 디스크는 `errpt`의 LVDD I/O ERROR, DISK OPERATION ERROR 항목으로 확인합니다."
+faq:
+- q: "unmirrorvg 후에도 장애 디스크에 LV가 남아 있으면 어떻게 하나요?"
+  a: "`migratepv`로 남은 LV를 정상 디스크로 옮깁니다. 글에서는 `migratepv -l hd6 hdisk1 hdisk0`로 hd6을 옮긴 뒤 `lspv -l`로 각 디스크를 확인합니다."
+- q: "교체한 새 디스크를 rootvg에 다시 미러링하는 명령은 무엇인가요?"
+  a: "`extendvg rootvg hdisk1`로 VG에 디스크를 추가한 뒤 `mirrorvg -S rootvg hdisk0 hdisk1`를 실행합니다. 이후 `lsvg -l rootvg`로 미러 상태를 확인합니다."
+- q: "디스크 교체 후 부팅 설정은 어떻게 마무리하나요?"
+  a: "`bosboot -ad hdisk0`를 수행하고 `bootlist -om normal hdisk0 hdisk1`로 두 디스크를 부트 목록에 등록합니다. 마지막으로 `bootlist -om normal`로 등록 결과를 확인합니다."

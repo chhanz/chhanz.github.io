@@ -1,0 +1,20 @@
+# AEO data for _posts/2020-06-22-ocp4-deploy-source.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "OpenShift 4.4 Web Console의 From Git과 PHP Builder로 GitHub 소스를 S2I 빌드해 배포하고 Scale Out과 새 버전 재빌드까지 확인하는 실습입니다."
+keywords:
+- "OpenShift 4.4"
+- "S2I"
+- "From Git"
+- "PHP Builder"
+- "Start Build"
+- "Scale Out"
+summary:
+- "Web Console의 `From Git`에 GitHub 소스 주소를 넣고 Builder로 PHP를 선택하면 S2I로 빌드와 배포가 진행됩니다."
+- "배포 후 Scale Out으로 Pod를 늘려 Load Balancing이 되는지 확인합니다."
+- "소스를 수정해 GitHub에 push한 뒤 Start Build를 실행하면 새 버전(v2)이 배포됩니다."
+tested_on: "OpenShift 4.4"
+faq:
+- q: "OpenShift 4.4 Web Console에서 Git 소스로 앱을 배포하려면 어떻게 하나요?"
+  a: "developer 계정으로 로그인해 Project를 만들고 `From Git`을 선택한 뒤 소스 주소를 입력하고 Builder(예: PHP)와 버전을 고릅니다. 그러면 S2I 빌드가 시작되고 완료 후 배포됩니다."
+- q: "소스를 수정한 뒤 OpenShift에 새 버전을 반영하려면 어떻게 하나요?"
+  a: "수정한 소스를 GitHub에 push하고 OpenShift에서 Start Build를 실행합니다. 빌드가 끝나면 새 버전이 배포됩니다."

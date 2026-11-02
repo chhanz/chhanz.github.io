@@ -1,0 +1,24 @@
+# AEO data for _posts/2019-09-30-cka-exam-review.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "CKA(Certified Kubernetes Administrator) 시험에 합격하며 활용한 공부 자료와 시험 신청, 감독관 환경 확인, 응시 중 주의 사항을 공유합니다."
+keywords:
+- "CKA"
+- "Certified Kubernetes Administrator"
+- "Kubernetes the hard way"
+- "Kubernetes in Action"
+- "CKA with Practice Tests"
+- "CKA-StudyGuide"
+- "CNCF"
+summary:
+- "Kubernetes Tutorials, Kubernetes in Action, Udemy CKA 강의의 Practice Lab, Kubernetes the hard way, CKA-StudyGuide로 공부해 CKA에 합격했습니다."
+- "시험 15분 전 exam classroom에 입장하면 감독관이 Webcam으로 여권 신분 확인과 책상, 주변 환경 확인을 진행합니다."
+- "총 3시간 시험 중 약 2시간은 문제 풀이, 30분은 검토에 썼고 합격 결과는 약 30시간 뒤 통보되었습니다."
+faq:
+- q: "CKA 시험 터미널에서 복사/붙여넣기는 어떻게 하나요?"
+  a: "Windows 기준으로 Terminal에서는 `ctrl`+`insert`, `shift`+`insert`를 쓰고 Web Page에서는 `ctrl`+`c`/`v`를 씁니다. `ctrl`+`w`는 탭을 닫는 단축키라 입력하면 안 됩니다."
+- q: "CKA 시험 전 감독관 환경 확인은 얼마나 걸리나요?"
+  a: "글쓴이의 경우 약 15분이 걸렸습니다. 그래서 시험 시작 15분 전에 exam classroom에 입장해 환경 확인을 받는 것을 추천합니다."
+- q: "CKA 시험 도중 Connection Lost로 화면이 꺼지면 어떻게 하나요?"
+  a: "당황하지 말고 Live Chat으로 감독관에게 문제를 알리면 됩니다. 글쓴이도 Live Chat으로 알린 뒤 감독관이 조치해 주었습니다."
+- q: "CKA 실전과 비슷한 연습 환경은 무엇이 있나요?"
+  a: "Udemy의 Certified Kubernetes Administrator (CKA) with Practice Tests 강의에서 제공하는 Practice Lab이 실제 시험과 매우 비슷합니다. 다만 실제 시험보다 성능이 매우 느립니다."

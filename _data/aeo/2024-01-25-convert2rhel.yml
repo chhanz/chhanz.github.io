@@ -1,0 +1,23 @@
+# AEO data for _posts/2024-01-25-convert2rhel.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+keywords:
+- "convert2rhel"
+- "CentOS 7"
+- "RHEL 7"
+- "Activation Key"
+- "Red Hat Customer Portal"
+- "INVALID_KERNEL_VERSION"
+summary:
+- "convert2rhel에 Organization ID와 Activation Key를 지정해 실행하면 CentOS 7.9를 RHEL 7.9로 변환할 수 있습니다."
+- "변환 전 RHEL GPG 키, `redhat-uep.pem`, convert2rhel 레포지토리를 추가하고 `yum update` 후 재부팅해 최신 커널이 로드된 상태여야 합니다."
+- "패키지나 커널이 최신이 아니면 `INVALID_KERNEL_VERSION` 오류가 나며, 그 외 이슈는 `/var/log/convert2rhel/` 로그로 확인합니다."
+tested_on: "CentOS Linux 7.9.2009 on AWS (서울 리전) → RHEL 7.9"
+faq:
+- q: "convert2rhel로 CentOS 7을 RHEL 7로 변환하는 명령은 무엇인가요?"
+  a: "`convert2rhel --org [org id] --activationkey [key] -y`를 실행하고, `Conversion successful!`이 출력되면 재부팅합니다. Organization ID와 Activation Key는 Red Hat Customer Portal의 Activation Keys 메뉴에서 확인하고 생성합니다."
+- q: "convert2rhel 실행 시 INVALID_KERNEL_VERSION 오류가 나면 어떻게 하나요?"
+  a: "로드된 커널이 레포지토리의 최신 커널과 달라서 발생하는 오류입니다. `sudo yum update -y && reboot`로 업데이트 후 재부팅해 최신 커널이 로드되게 하면 됩니다."
+- q: "convert2rhel은 CentOS 외에 어떤 배포판을 지원하나요?"
+  a: "CentOS뿐 아니라 Oracle Linux, Alma Linux, Rocky Linux도 지원합니다."
+- q: "CentOS 7을 RHEL로 변환하면 어떤 점이 좋은가요?"
+  a: "RHEL로 바꾼 뒤 ELS 같은 계약으로 CentOS 7 EOS(2024년 6월 30일) 이후 기간을 늘리면서, 다른 배포판으로 전환할 기간을 확보할 수 있습니다."

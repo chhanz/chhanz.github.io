@@ -1,0 +1,24 @@
+# AEO data for _posts/2024-01-24-install-nbd-on-al2.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+keywords:
+- "nbd"
+- "Network Block Device"
+- "nbd-server"
+- "nbd-client"
+- "Amazon Linux 2"
+- "EPEL"
+- "modprobe nbd"
+summary:
+- "Amazon Linux 2에서 EPEL의 `nbd` 패키지로 서버 디스크를 Network Block Device로 제공하고 클라이언트에서 `/dev/nbd0`로 mount할 수 있습니다."
+- "서버는 `/etc/nbd-server/config`에 포트와 `exportname`을 지정하고, 클라이언트는 `modprobe nbd` 후 `nbd-client`로 연결합니다."
+- "클라이언트가 쓴 데이터는 서버 원본 디스크에 반영되지만, nbd 장치는 서버나 클라이언트 중 한쪽에서만 사용하는 것이 권장됩니다."
+tested_on: "Amazon Linux 2 (kernel 5.10.201-191.748.amzn2.x86_64)"
+faq:
+- q: "Amazon Linux 2에 nbd 패키지는 어떻게 설치하나요?"
+  a: "`sudo amazon-linux-extras install epel`로 EPEL 저장소를 활성화한 뒤 `sudo yum -y install nbd`로 설치합니다. 서버와 클라이언트 모두 같은 방법으로 설치합니다."
+- q: "nbd-server에서 제공할 디스크와 포트는 어디에 설정하나요?"
+  a: "`/etc/nbd-server/config`의 `[generic]`에 `listenaddr`와 `port`를, `[export]`의 `exportname`에 실제 사용할 디바이스(예: `/dev/nvme1n1`)를 지정합니다. `/etc/sysconfig/nbd-server`의 OPTIONS에 `-C /etc/nbd-server/config`를 넣어 설정 파일을 로드합니다."
+- q: "nbd 클라이언트에서 서버 디스크에 연결하려면 어떤 명령을 쓰나요?"
+  a: "`sudo modprobe nbd`로 모듈을 로드하고 `sudo nbd-client <서버 IP> 9090 -N export /dev/nbd0`로 연결합니다. 재부팅 후에도 모듈이 로드되도록 `/etc/modules-load.d/nbd.conf`에 `nbd`를 추가합니다."
+- q: "nbd 장치를 서버와 클라이언트에서 동시에 mount해도 되나요?"
+  a: "권장하지 않습니다. nbd 문서에 따르면 NFS와 달리 누군가 읽기/쓰기로 mount했다면 다른 곳에서는 mount하지 않도록 보장해야 합니다."

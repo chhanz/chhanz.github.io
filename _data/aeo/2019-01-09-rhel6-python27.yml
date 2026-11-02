@@ -1,0 +1,23 @@
+# AEO data for _posts/2019-01-09-rhel6-python27.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "CentOS 6에서 기본 Python 2.6을 유지한 채 SCL 저장소의 python27 패키지로 Python 2.7을 설치하고 scl enable로 활성화하는 방법입니다."
+keywords:
+- "CentOS 6"
+- "Python 2.7"
+- "SCL"
+- "centos-release-scl"
+- "python27"
+- "scl enable"
+- ".bash_profile"
+summary:
+- "CentOS 6 기본 Python 2.6을 바꾸면 응용프로그램에 문제가 생길 수 있으므로, SCL 저장소의 python27 패키지로 Python 2.7을 별도 설치합니다."
+- "`yum install -y centos-release-scl`로 SCL 저장소를 연결하고 `yum install python27-python-2.7.8-3.el6`처럼 원하는 버전을 설치합니다."
+- "`scl enable python27 bash`로 활성화하고, `.bash_profile`에 `source /opt/rh/python27/enable`을 넣으면 재접속 후에도 Python 2.7.8이 사용됩니다."
+tested_on: "CentOS 6 (기본 Python 2.6.6), python27-python 2.7.8-3.el6"
+faq:
+- q: "CentOS 6의 기본 Python을 그냥 업데이트하면 안 되나요?"
+  a: "권장되지 않습니다. CentOS 6 응용프로그램들은 Python 2.6과 호환되도록 설정되어 있어 업데이트하면 다수의 응용프로그램에 문제가 생길 수 있습니다."
+- q: "SCL에서 설치 가능한 python27 버전은 어떻게 확인하나요?"
+  a: "`yum list python27-python.x86_64 --showd`를 실행합니다. 글에서는 2.7.8-3, 2.7.8-16, 2.7.8-18, 2.7.13-3 버전이 조회되었습니다."
+- q: "SCL로 설치한 Python 2.7을 로그인할 때마다 자동으로 쓰려면 어떻게 하나요?"
+  a: "`.bash_profile`에 `source /opt/rh/python27/enable`을 추가합니다. 재접속 후 `python -V`가 Python 2.7.8로 표시됩니다."

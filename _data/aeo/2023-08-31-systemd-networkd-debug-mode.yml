@@ -1,0 +1,18 @@
+# AEO data for _posts/2023-08-31-systemd-networkd-debug-mode.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "systemd-networkd 서비스에 override 설정으로 SYSTEMD_LOG_LEVEL=debug를 지정해 Debug 모드 로그를 확인하는 방법입니다."
+keywords:
+- "systemd-networkd"
+- "SYSTEMD_LOG_LEVEL"
+- "debug 로그"
+- "systemd override"
+- "journalctl"
+- "Amazon Linux 2023"
+summary:
+- "systemd-networkd override 설정 파일에 `Environment=SYSTEMD_LOG_LEVEL=debug`를 넣으면 Debug 모드로 실행할 수 있습니다."
+- "`systemctl daemon-reload` 후 systemd-networkd를 재시작하고 `journalctl -b -u systemd-networkd -f`로 DHCPv6, NDISC 같은 상세 로그를 확인합니다."
+faq:
+- q: "systemd-networkd의 Debug 로그를 활성화하려면 어떻게 하나요?"
+  a: "`/etc/systemd/system/systemd-networkd.service.d/` 디렉터리에 `10-debug-mode.conf`를 만들고 `[Service]` 아래에 `Environment=SYSTEMD_LOG_LEVEL=debug`를 입력합니다. 이후 `sudo systemctl daemon-reload`와 `sudo systemctl restart systemd-networkd`를 실행합니다."
+- q: "systemd-networkd Debug 로그는 어디서 확인하나요?"
+  a: "`sudo journalctl -b -u systemd-networkd -f`로 확인합니다. Debug 모드에서는 Router Solicitation, DHCPv6 Solicit 재전송 같은 상세 로그가 출력됩니다."

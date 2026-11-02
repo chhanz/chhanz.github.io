@@ -1,0 +1,24 @@
+# AEO data for _posts/2019-11-29-openshift4-dev-env.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+keywords:
+- "Red Hat CodeReady Containers"
+- "crc"
+- "OpenShift 4"
+- "minishift"
+- "libvirt"
+- "Pull Secret"
+- "S2I"
+summary:
+- "OpenShift 4에서는 minishift 대신 Red Hat CodeReady Containers(crc)로 Laptop이나 KVM 환경에 테스트용 OpenShift를 띄울 수 있습니다."
+- "sudo가 가능한 일반 사용자로 `crc setup`과 `crc start`를 실행하고 Red Hat OpenShift Cluster Manager에서 받은 Pull Secret을 붙여넣으면 클러스터가 시작됩니다."
+- "시작 후 `crc oc-env`로 `oc` 명령을 설정할 수 있고, Web Console에서 git 소스로 S2I 빌드와 배포까지 확인했습니다."
+tested_on: "Linux KVM(libvirt), crc-linux-1.1.0-amd64"
+faq:
+- q: "OpenShift 4에도 minishift 같은 로컬 테스트 환경이 있나요?"
+  a: "있습니다. Red Hat OpenShift Cluster Manager의 `Install on Laptop: Red Hat CodeReady Containers`로 minishift와 같은 테스트 환경을 만들 수 있습니다."
+- q: "crc start 중 요구하는 Image pull secret은 어디서 받나요?"
+  a: "`https://cloud.redhat.com/openshift/install/crc/installer-provisioned` 페이지의 `Copy Pull Secret` 버튼으로 복사해 Shell에 붙여넣습니다."
+- q: "crc로 띄운 OpenShift 4에 CLI로 접속하려면 어떻게 하나요?"
+  a: "`crc oc-env` 안내대로 환경을 설정한 뒤 `oc login -u developer -p developer https://api.crc.testing:6443`으로 로그인합니다. 관리자 계정은 `kubeadmin`이며 비밀번호는 `crc start` 완료 출력에 표시됩니다."
+- q: "crc setup은 root로 실행해야 하나요?"
+  a: "아닙니다. sudo가 가능한 일반 user에서 진행합니다."

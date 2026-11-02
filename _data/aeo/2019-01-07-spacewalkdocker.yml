@@ -1,0 +1,25 @@
+# AEO data for _posts/2019-01-07-spacewalkdocker.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "Spacewalk 2.8을 docker container로 운영하기 위해 Dockerfile을 수정해 이미지를 빌드하고 볼륨을 연결해 실행한 과정을 정리했습니다."
+keywords:
+- "Spacewalk 2.8"
+- "Docker"
+- "Dockerfile"
+- "supervisord"
+- "spacewalk-setup"
+- "PostgreSQL"
+- "docker build"
+summary:
+- "Docker Hub에 Spacewalk 공식 이미지가 없어 bashell의 Dockerfile을 바탕으로 Spacewalk 2.8용 이미지를 직접 빌드했습니다."
+- "Spacewalk 2.6을 2.8로 올리고 Answer file, 시작 스크립트, supervisord 로그 수준(debug), localtime(Asia/Seoul)을 수정했습니다."
+- "PostgreSQL 데이터, RPM 저장소, 로그 등을 호스트 볼륨으로 연결해 컨테이너를 제거해도 Spacewalk 데이터가 보존되도록 실행합니다."
+tested_on: "Spacewalk 2.8, centos:6 베이스 이미지"
+faq:
+- q: "Spacewalk Docker 이미지는 어떻게 빌드하나요?"
+  a: "Dockerfile과 이미지에 추가할 파일이 있는 디렉터리에서 `docker build --rm -t spacewalk .`를 실행합니다. 빌드에는 많은 시간이 걸리며, 완성된 이미지 크기는 1.04GB였습니다."
+- q: "Spacewalk 컨테이너 데이터를 보존하려면 어떻게 실행하나요?"
+  a: "호스트에 `/data/var/lib/pgsql/data`, `/data/var/satellite`, `/data/var/www/html/pub` 등 디렉터리를 만들고 `-v` 옵션으로 컨테이너의 같은 경로에 연결합니다. 실행 시 `--privileged=true`와 `-p 80:80 -p 443:443`을 함께 지정합니다."
+- q: "Spacewalk란 무엇인가요?"
+  a: "오픈 소스 Linux 시스템 관리 솔루션으로, Red Hat Satellite 제품이 파생된 업스트림 커뮤니티 프로젝트입니다."
+- q: "Spacewalk Dockerfile과 스크립트는 어디서 받을 수 있나요?"
+  a: "GitHub 저장소 https://github.com/chhanz/spacewalk-docker-img 에 올려져 있으며 `git clone`으로 받을 수 있습니다."

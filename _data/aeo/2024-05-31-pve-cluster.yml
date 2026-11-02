@@ -1,0 +1,21 @@
+# AEO data for _posts/2024-05-31-pve-cluster.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+keywords:
+- "Proxmox VE"
+- "PVE Cluster"
+- "Join Cluster"
+- "corosync"
+- "pvecm status"
+- "corosync-cfgtool"
+summary:
+- "Proxmox 관리 GUI의 Datacenter > Cluster 메뉴에서 Create Cluster와 Join Cluster로 Proxmox 3대를 하나의 Cluster로 구성할 수 있습니다."
+- "Cluster를 구성하면 하나의 관리 웹으로 모든 PVE 노드를 통합 관리할 수 있습니다."
+- "Cluster는 corosync로 구성되며 `pvecm status`와 `corosync-cfgtool`로 Quorum과 노드 연결 상태를 점검할 수 있습니다."
+tested_on: "Proxmox VE 8.2.1 3노드 (Cluster 네트워크 20.20.20.0/24)"
+faq:
+- q: "Proxmox에서 Cluster를 생성하려면 어떻게 하나요?"
+  a: "PVE 관리 GUI에서 `Datacenter` > `Cluster` > `Create Cluster`를 선택하고 Cluster Name과 Network를 입력합니다. 생성 후 첫 노드에서 Cluster Join Information을 확인해 다른 노드를 추가할 준비를 합니다."
+- q: "다른 Proxmox 노드를 기존 Cluster에 추가하려면 어떻게 하나요?"
+  a: "추가할 노드에서 `Join Cluster`를 선택하고, 첫 노드의 Cluster Join Information에서 확인한 정보를 입력합니다. 나머지 노드도 같은 방법으로 Join합니다."
+- q: "Proxmox Cluster 상태는 어떤 명령으로 확인하나요?"
+  a: "`pvecm status`로 노드 수, Quorum, Votequorum 정보를 확인할 수 있습니다. `corosync-cfgtool -s`와 `corosync-cfgtool -n`으로 corosync 링크와 노드 연결 상태도 볼 수 있습니다."

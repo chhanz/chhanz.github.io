@@ -1,0 +1,18 @@
+# AEO data for _posts/2020-10-06-ovirt-install-self-hosted-engine.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "oVirt 4.3 Self Hosted Engine 설치 가이드를 슬라이드로 공유하며, 운영 환경에 적용할 때는 NAS 또는 스토리지 환경을 권장합니다."
+keywords:
+- "oVirt 4.3"
+- "Self Hosted Engine"
+- "oVirt 설치"
+- "가상화"
+- "RHV"
+summary:
+- "oVirt 4.3 기준 Self Hosted Engine 설치 과정을 슬라이드 자료로 정리한 가이드입니다."
+- "가이드는 테스트 환경 기준이며, 운영 환경에 적용하려면 NAS 또는 스토리지 환경을 권장합니다."
+tested_on: "oVirt 4.3"
+faq:
+- q: "이 oVirt Self Hosted Engine 설치 가이드는 어떤 버전 기준인가요?"
+  a: "oVirt 4.3 기준이며 2019년 11월에 작성되었습니다."
+- q: "oVirt Self Hosted Engine을 운영 환경에 적용할 때 권장 사항이 있나요?"
+  a: "가이드는 테스트 환경 기준으로 작성되었으므로, 운영 환경에는 NAS 또는 Storage 환경을 권장합니다."

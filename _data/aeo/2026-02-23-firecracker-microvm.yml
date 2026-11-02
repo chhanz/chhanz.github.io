@@ -1,0 +1,26 @@
+# AEO data for _posts/2026-02-23-firecracker-microvm.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "EC2 Nested Virtualization을 지원하는 C8i, M8i, R8i 인스턴스에서 Firecracker를 설치하고 TAP 네트워크와 vm_config.json으로 Ubuntu microVM을 실행하는 방법입니다."
+keywords:
+- "Firecracker"
+- "microVM"
+- "EC2 Nested Virtualization"
+- "KVM"
+- "vm_config.json"
+- "TAP 디바이스"
+- "C8i"
+- "tmux"
+summary:
+- "C8i, M8i, R8i 인스턴스에서 Nested Virtualization을 활성화하면 `.metal` 인스턴스 없이도 KVM 기반 Firecracker microVM을 실행할 수 있습니다."
+- "Firecracker CI의 kernel과 Ubuntu rootfs를 받아 ext4 이미지로 만들고, TAP 디바이스와 NAT를 설정한 뒤 `--config-file vm_config.json`으로 microVM을 한 번에 시작합니다."
+- "실행한 microVM에는 Host에서 ping과 SSH로 접속할 수 있고, tmux 세션으로 띄우면 터미널 점유 없이 관리할 수 있습니다."
+tested_on: "Amazon Linux 2023 (Nitro 기반 EC2), Firecracker v1.14.1, Guest Ubuntu 24.04"
+faq:
+- q: "EC2에서 Firecracker를 쓰려면 꼭 .metal 인스턴스가 필요한가요?"
+  a: "아닙니다. Nested Virtualization을 지원하는 C8i, M8i, R8i 인스턴스 타입에서도 KVM을 사용할 수 있습니다. 2026년 2월 23일 기준 지원 타입은 이 세 가지뿐입니다."
+- q: "EC2 인스턴스에 /dev/kvm이 없으면 어떻게 하나요?"
+  a: "인스턴스 생성 시 Advanced details의 \"Enable nested virtualization\" 옵션이 활성화되어 있는지 확인합니다. `/dev/kvm`이 존재하고 `lsmod | grep kvm`으로 KVM 모듈이 보이면 Firecracker를 사용할 수 있습니다."
+- q: "Firecracker microVM의 네트워크는 어떻게 구성하나요?"
+  a: "Firecracker는 TUN/TAP 네트워크 백엔드만 지원하므로 `ip tuntap add dev tap0 mode tap`으로 TAP 디바이스를 만들고 iptables MASQUERADE로 NAT를 설정합니다. 외부 통신을 위해 microVM 안에 기본 라우팅과 DNS도 설정합니다."
+- q: "Firecracker 실행 시 --enable-pci 옵션은 무엇인가요?"
+  a: "VirtIO 장치를 PCI transport로 생성하는 플래그로, 높은 처리량과 낮은 지연을 제공합니다."

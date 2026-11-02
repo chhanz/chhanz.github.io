@@ -1,0 +1,26 @@
+# AEO data for _posts/2019-04-05-linux-gpfs-hands-on-training.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "CentOS 7.3에서 IBM GPFS 4.2.2 2노드 클러스터를 구성하고 NSD, 파일시스템, Fileset을 만드는 과정을 명령어 위주로 정리한 실습입니다."
+keywords:
+- "IBM GPFS"
+- "mmcrcluster"
+- "mmbuildgpl"
+- "NSD Stanza"
+- "mmcrnsd"
+- "mmcrfs"
+- "mmcrfileset"
+- "mmlinkfileset"
+summary:
+- "`mmcrcluster`와 `mmchlicense`로 gpfs1, gpfs2 두 노드의 GPFS 클러스터를 만들고 `mmstartup -a`로 서비스를 시작합니다."
+- "`mmbuildgpl --build-package`로 GPFS portability layer rpm을 빌드한 뒤 각 노드에 설치합니다."
+- "NSD Stanza 파일로 `mmcrnsd`를 실행해 NSD를 만들고, `mmcrfs`로 파일시스템을, `mmcrfileset`과 `mmlinkfileset`으로 Fileset을 구성합니다."
+tested_on: "CentOS 7.3 (Kernel 3.10.0-514.el7.x86_64), GPFS 4.2.2-3"
+faq:
+- q: "GPFS portability layer는 어떻게 만드나요?"
+  a: "`mmbuildgpl --build-package`를 실행하면 커널에 맞는 gpfs.gplbin rpm이 /root/rpmbuild/RPMS/x86_64/ 아래에 생성됩니다. 이 rpm을 `yum install`로 모든 노드에 설치합니다."
+- q: "GPFS에서 NSD는 어떻게 생성하나요?"
+  a: "`%nsd: device=vdb nsd=test1_nsd11 servers=gpfs1 FailureGroup=10 pool=system` 형식의 Stanza 파일을 작성하고 `mmcrnsd -F <파일>`을 실행합니다. 생성 결과는 `mmlsnsd -X`로 확인합니다."
+- q: "GPFS 파일시스템은 어떤 명령으로 생성하나요?"
+  a: "`mmcrfs` 명령으로 생성합니다. 글에서는 Failure Group이 10, 20으로 다른 두 노드의 NSD를 담은 Stanza 파일로 `mmcrfs gpfs.test1 -F disk.test.1 -A yes -B 256k -m 2 -M 2 -r 2 -R 2 -T /test1`을 실행했습니다."
+- q: "GPFS Fileset을 만들고 경로에 연결하려면 어떻게 하나요?"
+  a: "`mmcrfileset gpfs.test1 dir1 --inode-space new --inode-limit 200000`으로 Fileset을 만들고 `mmlinkfileset gpfs.test1 dir1 -J /test1/dir1`로 경로에 연결합니다. 상태는 `mmlsfileset`으로 확인합니다."
