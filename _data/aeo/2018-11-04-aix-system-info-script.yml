@@ -1,0 +1,24 @@
+# AEO data for _posts/2018-11-04-aix-system-info-script.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "prtconf, oslevel, lsps, lsvg, df 결과를 모아 AIX 필수 시스템 정보를 파일로 저장하는 ksh 스크립트와 실행 결과를 소개합니다."
+keywords:
+- "AIX"
+- "ksh 스크립트"
+- "prtconf"
+- "oslevel -s"
+- "lsps -a"
+- "lsvg -l rootvg"
+- "df -gt"
+- "시스템 정보 수집"
+summary:
+- "root로 실행하면 호스트명, CPU 종류, 커널 비트, OS 버전, 메모리, IP, Paging Space, rootvg LV, 파일 시스템 용량을 한 번에 수집합니다."
+- "결과는 화면에 출력되는 동시에 `tee -a`로 `<호스트명>_<날짜-시간>.txt` 파일에 저장됩니다."
+- "CPU, 메모리, IP 같은 정보는 `prtconf` 출력을 grep과 awk로 잘라 추출합니다."
+tested_on: "AIX 6100-09-03-1415 (PowerPC_POWER7)"
+faq:
+- q: "이 AIX 시스템 정보 수집 스크립트는 어떤 정보를 수집하나요?"
+  a: "호스트명, 벤더, CPU 종류, 커널 비트, OS 버전, 프로세서 수, 메모리, IP/서브넷/게이트웨이, Paging Space, rootvg LV 정보, 파일 시스템 용량을 수집합니다."
+- q: "스크립트 결과 파일은 어떤 이름으로 저장되나요?"
+  a: "실행한 디렉터리에 `<호스트명>_<YYYYMMDD-HHMM>.txt` 이름으로 저장됩니다. 예시 실행에서는 `aix_test_20181104-2237.txt`가 생성되었습니다."
+- q: "root가 아닌 계정으로 실행하면 어떻게 되나요?"
+  a: "`id` 결과에 root가 없으면 \"You must login root... Try again...\" 메시지를 출력하고 종료합니다."

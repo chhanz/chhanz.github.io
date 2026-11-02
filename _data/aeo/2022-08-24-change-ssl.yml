@@ -1,0 +1,21 @@
+# AEO data for _posts/2022-08-24-change-ssl.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+keywords:
+- "SSL 인증서 교체"
+- "Apache"
+- "Nginx"
+- "SSLCertificateChainFile"
+- "ssl_certificate"
+- "체인 인증서"
+- "RootCA"
+summary:
+- "Apache는 개인키, 서버 인증서, 체인 인증서, 루트 인증서를 각각의 옵션으로 지정한 뒤 재시작하면 SSL 인증서가 교체됩니다."
+- "Nginx는 `ssl_certificate_key`와 `ssl_certificate`만 지원하므로 도메인 인증서를 앞에 두고 Chain/Root 인증서를 이어 붙인 하나의 파일을 만들어야 합니다."
+- "인증서를 합칠 때 `-----END CERTIFICATE-----`와 `-----BEGIN CERTIFICATE-----` 사이에 개행이 없으면 잘못 build된 인증서입니다."
+faq:
+- q: "Nginx에 체인 인증서와 루트 인증서를 따로 지정할 수 있나요?"
+  a: "따로 지정할 수 없습니다. `cat [도메인 인증서] <(echo) [RootCA + ChainCA 인증서] > [새 인증서]`처럼 도메인 인증서를 앞에 두고 하나로 합친 파일을 `ssl_certificate`에 지정합니다."
+- q: "Apache에서 SSL 인증서를 교체할 때 어떤 옵션을 수정하나요?"
+  a: "`SSLCertificateKeyFile`, `SSLCertificateFile`, `SSLCertificateChainFile`, `SSLCACertificateFile`에 각각 개인키, 서버 인증서, 체인 인증서, 루트 인증서 경로를 입력하고 Apache를 재시작합니다."
+- q: "합친 인증서 파일이 올바르게 만들어졌는지 어떻게 확인하나요?"
+  a: "`-----END CERTIFICATE-----`와 다음 `-----BEGIN CERTIFICATE-----`가 서로 다른 줄로 개행되어 있는지 확인합니다. 한 줄에 붙어 있다면 잘못 build된 인증서입니다."

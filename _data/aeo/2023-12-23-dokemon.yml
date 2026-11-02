@@ -1,0 +1,23 @@
+# AEO data for _posts/2023-12-23-dokemon.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+keywords:
+- "Dokemon"
+- "Docker"
+- "Docker Compose"
+- "Traefik"
+- "dokemon-agent"
+- "Amazon Linux 2023"
+summary:
+- "Dokemon은 도커 컨테이너 관리용 GUI 도구로, Traefik과 함께 compose.yaml로 실행하면 TLS 인증서가 자동 연결된 URL로 접속할 수 있습니다."
+- "웹 UI에서 compose 프로젝트를 등록하고 Pull, Up 액션으로 컨테이너를 실행하며 실행 중인 컨테이너 목록을 확인할 수 있습니다."
+- "dokemon-agent로 노드를 추가하면 여러 Standalone 도커 노드를 한 곳에서 관리할 수 있어 소규모 환경 운영에 적합합니다."
+tested_on: "Amazon Linux 2023, Docker Compose v2.23.3"
+faq:
+- q: "Amazon Linux 2023에서 Dokemon을 실행하려면 무엇을 먼저 설치해야 하나요?"
+  a: "`sudo yum -y install docker`로 Docker를 설치하고, docker-compose 바이너리를 `/usr/libexec/docker/cli-plugins/docker-compose`에 내려받아 실행 권한을 줍니다. 이후 compose.yaml을 작성하고 `docker compose up -d`로 실행합니다."
+- q: "Dokemon에 HTTPS 인증서는 어떻게 적용하나요?"
+  a: "compose.yaml에 Traefik 컨테이너를 함께 두고 ACME TLS challenge 기반 certificatesresolver를 설정한 뒤, dokemon 서비스에 Host 규칙과 websecure 엔트리포인트, certresolver traefik 라벨을 지정하면 인증서가 자동으로 연결됩니다."
+- q: "Dokemon에 다른 도커 노드를 추가하려면 어떻게 하나요?"
+  a: "먼저 \"Set Server URL\"로 메인 서버 URL을 설정한 뒤 Add Node로 노드 이름을 입력하고 \"Register\"를 선택합니다. 제공되는 dokemon-agent 설치 스크립트를 신규 서버에서 실행하면 노드가 활성화됩니다."
+- q: "Dokemon으로 Docker Swarm 같은 클러스터를 관리할 수 있나요?"
+  a: "Docker Swarm과 같은 Cluster 역할은 어렵습니다. 대신 Standalone docker node 관리에 용이해 소규모 환경을 편리하게 운영하는 데 적합합니다."

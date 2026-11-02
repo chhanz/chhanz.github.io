@@ -1,0 +1,21 @@
+# AEO data for _posts/2024-03-18-al2023-sosreport.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "sos(sosreport) 명령이 기본 제공되지 않는 Amazon Linux 2023에 GitHub 소스로 sos를 수동 설치하고 sos report로 진단 정보를 수집하는 방법을 정리합니다."
+keywords:
+- "sosreport"
+- "sos"
+- "Amazon Linux 2023"
+- "sos report"
+- "python3 setup.py install"
+- "sos.conf"
+summary:
+- "Amazon Linux 2023에는 `sos` 명령이 기본 제공되지 않지만, GitHub 소스를 clone해 `python3 setup.py install`로 수동 설치할 수 있습니다."
+- "설치 후 `sudo sos report`를 실행하면 시스템 구성과 진단 정보가 `/var/tmp/` 아래 tar.xz 압축 파일로 생성됩니다."
+tested_on: "Amazon Linux 2023 (Release 2023.3.20240312), sos 4.7.0"
+faq:
+- q: "Amazon Linux 2023에서 sosreport 명령을 사용할 수 있나요?"
+  a: "기본적으로는 제공되지 않습니다. `sosreport/sos` GitHub 저장소를 clone한 뒤 `pip install -r requirements.txt`와 `python3 setup.py install`로 수동 설치하면 사용할 수 있습니다."
+- q: "sos를 소스로 설치하기 전에 필요한 패키지는 무엇인가요?"
+  a: "`sudo dnf -y install git python3-pip python3-magic`로 git, python3-pip, python3-magic을 설치합니다. 또한 `/etc/sos` 디렉터리를 만들고 `sos.conf`를 복사해 둡니다."
+- q: "sos report로 생성된 결과 파일은 어디에 저장되나요?"
+  a: "`/var/tmp/` 경로에 `sosreport-<호스트명>-<날짜>-...tar.xz` 형태의 압축 파일로 저장됩니다."

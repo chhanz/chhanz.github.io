@@ -1,0 +1,22 @@
+# AEO data for _posts/2024-12-27-journalctl.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "rsyslog가 기본 구성이 아닌 Amazon Linux 2023 등에서 journalctl로 부팅별 로그, 특정 일자 이후 로그, 특정 daemon 로그를 확인하는 자주 쓰는 옵션을 정리합니다."
+keywords:
+- "journalctl"
+- "journalctl --list-boots"
+- "journalctl -b"
+- "journalctl --since"
+- "journalctl -u"
+- "rsyslog"
+- "Amazon Linux 2023"
+summary:
+- "Amazon Linux 2023은 rsyslog가 기본 구성이 아니므로 시스템 로그를 `journalctl`로 확인해야 합니다."
+- "`--list-boots`로 부팅 목록을 확인한 뒤 `-b-<IDX>`로 특정 부팅 로그를, `--since`로 특정 일자 이후 로그를 볼 수 있습니다."
+- "`-u <daemon>`으로 특정 daemon 로그만 보거나 `--no-pager --all --boot` 결과를 파일로 저장해 로그를 수집할 수 있습니다."
+faq:
+- q: "Amazon Linux 2023에서 시스템 로그는 어떻게 확인하나요?"
+  a: "Amazon Linux 2023은 rsyslog가 기본 구성이 아니므로 `journalctl`로 확인합니다. 예를 들어 `sudo journalctl --no-pager --boot`로 부팅 로그를 확인할 수 있습니다."
+- q: "journalctl로 이전 부팅 시점의 로그를 보려면 어떻게 하나요?"
+  a: "`sudo journalctl --list-boots`로 부팅 목록과 IDX를 확인한 뒤 `sudo journalctl -b-3`처럼 IDX 번호를 지정합니다."
+- q: "journalctl로 오늘 로그나 특정 서비스 로그만 보려면 어떻게 하나요?"
+  a: "오늘 로그는 `sudo journalctl --since today`, 특정 일자 이후 로그는 `--since \"2023-08-07 00:00:00\"`처럼 지정합니다. 특정 daemon 로그는 `sudo journalctl -u sshd`처럼 `-u` 옵션을 사용합니다."

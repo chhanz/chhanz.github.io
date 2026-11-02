@@ -1,0 +1,19 @@
+# AEO data for _posts/2019-06-16-vmware-scsi-id-check.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "VMware ESXi의 Linux GuestOS에서 디스크 SCSI ID가 보이지 않을 때 VM 구성 매개 변수에 disk.enableuuid=true를 추가해 확인하는 방법입니다."
+keywords:
+- "VMware ESXi"
+- "disk.enableuuid"
+- "SCSI ID"
+- "VMDK"
+- "구성 매개 변수"
+- "GuestOS"
+summary:
+- "VMware ESXi에서 운영 중인 Linux는 기본적으로 디스크의 SCSI ID를 확인할 수 없습니다."
+- "GuestOS를 중지하고 VM 옵션의 고급 구성 매개 변수에 `disk.enableuuid=true`를 추가하면 SCSI ID가 정상적으로 표시됩니다."
+- "SCSI ID를 확인하면 디스크 이관이나 VMX 재생성 후에도 어떤 VMDK가 OS의 어떤 디스크인지 구분할 수 있습니다."
+faq:
+- q: "VMware 가상머신의 Linux에서 디스크 SCSI ID가 보이지 않는 이유는 무엇인가요?"
+  a: "VMware 시스템에서는 기본 설정으로 GuestOS 디스크의 SCSI ID가 확인되지 않습니다. VM 구성 매개 변수에 `disk.enableuuid=true`를 추가해야 확인할 수 있습니다."
+- q: "ESXi에서 disk.enableuuid 설정은 어디서 추가하나요?"
+  a: "GuestOS를 중지한 뒤 [VM 선택] - [작업] - [설정 편집] - [VM 옵션] - [고급] - [구성 매개 변수] - [구성 편집]에서 `disk.enableuuid=true` 항목을 추가합니다."

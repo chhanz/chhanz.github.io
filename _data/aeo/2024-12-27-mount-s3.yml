@@ -1,0 +1,21 @@
+# AEO data for _posts/2024-12-27-mount-s3.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "mount-s3(mountpoint-s3)를 rpm으로 설치하고 aws configure로 자격 증명을 설정한 뒤 S3 버킷을 로컬 디렉터리에 마운트해 파일을 복사하는 과정을 정리합니다."
+keywords:
+- "mount-s3"
+- "mountpoint-s3"
+- "Amazon S3"
+- "FUSE"
+- "aws configure"
+- "S3 버킷 마운트"
+summary:
+- "`mount-s3` rpm을 설치하고 `mount-s3 <버킷> <디렉터리>`를 실행하면 S3 버킷을 로컬 디렉터리에 fuse 파일시스템으로 마운트할 수 있습니다."
+- "마운트한 디렉터리에 복사한 파일은 `aws s3 ls`로 S3 버킷에서도 확인할 수 있습니다."
+tested_on: "mount-s3 1.0.0-1 (x86_64)"
+faq:
+- q: "mount-s3는 어떻게 설치하나요?"
+  a: "`yum -y install https://s3.amazonaws.com/mountpoint-s3-release/latest/x86_64/mount-s3.rpm`으로 설치합니다. 설치 시 의존성으로 fuse 패키지가 함께 설치됩니다."
+- q: "mount-s3로 S3 버킷을 마운트하려면 어떻게 하나요?"
+  a: "`aws configure`로 Access Key, Secret Access Key, 리전을 설정한 뒤 `mount-s3 <버킷 이름> <마운트 경로>`를 실행합니다. 정상 마운트되면 `bucket ... is mounted at ...` 메시지가 출력됩니다."
+- q: "S3 버킷이 제대로 마운트되었는지 어떻게 확인하나요?"
+  a: "`mount | grep <마운트 경로>`로 `mountpoint-s3` fuse 타입 마운트가 있는지 확인합니다. 마운트 경로에 파일을 복사한 뒤 `aws s3 ls`로 버킷에 올라갔는지도 확인할 수 있습니다."

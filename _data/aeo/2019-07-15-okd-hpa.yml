@@ -1,0 +1,22 @@
+# AEO data for _posts/2019-07-15-okd-hpa.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "Openshift에 metrics-server를 배포하고 HPA를 생성해 CPU 사용률 70% 기준으로 Pod이 최대 8개까지 Auto-Scaling 되는 과정을 Grafana로 확인합니다."
+keywords:
+- "Openshift"
+- "HPA"
+- "metrics-server"
+- "oc autoscale"
+- "Auto-Scaling"
+- "Grafana"
+- "load-generator"
+summary:
+- "Openshift 기본 설치에는 metrics-server가 없으므로 openshift-ansible의 metrics-server Playbook으로 먼저 배포해야 HPA를 쓸 수 있습니다."
+- "`oc autoscale ... --min 1 --max 8 --cpu-percent=70`으로 HPA를 만들고 busybox load-generator로 부하를 주자 Pod이 최대 8개까지 늘어났습니다."
+- "부하를 중지하면 HPA가 이를 감지해 Pod 수를 다시 줄이며, 과정은 Openshift에서 제공하는 Grafana로 모니터링할 수 있습니다."
+faq:
+- q: "Openshift에서 HPA를 쓰려면 무엇을 먼저 설치해야 하나요?"
+  a: "Pod 부하를 수집하는 metrics-server가 필요합니다. `ansible-playbook -i inventory/hosts.localhost /usr/share/ansible/openshift-ansible/playbooks/metrics-server/config.yml -e openshift_metrics_server_install=true`로 배포합니다."
+- q: "Openshift에서 HPA는 어떻게 생성하나요?"
+  a: "`oc autoscale deploymentconfig.apps.openshift.io/hpa-example-pod --min 1 --max 8 --cpu-percent=70`처럼 실행합니다. 생성된 HPA는 `oc describe hpa`로 확인합니다."
+- q: "metrics-server 배포 직후 oc adm top node가 동작하지 않는 이유는 무엇인가요?"
+  a: "배포 후 성능 수집이 정상 동작하기까지 일정 시간이 지나야 하기 때문입니다. 잠시 기다린 뒤 다시 확인하면 됩니다."

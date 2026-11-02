@@ -1,0 +1,26 @@
+# AEO data for _posts/2019-02-13-containerorchestration-docker-swarm.html
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "CentOS 7.6에서 Docker Swarm 3-Manager 클러스터를 구성하고 사설 Registry, 서비스 Scale-out, Rolling Update, Rollback, 장애 복구를 실습합니다."
+keywords:
+- "Docker Swarm"
+- "docker swarm init"
+- "docker service create"
+- "docker service scale"
+- "Rolling Update"
+- "docker service update --rollback"
+- "사설 Registry"
+- "Ingress Network"
+summary:
+- "`docker swarm init`과 `docker swarm join-token manager`로 Manager 노드 3대의 Docker Swarm 클러스터를 구성합니다."
+- "사설 Registry에 올린 PHP 이미지를 `docker service create`로 배포하고 `docker service scale`로 복제하면 Ingress Network를 통해 컨테이너 간 Load Balancing이 됩니다."
+- "`docker service update`로 무중단 Rolling Update와 Rollback을 할 수 있고, 노드 장애 시 컨테이너가 다른 노드로 옮겨져 약 40~50초 만에 복구되었습니다."
+tested_on: "CentOS Linux release 7.6.1810 (Core), docker-1.13.1-88.git07f3374.el7.centos"
+faq:
+- q: "Docker Swarm에 Manager 노드를 추가하려면 어떻게 하나요?"
+  a: "첫 노드에서 `docker swarm init --advertise-addr <Manager IP>`로 초기화한 뒤 `docker swarm join-token manager`로 Manager용 join 명령을 생성합니다. 생성된 `docker swarm join --token ...` 명령을 추가할 노드에서 실행하면 Manager로 참여합니다."
+- q: "Docker Swarm에서 사설 Registry 이미지를 사용하려면 무엇을 설정해야 하나요?"
+  a: "이미지를 사용하는 모든 노드의 /etc/docker/daemon.json에 `insecure-registries`로 Registry 주소를 추가하고 docker를 재시작해야 합니다. Registry는 `docker service create --name registry -p 5000:5000 registry`로 띄웠습니다."
+- q: "Docker Swarm에서 서비스를 무중단으로 업데이트하고 되돌리려면 어떻게 하나요?"
+  a: "`docker service update --update-parallelism 1 --image <새 이미지> phpdemo`로 컨테이너를 하나씩 교체하는 Rolling Update를 합니다. 문제가 있으면 `docker service update --rollback phpdemo`로 이전 이미지로 되돌립니다."
+- q: "Docker Swarm 노드에 장애가 나면 서비스는 어떻게 되나요?"
+  a: "Swarm이 장애를 감지하고 해당 노드의 컨테이너를 다른 노드에서 다시 실행합니다. 글의 테스트에서는 장애 감지부터 복구까지 약 40~50초가 걸렸습니다."

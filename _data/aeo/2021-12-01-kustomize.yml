@@ -1,0 +1,26 @@
+# AEO data for _posts/2021-12-01-kustomize.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "Kustomize 설치부터 resources, patches, namePrefix/commonLabels, secretGenerator, overlay 까지 flask 예제 앱으로 Kubernetes 매니페스트를 관리하는 방법을 정리합니다."
+keywords:
+- "Kustomize"
+- "kustomization.yaml"
+- "kustomize build"
+- "patches"
+- "secretGenerator"
+- "namePrefix"
+- "commonLabels"
+- "overlay"
+summary:
+- "`kustomization.yaml` 의 `resources` 에 매니페스트를 선언하고 `kustomize build | kubectl create -f -` 로 배포할 수 있습니다."
+- "`patches` 를 사용하면 base yaml 을 수정하지 않고 Service type 을 ClusterIP 에서 NodePort 로 바꾸는 식의 변경을 적용할 수 있습니다."
+- "`secretGenerator` 는 hash 가 붙은 Secret 을 만들어 참조를 자동 갱신하고, overlay 의 `bases` 와 `namespace` 로 같은 앱을 다른 namespace 에 배포합니다."
+tested_on: "kustomize v4.4.0"
+faq:
+- q: "Kustomize 는 어떻게 설치하나요?"
+  a: "`curl -s \"https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh\" | bash` 를 실행하면 OS 에 맞게 설치됩니다. 생성된 바이너리를 `/usr/local/bin/` 으로 옮기면 편리하게 사용할 수 있습니다."
+- q: "Kustomize 에서 base yaml 을 수정하지 않고 일부 속성만 바꾸려면 어떻게 하나요?"
+  a: "변경할 spec 만 담은 patch yaml 을 작성하고 `kustomization.yaml` 의 `patches` 에 추가합니다. 글에서는 Service 의 `type` 을 `NodePort` 로 바꾸는 patch 를 적용했습니다."
+- q: "Kustomize secretGenerator 로 만든 Secret 이름에 hash 가 붙는 이유는 무엇인가요?"
+  a: "secretGenerator 는 Secret 이름에 hash 를 붙여 생성하고, 이를 참조하는 Deployment 의 `secretName` 도 자동으로 바꿔 적용합니다."
+- q: "Kustomize overlay 로 같은 앱을 다른 namespace 에 배포하려면 어떻게 하나요?"
+  a: "`overlays/prod/kustomization.yaml` 에 `bases: - ../../base` 와 `namespace: prod` 를 지정하고 `kustomize build overlays/prod/ | kubectl create -f -` 로 배포합니다."

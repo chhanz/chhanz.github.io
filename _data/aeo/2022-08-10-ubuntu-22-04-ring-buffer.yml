@@ -1,0 +1,24 @@
+# AEO data for _posts/2022-08-10-ubuntu-22-04-ring-buffer.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "Ubuntu 22.04에서 ethtool로 NIC Ring Buffer를 임시 변경하고, systemd.link 파일로 재부팅 후에도 유지되도록 영구 설정하는 방법입니다."
+keywords:
+- "Ring Buffer"
+- "ethtool -G"
+- "systemd.link"
+- "RxBufferSize"
+- "TxBufferSize"
+- "networkctl"
+- "netplan"
+- "Ubuntu 22.04"
+summary:
+- "Ubuntu 22.04에서는 `ethtool -G`로 Ring Buffer를 즉시 바꾸고, `systemd.link` 파일로 재부팅 후에도 유지되게 설정할 수 있습니다."
+- "`networkctl status`로 확인한 Network File과 같은 이름의 `.link` 파일을 `/etc/systemd/network`에 만들고 `RxBufferSize`, `TxBufferSize`를 지정합니다."
+- "`systemd.link` 설정은 OS 기동 중에는 적용되지 않고 재부팅해야 반영됩니다."
+tested_on: "Ubuntu 22.04"
+faq:
+- q: "ethtool로 Ring Buffer를 변경하면 서비스에 영향이 있나요?"
+  a: "`ethtool -G eth0 rx 4096 tx 4096`처럼 온라인 중에 변경할 수 있지만, 변경되는 인터페이스의 Link UP/DOWN이 발생합니다."
+- q: "Ubuntu 22.04에서 Ring Buffer 설정을 영구 적용하려면 어떻게 하나요?"
+  a: "Ubuntu에서 권고되는 `systemd.link` 방식을 사용합니다. `/etc/systemd/network/10-netplan-eth0.link`처럼 Network File과 같은 이름으로 파일을 만들고 `[Match]`에 MAC Address, `[Link]`에 `RxBufferSize`와 `TxBufferSize`를 입력한 뒤 재부팅합니다."
+- q: "systemd.link 파일이 적용되었는지 어떻게 확인하나요?"
+  a: "재부팅 후 `networkctl status eth0`의 Link File이 새로 만든 `.link` 파일로 바뀌었는지 확인하고, `ethtool -g eth0`으로 현재 RX/TX 값을 확인합니다."

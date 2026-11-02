@@ -1,0 +1,20 @@
+# AEO data for _posts/2019-04-12-kubernetes-chapter-1-volume.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+keywords:
+- "Kubernetes Volume"
+- "emptyDir"
+- "hostPath"
+- "gitRepo"
+- "Pod"
+- "kubelet"
+summary:
+- "emptyDir, hostPath, gitRepo 세 가지 Kubernetes Volume 유형을 예제 yaml과 함께 실제 동작으로 확인합니다."
+- "emptyDir은 Pod 단위로 관리되는 임시 Volume이고, hostPath는 Worker 노드의 로컬 경로를 Pod에 Mount하는 방식입니다."
+- "gitRepo는 Worker 노드에 git 명령이 있어야 Mount되며, Pod 생성 시 Clone만 하고 Repository와 계속 Sync하지는 않습니다."
+faq:
+- q: "emptyDir Volume은 컨테이너가 재시작되면 삭제되나요?"
+  a: "아니요, emptyDir은 컨테이너가 아닌 Pod 단위로 관리되어 Pod 내 컨테이너가 재시작되어도 유지됩니다. Pod과 함께 생성되고 Pod이 삭제될 때 함께 삭제됩니다."
+- q: "gitRepo Volume에서 FailedMount 오류가 나는 이유는 무엇인가요?"
+  a: "Pod이 실행될 Worker 노드에 git 명령이 없으면 `git clone`을 실행하지 못해 Mount가 실패합니다. Worker 노드에 git을 설치한 뒤에는 정상적으로 Mount되었습니다."
+- q: "gitRepo Volume은 Git Repository 변경 사항을 계속 동기화하나요?"
+  a: "아니요, Pod 생성 시 Source를 Clone만 하고 Repository와 계속 Sync하지 않습니다. Pod이 삭제되면 Clone된 Source도 함께 삭제됩니다."

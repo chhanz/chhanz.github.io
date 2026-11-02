@@ -1,0 +1,24 @@
+# AEO data for _posts/2020-05-21-container-hands-on.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "사내 교육용으로 만든 Docker, Podman, Kubernetes, OpenShift 실습 자료로 컨테이너 실행과 이미지 빌드부터 NodePort 배포, S2I, HPA까지 다룹니다."
+keywords:
+- "Docker"
+- "Podman"
+- "Kubernetes"
+- "OpenShift"
+- "S2I"
+- "HPA"
+- "NodePort"
+- "oc new-app"
+summary:
+- "Docker 실행과 Dockerfile 빌드, Docker Hub push, Podman 실행, Kubernetes NodePort 배포, OpenShift S2I와 HPA 실습을 차례로 따라 할 수 있는 교육 자료입니다."
+- "OpenShift에서는 `oc new-app httpd~<git URL>`로 S2I 배포를 하고 `oc autoscale`로 HPA를 만든 뒤 부하를 주어 Pod 확장을 확인합니다."
+- "자료 원본은 GitHub chhanz/container-hands-on 저장소에 있으며, 사용 시 출처 표기를 부탁하고 있습니다."
+tested_on: "Docker: CentOS 7.7 / Podman: CentOS 8.1 / Kubernetes v1.16.8 (Docker v18.09.7) / OpenShift v3.11 (Docker v1.13.1)"
+faq:
+- q: "OpenShift에서 git 소스로 S2I 배포를 하려면 어떤 명령을 쓰나요?"
+  a: "`oc new-app httpd~https://github.com/chhanz/sample-httpd-example.git`로 배포하고 `oc expose service sample-httpd-example`로 외부에 노출합니다. 로컬에서 수정한 소스는 `oc start-build sample-httpd-example --from-dir=./`로 다시 빌드합니다."
+- q: "OpenShift에서 HPA는 어떻게 만들고 확인하나요?"
+  a: "`oc autoscale deployment php-apache --cpu-percent=25 --min=1 --max=10`으로 생성하고, while 루프로 wget 부하를 준 뒤 `oc get hpa`로 상태를 확인합니다."
+- q: "Kubernetes 노드 장애 상황은 어떻게 실습하나요?"
+  a: "`kubectl drain worker2.example.com`처럼 워커 노드를 drain해 장애 시나리오를 실습합니다."

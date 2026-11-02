@@ -1,0 +1,22 @@
+# AEO data for _posts/2019-07-24-github-io.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "github.io Repository를 만들어 GitHub Pages를 열고, 기본 테마 적용과 Jekyll 테마 Fork, 로컬 빌드, git push로 블로그를 게시하는 과정을 설명합니다."
+keywords:
+- "GitHub Pages"
+- "github.io"
+- "Jekyll"
+- "Jekyll 테마"
+- "Fork"
+- "_config.yml"
+- "jekyllthemes.org"
+summary:
+- "`<계정>.github.io` 이름으로 Repository를 만들고 README.md를 작성하면 해당 주소로 웹페이지가 서비스됩니다."
+- "Repository Settings의 GitHub Pages 항목에서 Choose a Theme로 테마를 고르면 `_config.yml`이 생성되고 테마가 적용됩니다."
+- "jekyllthemes.org에서 고른 Jekyll 테마를 Fork하고 Clone해 Jekyll로 빌드, 글을 작성한 뒤 github.io Repository에 git push하면 블로그가 게시됩니다."
+faq:
+- q: "GitHub Pages 블로그를 만들려면 Repository 이름을 어떻게 지어야 하나요?"
+  a: "`<계정>.github.io` 형식으로 지어야 합니다. 글에서는 `chhanz-test.github.io`로 Repository를 만들고 https://chhanz-test.github.io 로 접속했습니다."
+- q: "GitHub Pages에 테마를 적용하려면 어떻게 하나요?"
+  a: "Repository의 Settings 메뉴 하단 GitHub Pages 항목에서 Choose a Theme를 누르고 테마를 선택합니다. 선택하면 `_config.yml` 파일이 생성되면서 테마가 적용됩니다."
+- q: "다른 사람이 만든 Jekyll 테마를 내 블로그에 쓰려면 어떻게 하나요?"
+  a: "jekyllthemes.org에서 마음에 드는 테마의 GitHub Repository를 Fork하고 Clone합니다. 테마 README에 따라 Jekyll로 빌드해 확인한 뒤 소스를 github.io Repository에 넣고 git push합니다."

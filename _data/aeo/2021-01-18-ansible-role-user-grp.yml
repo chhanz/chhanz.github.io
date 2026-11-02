@@ -1,0 +1,21 @@
+# AEO data for _posts/2021-01-18-ansible-role-user-grp.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "Ansible role(ansible.role-mgt-usergrp)과 Varfile을 이용해 여러 시스템에 USER와 GROUP을 한 번에 생성하는 Playbook 사용법을 소개합니다."
+keywords:
+- "Ansible"
+- "ansible.role-mgt-usergrp"
+- "Ansible Role"
+- "ansible-playbook"
+- "Varfile"
+- "사용자 계정 생성 자동화"
+summary:
+- "ansible.role-mgt-usergrp role을 `/etc/ansible/roles`에 clone하면 다량의 시스템에 USER와 GROUP을 한 번에 생성할 수 있습니다."
+- "Varfile의 `group_list`에 그룹명과 gid를, `user_list`에 id, 암호, uid, 그룹, comment를 정의해 Playbook에서 불러옵니다."
+- "`ansible-playbook -i inventory create_usergrp.yml`로 실행하며, 작성자는 BAU 업무 시간이 체감상 3분의 1로 줄었다고 합니다."
+faq:
+- q: "ansible.role-mgt-usergrp role은 어떻게 설치하나요?"
+  a: "`/etc/ansible/roles`로 이동해 `git clone https://github.com/chhanz/ansible.role-mgt-usergrp.git`으로 받으면 됩니다. 예제 Playbook과 Varfile은 `tests/` 경로에 있습니다."
+- q: "생성할 사용자와 그룹 목록은 어디에 정의하나요?"
+  a: "Varfile(예: `userlist.yml`)에 정의합니다. `group_list`에는 `grp_name`과 `gid`, `user_list`에는 `id`, `new_password`, `uid`, `groups`, `comment`를 적고 Playbook의 `vars_files`로 불러옵니다."
+- q: "사용자가 제대로 생성됐는지 어떻게 확인하나요?"
+  a: "대상 서버에서 `/etc/passwd`와 `id <사용자>` 명령으로 uid, gid, 그룹이 Varfile 값대로 생성됐는지 확인합니다."

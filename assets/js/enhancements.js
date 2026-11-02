@@ -117,7 +117,8 @@
         // Back to Top - Smooth Scroll
         $('#back-to-top').on('click', function(e) {
             e.preventDefault();
-            $('html, body').animate({ scrollTop: 0 }, 600);
+            // jQuery slim 빌드에는 .animate() 가 없으므로 표준 API 사용
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
 
         // Initialize all enhancements
@@ -126,9 +127,6 @@
         initLazyLoading();
         initExternalLinks();
         initCopyCodeButton();
-
-        // Add skip to main content link
-        $('body').prepend('<a href="#content" class="skip-to-main">본문으로 건너뛰기</a>');
     });
 
 }(window, window.document, window.jQuery));

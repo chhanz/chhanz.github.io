@@ -1,0 +1,18 @@
+# AEO data for _posts/2018-02-21-aixuformat.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "AIX에서 diag 대신 uformat 명령으로 hdisk를 포맷하고, 여러 hdisk를 동시에 포맷하는 방법입니다."
+keywords:
+- "AIX"
+- "uformat"
+- "/usr/lpp/diagnostics/bin/uformat"
+- "diag"
+- "hdisk format"
+- "디스크 데이터 삭제"
+summary:
+- "diag로는 여러 hdisk를 동시에 포맷할 수 없지만 `/usr/lpp/diagnostics/bin/uformat` 명령을 쓰면 명령어로 포맷할 수 있습니다."
+- "`lspv`에서 VG가 None인 디스크마다 `uformat`을 백그라운드(`&`)로 실행하면 여러 hdisk를 동시에 포맷할 수 있습니다."
+faq:
+- q: "AIX에서 diag 없이 hdisk를 포맷하는 명령은 무엇인가요?"
+  a: "`/usr/lpp/diagnostics/bin/uformat -d hdisk1 -c -o format`처럼 `uformat` 명령을 사용합니다."
+- q: "AIX에서 여러 hdisk를 한 번에 포맷하려면 어떻게 하나요?"
+  a: "`lspv | grep None`으로 대상 디스크를 찾고, awk로 디스크마다 `uformat -d <hdisk> -c -o format &` 명령을 만들어 `sh -x`로 실행합니다. 각 포맷이 백그라운드로 동시에 진행됩니다."

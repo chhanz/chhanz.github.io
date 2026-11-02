@@ -1,5 +1,22 @@
+---
+layout: null
+sitemap: false
+permalink: /robots.txt
+---
+# 페이지는 모든 검색엔진 / AI 답변 엔진(AEO) 크롤러에 허용
+# (CSS/JS 를 막으면 Google 이 페이지를 정상 렌더링하지 못한다)
 User-agent: *
 Allow: /
-Disallow: /assets/images/
+Disallow: /assets/lib/search.json
 
-Sitemap: https://tech.chhanz.xyz/sitemap-chhanz.xml
+# 포스트 본문 이미지(/assets/images/post/)만 이미지 검색에 노출하지 않음 - 이미지 전용 크롤러만 차단
+# (일반 크롤러는 페이지 렌더링을 위해 접근 허용, 커버/로고 등 나머지 이미지는 색인 허용)
+User-agent: Googlebot-Image
+Disallow: /assets/images/post/
+
+User-agent: msnbot-media
+Disallow: /assets/images/post/
+
+# 두 sitemap 은 _includes/sitemap.xml 하나로 생성되는 동일한 내용 (검색엔진별 등록 경로 유지)
+Sitemap: {{ site.url }}/sitemap.xml
+Sitemap: {{ site.url }}/sitemap-chhanz.xml

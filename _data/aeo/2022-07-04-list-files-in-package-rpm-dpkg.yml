@@ -1,0 +1,19 @@
+# AEO data for _posts/2022-07-04-list-files-in-package-rpm-dpkg.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+keywords:
+- "rpm -ql"
+- "dpkg -L"
+- "패키지 파일 목록"
+- "epel-release"
+- "RHEL"
+- "Ubuntu"
+summary:
+- "CentOS/RHEL/Rocky 계열은 `rpm -ql`, Ubuntu 계열은 `dpkg -L` 명령으로 패키지에 포함된 파일 목록을 확인할 수 있습니다."
+- "`rpm`의 `-l(--list)` 옵션과 `dpkg`의 `-L(--listfiles)` 옵션이 패키지 소유 파일을 나열하는 옵션입니다."
+faq:
+- q: "RHEL이나 Rocky Linux에서 특정 패키지가 설치한 파일 목록은 어떻게 보나요?"
+  a: "`rpm -ql <패키지명>` 명령을 사용합니다. 예를 들어 `rpm -ql epel-release-7-11.noarch`를 실행하면 해당 패키지의 repo 파일과 GPG 키 경로 등이 출력됩니다."
+- q: "Ubuntu에서 패키지에 포함된 파일을 확인하는 명령은 무엇인가요?"
+  a: "`dpkg -L <패키지명>` 명령을 사용합니다. 예를 들어 `dpkg -L tmux`를 실행하면 `/usr/bin/tmux`, man page 등 tmux 패키지가 소유한 파일 목록이 출력됩니다."
+- q: "rpm -ql 과 dpkg -L 의 옵션은 각각 무슨 의미인가요?"
+  a: "`rpm`의 `-l`은 `--list`로 패키지 안의 파일을 나열하고, `dpkg`의 `-L`은 `--listfiles`로 패키지가 소유한 파일을 나열합니다."

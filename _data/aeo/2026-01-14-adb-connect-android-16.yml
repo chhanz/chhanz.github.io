@@ -1,0 +1,22 @@
+# AEO data for _posts/2026-01-14-adb-connect-android-16.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "Android 16의 무선 디버깅에서 adb pair로 페어링 코드를 이용해 기기를 페어링하고 adb connect로 연결하는 방법을 정리합니다."
+keywords:
+- "adb"
+- "adb pair"
+- "adb connect"
+- "무선 디버깅"
+- "Android 16"
+- "platform-tools"
+- "ADB Shell"
+summary:
+- "개발자 옵션에서 무선 디버깅을 켜고 '페어링 코드로 기기 페어링' 정보로 `adb pair`를 먼저 실행해야 Android 16 기기에 무선으로 연결할 수 있습니다."
+- "페어링 후에는 무선 디버깅 메뉴의 'IP 주소 및 포트'로 `adb connect`를 실행하며, 이 포트는 페어링용 포트와 다릅니다."
+tested_on: "Android 16"
+faq:
+- q: "Android 16에서 adb 무선 페어링은 어떻게 하나요?"
+  a: "개발자 옵션에서 무선 디버깅을 활성화하고 '페어링 코드로 기기 페어링'을 누른 뒤, 표시된 주소로 `adb pair <IP:포트>`를 실행하고 페어링 코드를 입력합니다."
+- q: "adb pair와 adb connect에 같은 포트를 쓰면 되나요?"
+  a: "아닙니다. 페어링용 포트와 연결용 포트는 다릅니다. 페어링 후에는 무선 디버깅 메뉴에 표시된 'IP 주소 및 포트'로 `adb connect`를 실행합니다."
+- q: "adb 연결이 됐는지 어떻게 확인하나요?"
+  a: "`adb devices` 같은 명령으로 장치 접속 상태를 확인합니다."

@@ -1,0 +1,22 @@
+# AEO data for _posts/2018-02-02-rhel-create-yum-repo.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "RHEL 설치 ISO나 DVD를 로컬 디스크로 복사하고 media.repo를 작성해 외부 RHN 없이 Local Yum Repository를 구성하는 방법입니다."
+keywords:
+- "Local Yum Repository"
+- "RHEL"
+- "media.repo"
+- "yum repolist"
+- "baseurl=file://"
+- "RHEL 설치 ISO"
+summary:
+- "RHEL 설치 ISO나 DVD만 있으면 외부 RHN 없이 Local Yum Repository를 만들어 `yum install`을 사용할 수 있습니다."
+- "ISO/DVD를 마운트해 `/home/repo`로 복사하고 `/etc/yum.repos.d/media.repo`에 `baseurl=file:///home/repo`, `gpgcheck=0`을 지정합니다."
+- "`yum repolist`로 media 저장소가 인식되는지 확인하고 `yum install gcc`로 의존성 패키지까지 설치되는지 검증합니다."
+tested_on: "Red Hat Enterprise Linux 7.5 (rhel-server-7.5-x86_64-dvd.iso)"
+faq:
+- q: "인터넷이나 RHN 없이 RHEL에서 yum을 쓰려면 어떻게 하나요?"
+  a: "설치 ISO 또는 DVD로 Local Yum Repository를 만들면 됩니다. 미디어를 `/mnt`에 마운트해 `cp -rpH /mnt /home/repo`로 복사하고, 이 경로를 가리키는 repo 파일을 `/etc/yum.repos.d/`에 작성합니다."
+- q: "Local Yum Repository용 repo 파일에는 무엇을 적나요?"
+  a: "`[media]` 섹션에 `name=media`, `baseurl=file:///home/repo`, `gpgcheck=0` 등을 적어 `/etc/yum.repos.d/media.repo`로 저장합니다."
+- q: "RHEL 설치 ISO 파일은 어떻게 마운트하나요?"
+  a: "ISO 파일을 시스템에 업로드한 뒤 `mount /root/rhel-server-7.5-x86_64-dvd.iso /mnt`처럼 마운트합니다. 물리 DVD는 `mount /dev/sr0 /mnt`를 사용합니다."

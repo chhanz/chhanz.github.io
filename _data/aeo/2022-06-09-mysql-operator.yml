@@ -1,0 +1,25 @@
+# AEO data for _posts/2022-06-09-mysql-operator.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "Helm 으로 MySQL Operator 와 InnoDB Cluster 를 Kubernetes 에 배포하고, mysqlsh 접속과 Node 장애 시 Primary 전환, ConfigMap 을 통한 설정 변경 동작을 테스트합니다."
+keywords:
+- "MySQL Operator"
+- "MySQL InnoDB Cluster"
+- "mysql-innodbcluster"
+- "Helm"
+- "mysqlsh"
+- "MySQL Router"
+- "Group Replication"
+summary:
+- "Helm 으로 `mysql-operator` 와 `mysql-innodbcluster` 차트를 설치하면 StatefulSet 기반 3개 인스턴스와 Router 로 구성된 InnoDB Cluster 를 만들 수 있습니다."
+- "Primary Pod 가 있는 Node 를 drain 하고 Pod 를 삭제하면 다른 인스턴스가 Primary 로 바뀌고, 복구 후에도 Primary 는 원래대로 되돌아가지 않습니다."
+- "`mycluster-initconf` ConfigMap 을 수정해도 Operator 가 Rolling Update 를 하지 않아 재시작한 Pod 에만 설정이 반영됩니다."
+tested_on: "MySQL Operator Helm chart 2.0.4, MySQL 8.0.29, Kubernetes v1.23.6"
+faq:
+- q: "Helm 으로 MySQL InnoDB Cluster 를 만들 때 values 는 어떻게 수정하나요?"
+  a: "`helm show values mysql-operator/mysql-innodbcluster > values.yml` 로 기본값을 추출한 뒤 `credentials.root.password` 를 지정하고 `tls.useSelfSigned` 를 `true` 로 바꿉니다. 이후 `--values values.yml` 로 설치합니다."
+- q: "MySQL Operator 로 만든 클러스터에는 어떻게 접속하나요?"
+  a: "Operator 나 Cluster Pod 안에서 `mysqlsh mysqlx://root@mycluster.mysql-cluster.svc.cluster.local --password=<패스워드>` 로 접속합니다. 처음에는 JS mode 이며 `\\sql` 로 SQL mode 로 전환합니다."
+- q: "MySQL InnoDB Cluster 의 Primary 와 Secondary 는 어떻게 확인하나요?"
+  a: "`SELECT MEMBER_HOST, MEMBER_ROLE FROM performance_schema.replication_group_members;` 로 각 멤버의 역할을, `MEMBER_STATE` 로 ONLINE 여부를 확인합니다."
+- q: "MySQL Operator 에서 ConfigMap 을 수정하면 모든 인스턴스에 자동 반영되나요?"
+  a: "아니요. `mycluster-initconf` 를 수정해도 Operator 가 자동 Rolling Update 를 하지 않아 재시작한 Pod 에만 반영됩니다. 모든 인스턴스에 맞추려면 SQL 문으로 설정하거나 모든 Pod 를 재시작해야 합니다."

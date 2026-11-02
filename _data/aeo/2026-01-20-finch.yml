@@ -1,0 +1,26 @@
+# AEO data for _posts/2026-01-20-finch.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "AWS가 개발한 오픈소스 컨테이너 도구 Finch로 macOS에서 Docker Desktop 없이 이미지 Pull, 빌드, 실행, finch compose 멀티 컨테이너 구성을 해봅니다."
+keywords:
+- "Finch"
+- "Docker Desktop 대안"
+- "nerdctl"
+- "containerd"
+- "Lima"
+- "finch compose"
+- "finch vm start"
+- "Containerfile"
+summary:
+- "Finch는 AWS가 개발한 오픈소스 컨테이너 도구로, containerd와 nerdctl 기반이라 Docker CLI와 거의 같은 명령으로 macOS에서 Docker Desktop을 대체할 수 있습니다."
+- "`finch vm start`로 Lima 기반 VM을 시작한 뒤 `finch pull`, `finch build`, `finch run`으로 이미지를 받고 빌드하고 실행할 수 있습니다."
+- "`finch compose up -d`로 Docker Compose 형식의 `compose.yaml`을 그대로 사용해 Flask와 Redis 같은 멀티 컨테이너 환경을 실행할 수 있습니다."
+tested_on: "macOS (Apple Silicon / ARM64), Finch Server v2.1.3, Finch VM Fedora Linux 42 (Cloud Edition)"
+faq:
+- q: "Finch 명령 실행 시 'instance \"finch\" is stopped' 오류가 나면 어떻게 하나요?"
+  a: "Finch VM이 중지된 상태라서 발생하는 오류입니다. `finch vm start`로 VM을 시작한 뒤 다시 실행하면 됩니다."
+- q: "Finch에서 Dockerfile 대신 Containerfile을 써도 되나요?"
+  a: "네. Finch는 Dockerfile과 Containerfile을 모두 지원하며, `finch build -t finch-demo:v1.0 .`처럼 빌드합니다."
+- q: "Docker 명령어를 Finch에서는 어떻게 바꿔 쓰나요?"
+  a: "대부분 `docker`를 `finch`로 바꾸면 됩니다. `docker run`은 `finch run` 또는 `finch container run`, `docker rm`은 `finch container rm`, `docker compose up`은 `finch compose up`으로 사용합니다."
+- q: "finch compose down 시 볼륨까지 삭제하려면 어떻게 하나요?"
+  a: "`finch compose down -v`처럼 `-v` 옵션을 추가하면 컨테이너와 네트워크와 함께 볼륨도 삭제됩니다."

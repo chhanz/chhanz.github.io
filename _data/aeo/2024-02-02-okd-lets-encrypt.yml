@@ -1,0 +1,25 @@
+# AEO data for _posts/2024-02-02-okd-lets-encrypt.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "acme.sh로 Let's Encrypt 와일드카드 인증서를 DNS 수동 검증으로 발급받고, oc 명령으로 OKD 4.14 Cluster의 Ingress와 API 서버에 설치하는 방법을 정리합니다."
+keywords:
+- "Let's Encrypt"
+- "acme.sh"
+- "OKD 4.14"
+- "와일드카드 인증서"
+- "_acme-challenge TXT 레코드"
+- "IngressController"
+- "Route53"
+summary:
+- "acme.sh로 Let's Encrypt 와일드카드 인증서를 발급받아 OKD Cluster의 콘솔과 Route에 HTTPS를 적용할 수 있습니다."
+- "DNS 수동 모드로 `--issue`를 실행하고 `_acme-challenge` TXT 레코드를 Route53에 등록한 뒤 `--renew`로 발급을 완료합니다."
+- "`--install-cert`로 추출한 인증서로 `oc create secret tls`를 만들고 ingresscontroller와 apiserver를 patch해 설치합니다."
+tested_on: "OKD 4.14"
+faq:
+- q: "acme.sh로 DNS 수동 검증 방식의 와일드카드 인증서를 발급하려면 어떻게 하나요?"
+  a: "`./acme.sh --issue -d <API 도메인> -d *.apps.<도메인> --yes-I-know-dns-manual-mode-enough-go-ahead-please --dns --server letsencrypt`로 요청한 뒤, 출력된 `_acme-challenge` TXT 레코드를 DNS에 등록합니다. `dig -t txt`로 레코드가 조회되면 같은 옵션으로 `--renew`를 실행해 발급을 완료합니다."
+- q: "발급받은 인증서를 OKD Ingress(Route)에 적용하려면 어떻게 하나요?"
+  a: "`oc create secret tls router-certs --cert=fullchain.pem --key=key.pem -n openshift-ingress`로 Secret을 만들고, `oc patch ingresscontroller default -n openshift-ingress-operator`로 `defaultCertificate`를 `router-certs`로 지정합니다."
+- q: "OKD API 서버에도 Let's Encrypt 인증서를 적용할 수 있나요?"
+  a: "네, `openshift-config` 네임스페이스에 `api-certs` TLS Secret을 만들고 `oc patch apiserver cluster`로 `servingCerts.namedCertificates`에 API 도메인과 Secret을 지정하면 됩니다."
+- q: "인증서를 설치하면 바로 적용되나요?"
+  a: "설치 후 일정 시간 동안 route pod가 교체되며, 교체가 완료되면 HTTPS에 인증서가 적용됩니다. `curl -Iv`로 issuer가 Let's Encrypt인지 확인할 수 있습니다."

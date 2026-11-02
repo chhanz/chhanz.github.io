@@ -1,0 +1,26 @@
+# AEO data for _posts/2025-03-09-bootc.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "CentOS Stream 9 기반 bootc 이미지를 podman으로 빌드해 ECR에 푸시하고 bootc-image-builder로 AMI를 만든 뒤 upgrade, rollback, switch와 자동 업데이트로 운영하는 방법을 정리합니다."
+keywords:
+- "bootc"
+- "bootc-image-builder"
+- "centos-bootc"
+- "podman"
+- "Amazon ECR"
+- "AMI"
+- "bootc-fetch-apply-updates.timer"
+- "composefs"
+summary:
+- "Containerfile로 빌드한 bootc 컨테이너 이미지를 `bootc-image-builder --type ami`로 변환하면 EC2에서 부팅 가능한 AMI를 만들 수 있습니다."
+- "운영 중에는 `bootc upgrade`, `bootc rollback`, `bootc switch`로 OS 이미지를 업데이트하거나 이전 이미지 또는 특정 태그로 전환하며, 변경은 재부팅 후 적용됩니다."
+- "`/var`는 재부팅 후에도 유지되는 영구 저장소이고 `/usr`는 읽기 전용이며, `bootc usr-overlay`로 재부팅 전까지만 임시로 쓸 수 있습니다."
+tested_on: "CentOS Stream 9 bootc 이미지 (quay.io/centos-bootc/centos-bootc:stream9, stream9.20250129.0), AWS EC2 ap-northeast-2"
+faq:
+- q: "bootc 컨테이너 이미지로 AWS AMI를 만들려면 어떻게 하나요?"
+  a: "`quay.io/centos-bootc/bootc-image-builder:latest` 컨테이너를 `--privileged`로 실행하고 `--type ami`, `--aws-ami-name`, `--aws-bucket`, `--aws-region`과 대상 이미지를 지정합니다. 사용자와 파티션 설정은 `config.toml`로 전달하며, 빌드된 이미지는 S3에 업로드된 뒤 AMI로 등록됩니다."
+- q: "bootc upgrade를 실행하면 바로 새 이미지가 적용되나요?"
+  a: "아닙니다. `bootc upgrade`는 레포지토리의 최신 이미지를 Pull해 staged image로 준비하고, 재부팅 후에 새 이미지로 부팅됩니다. 이전 이미지는 rollback image로 남습니다."
+- q: "bootc에서 이전 이미지로 되돌리거나 특정 태그로 바꾸려면 어떻게 하나요?"
+  a: "`bootc rollback` 후 재부팅하면 rollback 이미지로 돌아가고, `bootc switch <이미지:태그>` 후 재부팅하면 지정한 이미지로 전환됩니다. 현재 상태는 `bootc status`로 확인합니다."
+- q: "bootc 자동 업데이트 주기를 바꾸거나 끄려면 어떻게 하나요?"
+  a: "`systemctl edit bootc-fetch-apply-updates.timer`로 `OnCalendar` 값을 바꿔 주기를 조정합니다. 비활성화하려면 `systemctl mask bootc-fetch-apply-updates.timer`를 실행합니다."

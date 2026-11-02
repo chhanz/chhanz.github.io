@@ -1,0 +1,21 @@
+# AEO data for _posts/2020-04-16-install-jenkins.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "Jenkins를 RPM 저장소로 설치하는 방법과 Tomcat에 jenkins.war를 ROOT.war로 배포하는 방법, 초기 Unlock과 설정 과정을 정리합니다."
+keywords:
+- "Jenkins"
+- "jenkins.war"
+- "Tomcat"
+- "java-1.8.0-openjdk"
+- "initialAdminPassword"
+- "pkg.jenkins.io"
+summary:
+- "Jenkins는 pkg.jenkins.io 저장소를 추가해 `yum install jenkins`로 설치하거나, Tomcat의 webapps에 `jenkins.war`를 `ROOT.war`로 받아 배포할 수 있습니다."
+- "두 방식 모두 `java-1.8.0-openjdk`가 필요하며, 첫 접속 후 Unlock Password 입력, Plugin 설치, Admin 계정 생성, URL 설정 순서로 초기화합니다."
+- "Unlock Password는 `/var/lib/jenkins/secrets/initialAdminPassword` 파일에서 확인합니다."
+faq:
+- q: "Jenkins 첫 접속 시 Unlock Password는 어디서 확인하나요?"
+  a: "`cat /var/lib/jenkins/secrets/initialAdminPassword`로 확인해 입력합니다."
+- q: "Jenkins를 Tomcat에 WAR로 설치하려면 어떻게 하나요?"
+  a: "`java-1.8.0-openjdk`와 `tomcat`을 설치하고 `wget -O /var/lib/tomcat/webapps/ROOT.war http://mirrors.jenkins.io/war-stable/latest/jenkins.war`로 배포한 뒤 `systemctl enable --now tomcat`으로 시작합니다."
+- q: "Jenkins RPM 설치에 필요한 저장소는 어떻게 추가하나요?"
+  a: "`wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat/jenkins.repo`로 Jenkins repository를 추가한 뒤 `yum install jenkins`를 실행합니다."

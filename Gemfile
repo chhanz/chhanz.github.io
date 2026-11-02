@@ -10,7 +10,7 @@ source "https://rubygems.org"
 # Happy Jekylling!
 gem "jekyll", "~> 4.2.2"
 gem "jekyll-paginate"
-gem "jekyll-sitemap"
+gem "jekyll-last-modified-at", "~> 1.3"  # git 기반 수정일 (sitemap lastmod, dateModified)
 
 # This is the default theme for new Jekyll sites. You may change this to anything you like.
 gem "minima", "~> 2.0"

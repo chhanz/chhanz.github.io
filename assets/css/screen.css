@@ -763,23 +763,23 @@ body.page-template #cover {
 }
 
 body.home-template #cover {
-    background-image: url(../images/default_blog_cover.jpg);
+    background-image: url(../images/default_cover.webp);
 }
 
 body.post-template #cover {
-    background-image: url(../images/default_post_cover.jpg);
+    background-image: url(../images/default_post_cover.webp);
 }
 
 body.page-template #cover {
-    background-image: url(../images/default_page_cover.jpg);
+    background-image: url(../images/default_post_cover.webp);
 }
 
 body.author-template #cover {
-    background-image: url(../images/default_author_cover.jpg);
+    background-image: url(../images/author_cover.webp);
 }
 
 body.tag-template #cover {
-    background-image: url(../images/default_tag_cover.jpg);
+    background-image: url(../images/author_cover.webp);
 }
 
 body.home-template #cover p,
@@ -863,38 +863,25 @@ body.tag-template #navbar {
     text-align: justify;
 }
 
-#post-content h1 {
+/* 본문 '#' 은 kramdown header_offset 으로 h2 부터 시작한다 (페이지 h1 = 포스트 제목) */
+#post-content h2 {
     margin: 30px 0 10px 0;
     font-size: 26px;
 }
 
-/* @@iolo */
-#post-content h2 {
+#post-content h3 {
     margin: 20px 0 10px 0;
     font-size: 22px;
 }
 
-#post-content h3 {
+#post-content h4 {
     margin: 10px 0 10px 0;
     font-size: 18px;
 }
 
-/* @@iolo */
-#post-content h4 {
+#post-content h5 {
     margin: 36px 0 30px 0;
     font-size: 17px;
-}
-
-/* @@iolo */
-#post-content h5 {
-    margin: 34px 0 30px 0;
-    font-size: 16px;
-}
-
-/* @@iolo */
-#post-content h6 {
-    margin: 32px 0 30px 0;
-    font-size: 15px;
 }
 
 /* @@iolo */
@@ -1067,7 +1054,7 @@ body.tag-template #navbar {
     background-color: rgb(23, 43, 77);
 }
 
-#post-links h3 {
+#post-links h2 {
     width: 82%; /* @@iolo 80% = 390 / 470 * 100 */
     max-width: 390px;
     margin: 0 auto;
@@ -1659,7 +1646,7 @@ body.page-template {
         width: 100%;
     }
 
-    #post-links h3 {
+    #post-links h2 {
         line-height: 100px;
     }
 

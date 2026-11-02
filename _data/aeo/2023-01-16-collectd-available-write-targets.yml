@@ -1,0 +1,18 @@
+# AEO data for _posts/2023-01-16-collectd-available-write-targets.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "CloudWatch collectd 플러그인 테스트 중 대량 발생한 'Available write targets:: [none]' 로그를 syslog LogLevel 조정으로 줄이는 방법입니다."
+keywords:
+- "collectd"
+- "CloudWatch collectd plugin"
+- "Available write targets"
+- "syslog plugin"
+- "LogLevel notice"
+- "loglvl.conf"
+summary:
+- "collectd의 `Available write targets:: [none]` 로그가 대량으로 쌓이면 syslog 플러그인의 LogLevel을 `notice`로 올려 줄일 수 있습니다."
+- "`/etc/collectd.d/loglvl.conf`에 `<Plugin syslog>` 블록으로 `LogLevel notice`를 설정하고 `systemctl restart collectd`로 재시작합니다."
+faq:
+- q: "collectd에서 'Available write targets:: [none]' 메시지가 계속 쌓이면 어떻게 하나요?"
+  a: "syslog 플러그인의 LogLevel을 수정하면 됩니다. `/etc/collectd.d/loglvl.conf`에 `<Plugin syslog>` `LogLevel notice` `</Plugin>`을 넣고 `sudo systemctl restart collectd`로 재시작하면 대량 로그가 사라집니다."
+- q: "collectd LogLevel을 notice로 바꾸면 어떤 로그가 남나요?"
+  a: "해당 메시지 같은 로그는 제외되고 필수적인 로그만 수집됩니다."

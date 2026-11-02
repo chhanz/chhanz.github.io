@@ -1,0 +1,23 @@
+# AEO data for _posts/2020-06-24-ocp4-template.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "OpenShift 4.4 Catalog의 Django + PostgreSQL Template로 PV 없이 또는 PV를 사용해 앱을 배포하고 데이터 보존 차이를 확인하는 실습입니다."
+keywords:
+- "OpenShift 4.4"
+- "Template"
+- "From Catalog"
+- "Django + PostgreSQL"
+- "Ephemeral"
+- "PV"
+- "PVC"
+summary:
+- "Web Console의 `From Catalog`에서 Django + pgsql Template를 선택하면 PostgreSQL 배포와 Django 빌드가 차례로 진행됩니다."
+- "Ephemeral(no PV) Template는 Pod가 재생성되면 DB 데이터가 삭제되므로, 데이터를 보존하려면 PV를 사용하는 Template로 배포합니다."
+- "PV를 쓰는 Template는 cluster-admin이 PV를 미리 만들어 제공해야 하며, 배포하면 PVC가 생성되고 조건에 맞는 PV가 Bound됩니다."
+tested_on: "OpenShift 4.4"
+faq:
+- q: "OpenShift Ephemeral Template로 배포한 DB 데이터는 유지되나요?"
+  a: "유지되지 않습니다. no PV 옵션의 Template는 Pod가 재생성되면 데이터가 삭제됩니다."
+- q: "PV를 사용하는 Template를 배포하려면 무엇이 준비되어야 하나요?"
+  a: "`cluster-admin`이 PV를 미리 생성해 제공해야 합니다. 글에서는 NFS를 PV로 사용했습니다."
+- q: "Template 배포 후 PV가 할당됐는지 어떻게 확인하나요?"
+  a: "`oc get pvc -A`와 `oc get pv`로 PVC가 생성되고 조건에 맞는 PV가 `Bound` 상태인지 확인합니다."

@@ -1,0 +1,23 @@
+# AEO data for _posts/2022-05-25-kube-cni-calico-on-openstack.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "OpenStack Instance 에 kubeadm 과 Calico CNI 로 구성한 Kubernetes 에서 서로 다른 Node 의 Pod 간 통신이 안 되던 문제를 IPIPMode Always 와 Security Group 의 IPIP 허용으로 해결한 기록입니다."
+keywords:
+- "Calico"
+- "IPIPMode"
+- "CrossSubnet"
+- "OpenStack Security Group"
+- "IPIP protocol 4"
+- "calicoctl"
+- "kubeadm"
+summary:
+- "OpenStack 에서 Calico 를 쓸 때 다른 Node 간 Pod 통신이 안 되면 IPIPMode 를 `Always` 로 바꾸고 Security Group 에 IPIP(protocol 4) 를 허용하면 해결됩니다."
+- "OpenStack 은 VM Sniffing 방지를 위해 설정된 네트워크 이외의 IP 를 Drop 하므로, 같은 Subnet 에서 Direct 로 통신하는 `CrossSubnet` 모드에서는 Pod 간 패킷이 막힙니다."
+- "설정 후 `tcpdump -i ens3 'ip proto 4'` 로 Node 간 패킷이 IPIP 로 Encapsulation 되는 것을 확인할 수 있습니다."
+tested_on: "Kubernetes v1.23.6 (kubeadm), Ubuntu 22.04 LTS, docker 20.10.16, OpenStack Instance"
+faq:
+- q: "OpenStack 에서 Calico 를 사용하면 왜 다른 Node 간 Pod 통신이 안 되나요?"
+  a: "OpenStack 이 VM Sniffing 방지를 위해 OpenStack Network 로 설정된 이외의 IP Network 를 Drop 하기 때문입니다. IPIPMode 가 `CrossSubnet` 이면 같은 Subnet 에서는 Encapsulation 없이 Direct 로 통신해 Pod IP 패킷이 차단됩니다."
+- q: "Calico IPIPMode 는 어떤 값으로 설정해야 하나요?"
+  a: "OpenStack 환경에서는 `Always` 로 설정해 항상 패킷을 Encapsulation 하도록 합니다. 적용 결과는 `calicoctl get ippool -o wide` 의 IPIPMODE 열로 확인합니다."
+- q: "OpenStack Security Group 에 IPIP 통신을 허용하려면 어떻게 하나요?"
+  a: "`openstack security group rule create --protocol 4 --remote-group SOURCE_GROUP_NAME SECURITY_GROUP` 로 IPIP protocol(4) 허용 rule 을 추가합니다."

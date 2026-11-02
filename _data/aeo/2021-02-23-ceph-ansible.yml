@@ -1,0 +1,25 @@
+# AEO data for _posts/2021-02-23-ceph-ansible.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "ceph-ansible stable-5.0으로 CentOS 7.7 서버 3대에 mon/osd를 함께 두는 컨테이너 기반 Ceph 클러스터를 배포하고 대시보드까지 확인하는 과정을 정리합니다."
+keywords:
+- "ceph-ansible"
+- "Ceph"
+- "containerized_deployment"
+- "site-container.yml"
+- "Ceph Octopus"
+- "Ceph Dashboard"
+- "group_vars"
+summary:
+- "ceph-ansible을 `stable-5.0`으로 checkout하고 inventory와 group_vars를 작성한 뒤 `site-container.yml`로 배포합니다."
+- "`all.yml`에 `containerized_deployment: true`를 설정해야 ceph가 systemd가 아닌 container 환경으로 배포됩니다."
+- "배포 후 `docker exec ceph-mgr-<host> ceph -s`로 상태를 확인하고 `https://<mgr IP>:8443`으로 대시보드에 접속합니다."
+tested_on: "CentOS 7.7, ceph-ansible stable-5.0, Ceph Octopus (컨테이너 배포)"
+faq:
+- q: "ceph-ansible로 컨테이너 기반 Ceph를 배포하려면 어떤 설정이 필요한가요?"
+  a: "`group_vars/all.yml`에 `containerized_deployment: true`를 꼭 설정하고, `site-container.yml.sample`을 `site-container.yml`로 복사해 `ansible-playbook -i inventory site-container.yml`로 배포합니다."
+- q: "ceph-ansible에서 Ceph 버전은 어떻게 지정하나요?"
+  a: "ceph-ansible 저장소를 원하는 stable 브랜치로 checkout합니다. 본문에서는 `git checkout stable-5.0`을 사용했고 octopus 버전이 배포되었습니다."
+- q: "컨테이너로 배포한 Ceph에서 ceph 명령은 어떻게 실행하나요?"
+  a: "mgr 컨테이너에 `docker exec`로 명령을 전달합니다. 예를 들어 `docker exec ceph-mgr-ceph-s1 ceph -s`로 클러스터 상태를 확인합니다."
+- q: "ceph-ansible 실행 전에 Python 의존성은 어떻게 설치하나요?"
+  a: "python3 venv를 만들어 활성화한 뒤 `pip install -U pip`, `pip install -r requirements.txt`, `pip install six`를 실행합니다."

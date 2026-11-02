@@ -1,0 +1,18 @@
+# AEO data for _posts/2012-08-24-aix-mount-cd-iso.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "AIX에서 mount 명령으로 CD/DVD를, loopmount 명령으로 ISO 이미지를 CLI에서 마운트하는 방법을 정리합니다."
+keywords:
+- "AIX"
+- "cdrfs"
+- "loopmount"
+- "mount -V cdrfs"
+- "/dev/cd0"
+- "ISO 이미지 마운트"
+summary:
+- "AIX에서는 `mount -V cdrfs -o ro /dev/cd0 /mnt` 명령으로 CD/DVD를 읽기 전용으로 마운트할 수 있습니다."
+- "ISO 이미지는 `loopmount` 명령에 `-o \"-V cdrfs -o ro\"` 옵션을 주어 CD/DVD 없이 바로 마운트할 수 있습니다."
+faq:
+- q: "AIX에서 ISO 파일을 CD 없이 마운트하려면 어떻게 하나요?"
+  a: "`loopmount -i <ISO 파일> -o \"-V cdrfs -o ro\" -m /mnt` 형식으로 실행하면 됩니다. 글에서는 `aix-6100-09-02-icd.iso` 파일을 `/mnt`에 마운트하는 예를 보여줍니다."
+- q: "AIX에서 CD/DVD를 마운트할 때 파일 시스템 타입은 무엇으로 지정하나요?"
+  a: "`-V cdrfs`로 지정합니다. `/dev/cd0` 장치를 `-o ro` 읽기 전용 옵션과 함께 `/mnt`에 마운트합니다."

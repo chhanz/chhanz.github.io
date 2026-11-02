@@ -1,0 +1,23 @@
+# AEO data for _posts/2018-03-02-linux-create-bond-device.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "CentOS 7에서 bonding 모듈을 로드하고 ifcfg-bond0와 slave 인터페이스 파일을 작성해 네트워크 Bonding을 구성하는 절차입니다."
+keywords:
+- "CentOS 7"
+- "Bonding"
+- "bond0"
+- "ifcfg-bond0"
+- "BONDING_OPTS"
+- "modprobe bonding"
+- "NetworkManager"
+summary:
+- "CentOS 7에서는 bonding 모듈이 기본으로 로드되지 않으므로 `modprobe --first-time bonding`으로 먼저 로드합니다."
+- "`ifcfg-bond0`에 `TYPE=Bond`와 `BONDING_OPTS=\"mode=1 miimon=100\"`을, slave 인터페이스 파일에 `MASTER=bond0`, `SLAVE=yes`를 지정합니다."
+- "NetworkManager를 비활성화·중지하고 network 서비스를 재시작한 뒤 `ip a`로 bond0 구성을 확인합니다."
+tested_on: "CentOS 7"
+faq:
+- q: "CentOS 7에서 bond 인터페이스 설정 파일은 어떻게 작성하나요?"
+  a: "`/etc/sysconfig/network-scripts/ifcfg-bond0`에 `DEVICE=bond0`, `TYPE=Bond`, IP 정보, `BONDING_OPTS=\"mode=1 miimon=100\"`을 적습니다. 글에서는 `BOOTPROTO=none`, `ONBOOT=yes`로 고정 IP를 지정합니다."
+- q: "bonding의 slave 인터페이스는 어떻게 설정하나요?"
+  a: "각 NIC의 ifcfg 파일(예: `ifcfg-eth1`, `ifcfg-eth2`)에 `MASTER=bond0`과 `SLAVE=yes`를 추가합니다."
+- q: "bonding 설정을 적용하려면 어떻게 하나요?"
+  a: "`systemctl disable NetworkManager`, `systemctl stop NetworkManager`로 NetworkManager를 끈 뒤 `systemctl restart network`로 네트워크를 재시작합니다. `ip a`에서 eth1, eth2가 `master bond0`으로 표시되면 정상입니다."

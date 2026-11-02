@@ -1,0 +1,20 @@
+# AEO data for _posts/2019-12-13-linux-configure-novnc.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "noVNC와 websockify를 설치해 VNC Viewer 없이 웹브라우저로 Linux 서버의 GNOME 데스크톱에 VNC 접속하는 방법을 정리합니다."
+keywords:
+- "noVNC"
+- "websockify"
+- "tigervnc-server"
+- "vncserver"
+- "GNOME Desktop"
+- "epel-release"
+summary:
+- "noVNC와 websockify를 구성하면 VNC Viewer 클라이언트 없이 웹브라우저로 서버에 VNC 접속할 수 있습니다."
+- "`vncserver :1`로 VNC 서버를 띄운 뒤 `websockify -D --web=/usr/share/novnc/ 6080 localhost:5901`을 실행하면 6080 포트로 noVNC가 동작합니다."
+faq:
+- q: "noVNC 구성에 필요한 패키지는 무엇인가요?"
+  a: "`GNOME Desktop` 그룹과 `epel-release`를 먼저 설치하고, `yum -y install novnc python-websockify numpy tigervnc-server`로 noVNC 관련 패키지를 설치합니다."
+- q: "noVNC 접속 비밀번호는 어디서 정하나요?"
+  a: "`vncserver`를 시작할 때 입력하는 vnc password가 noVNC 접속에 필요한 비밀번호입니다."
+- q: "noVNC에는 어떤 주소로 접속하나요?"
+  a: "`http://<서버 IP>:6080` 형식으로 접속합니다. 글의 예시는 `http://192.168.100.100:6080`입니다."

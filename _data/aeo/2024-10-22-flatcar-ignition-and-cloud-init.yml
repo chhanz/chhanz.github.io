@@ -1,0 +1,25 @@
+# AEO data for _posts/2024-10-22-flatcar-ignition-and-cloud-init.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "Flatcar Container Linux를 AWS EC2에서 실행할 때 Butane으로 변환한 Ignition 설정을 사용자 데이터로 넣어 호스트명, 사용자, SSH 키, 컨테이너 서비스를 구성하는 방법을 정리합니다."
+keywords:
+- "Flatcar Container Linux"
+- "Ignition"
+- "Butane"
+- "user-data"
+- "coreos-cloudinit"
+- "AWS EC2"
+- "Matchbox"
+summary:
+- "Flatcar Container Linux를 EC2에서 쓸 때는 Butane으로 변환한 Ignition JSON을 사용자 데이터(user-data)에 넣어 첫 부팅 구성을 자동화할 수 있습니다."
+- "하나의 Ignition 설정으로 호스트명, 커널 파라미터, 사용자와 SSH 키, systemd로 실행할 nginx 컨테이너를 한 번에 설정할 수 있습니다."
+- "`journalctl -b | grep ignition`으로 Ignition이 user-data를 가져와 시스템을 구성하는 과정을 확인할 수 있습니다."
+tested_on: "Flatcar Container Linux 3975.2.2 (kernel 6.6.54-flatcar) on AWS EC2, Ignition 2.18.0"
+faq:
+- q: "Flatcar의 Ignition과 cloud-init은 어떻게 다른가요?"
+  a: "Ignition은 첫 번째 부팅에서 실행되어 컨테이너 리눅스의 초기 구성을 담당하는 low-level 시스템 구성 도구입니다. 컨테이너 리눅스에서는 `coreos-cloudinit` 또는 `oem-cloudinit`이 일반 리눅스의 cloud-init과 유사한 동작을 지원합니다."
+- q: "AWS EC2에서 Flatcar에 Ignition 설정을 적용하려면 어떻게 하나요?"
+  a: "작성한 yaml을 `cat test.yml | docker run --rm -i quay.io/coreos/butane:latest > ignition.json`으로 Ignition JSON으로 변환합니다. 이 JSON을 EC2 인스턴스 생성 시 사용자 데이터에 넣으면 됩니다."
+- q: "Ignition이 정상 적용되었는지 어떻게 확인하나요?"
+  a: "`journalctl -b | grep ignition`으로 user-data를 가져오는 fetch 단계와 files 단계 로그를 확인합니다. 마지막에 `Ignition finished successfully`가 보이면 정상 적용된 것입니다."
+- q: "온프레미스 환경에서는 Ignition을 어떻게 배포하나요?"
+  a: "Matchbox를 이용해 Ignition 배포 서버를 구성하는 것이 하나의 방법입니다."

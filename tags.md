@@ -2,7 +2,7 @@
 layout: page
 title: Tags
 permalink: /tags/
-image: /assets/images/author_cover.jpg
+image: /assets/images/author_cover.webp
 sitemap: false
 ---
 {% for tag in site.tags %}

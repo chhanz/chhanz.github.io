@@ -1,0 +1,22 @@
+# AEO data for _posts/2021-10-21-kolla-build.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "사설 Docker Registry 를 구성하고 pip 로 설치한 kolla-build 로 Ubuntu 기반 OpenStack Wallaby kolla 이미지를 빌드해 Registry 에 push 하는 방법을 정리합니다."
+keywords:
+- "kolla-build"
+- "kolla"
+- "OpenStack Wallaby"
+- "Docker Registry"
+- "insecure-registries"
+- "kolla image"
+summary:
+- "`registry:2` 컨테이너로 사설 Registry 를 띄우고 `kolla-build` 로 빌드한 OpenStack 이미지를 바로 push 할 수 있습니다."
+- "`kolla-build` 에 `-b ubuntu -t source --openstack-release wallaby --push` 를 지정해 Ubuntu source 기반 Wallaby 이미지를 빌드합니다."
+- "이미지를 pull 받을 모든 노드의 `/etc/docker/daemon.json` 에 사설 Registry 를 `insecure-registries` 로 등록해야 합니다."
+tested_on: "kolla 12.0.1, OpenStack Wallaby (Ubuntu base image)"
+faq:
+- q: "kolla-build 는 어떻게 설치하나요?"
+  a: "pip module 로 제공되므로 `pip install kolla` 로 설치합니다. 글에서는 python venv 환경에 kolla 12.0.1 이 설치되었습니다."
+- q: "kolla-build 로 OpenStack Wallaby 이미지를 빌드하고 Registry 에 올리려면 어떻게 하나요?"
+  a: "`kolla-build --registry <registry 주소> -b ubuntu -t source --openstack-release wallaby --push --tag wallaby` 를 실행합니다. `-b` 로 base image, `--openstack-release` 로 OpenStack 버전을 지정하고 `--push` 로 Registry 에 올립니다."
+- q: "사설 Registry 에서 kolla 이미지를 pull 하려면 노드에 어떤 설정이 필요한가요?"
+  a: "각 노드의 `/etc/docker/daemon.json` 에 `\"insecure-registries\" : [\"10.10.10.10:4000\"]` 처럼 Registry 주소를 추가합니다."

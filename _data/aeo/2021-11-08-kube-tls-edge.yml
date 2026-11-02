@@ -1,0 +1,24 @@
+# AEO data for _posts/2021-11-08-kube-tls-edge.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "kube-prometheus 의 Prometheus 를 NGINX Ingress 에서 wildcard 인증서 TLS Secret 으로 Edge 방식 HTTPS 서비스하는 방법과 주요 ingress-nginx annotation 을 정리합니다."
+keywords:
+- "Kubernetes Ingress"
+- "TLS Secret"
+- "Edge TLS"
+- "NGINX Ingress"
+- "kube-prometheus"
+- "kubernetes.io/tls"
+- "openssl s_client"
+summary:
+- "crt 와 key 를 base64 로 인코딩한 `kubernetes.io/tls` Secret 을 만들고 Ingress 의 `spec.tls` 에 지정하면 Edge 방식 HTTPS 를 적용할 수 있습니다."
+- "Edge 방식은 Client 와 Ingress 구간만 TLS 로 암호화하고, Ingress 에서 Pod 까지는 HTTP 로 통신합니다."
+- "적용 결과는 `openssl s_client -servername <host> --connect <host>:443` 이나 Web Browser 의 인증서 정보로 확인합니다."
+faq:
+- q: "Kubernetes Ingress 에서 사용할 수 있는 TLS 방식에는 무엇이 있나요?"
+  a: "Clear, Edge, Re-encrypt, Pass-Through 네 가지가 있습니다. Edge 는 Client-Ingress 구간만, Re-encrypt 는 Ingress 기점으로 서로 다른 TLS 를, Pass-Through 는 Application 에서 TLS 를 처리합니다."
+- q: "Ingress 용 TLS Secret 은 어떻게 만드나요?"
+  a: "`base64 -w0` 로 인코딩한 crt 와 key 를 `tls.crt`, `tls.key` 에 넣고 `type: kubernetes.io/tls` 인 Secret yaml 을 만든 뒤 `kubectl create -f` 로 생성합니다."
+- q: "NGINX Ingress 에서 HTTPS 자동 Redirect 를 끄려면 어떻게 하나요?"
+  a: "`nginx.ingress.kubernetes.io/ssl-redirect` annotation 을 사용합니다. 기본값은 true 이며, TLS 가 활성화되면 HTTPS 로 Redirect 합니다."
+- q: "Ingress 이후 Backend 구간도 HTTPS 로 통신하게 할 수 있나요?"
+  a: "`nginx.ingress.kubernetes.io/backend-protocol: HTTPS` annotation 을 지정하면 Ingress 이후 Backend 구간을 HTTPS 로 통신합니다."

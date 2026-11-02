@@ -1,0 +1,24 @@
+# AEO data for _posts/2023-03-22-aws-ec2rl.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "EC2 Rescue for Linux(ec2rl)로 인스턴스 정보를 수집하고, openssh 모듈로 sshd_config 오류를 진단해 --remediate 옵션으로 자동 수정하는 방법입니다."
+keywords:
+- "ec2rl"
+- "EC2 Rescue for Linux"
+- "sosreport"
+- "--only-modules"
+- "--remediate"
+- "openssh 모듈"
+- "sshd_config"
+summary:
+- "ec2rl은 sosreport처럼 EC2 인스턴스 정보를 수집하면서 Diagnostic Results로 일반적인 이슈까지 진단해주는 도구입니다."
+- "`sudo ./ec2rl run --only-modules=openssh`로 SSH 설정만 진단하고, `--remediate`를 붙이면 문제가 된 sshd_config 라인을 주석 처리해 자동 수정합니다."
+- "수집 결과 로그는 `/var/tmp/ec2rl/<실행 시각>` 경로에 생성됩니다."
+faq:
+- q: "ec2rl과 sosreport의 차이는 무엇인가요?"
+  a: "사용법은 비슷하지만 ec2rl은 정보 수집 외에 `Diagnostic Results`로 openssh, oomkiller, kernelpanic 같은 일반적인 이슈를 진단해서 보여줍니다."
+- q: "ec2rl로 SSH 설정 문제만 진단하려면 어떻게 하나요?"
+  a: "`sudo ./ec2rl run --only-modules=openssh`를 실행합니다. 결과에 `/etc/ssh/sshd_config`의 문제 라인 번호가 표시됩니다."
+- q: "ec2rl이 찾은 문제를 자동으로 고칠 수 있나요?"
+  a: "`--remediate` 옵션을 붙여 `sudo ./ec2rl run --only-modules=openssh --remediate`로 실행하면 문제 라인을 `# commented out by ec2rl`로 주석 처리합니다. `Port22` 같은 오탈자도 이 방식으로 진단·수정되었습니다."
+- q: "ec2rl은 어떻게 설치하나요?"
+  a: "`sudo curl -O https://s3.amazonaws.com/ec2rescuelinux/ec2rl.tgz`로 내려받아 압축을 풀고 `ec2rl-*` 디렉터리에서 `sudo ./ec2rl run`으로 실행합니다."

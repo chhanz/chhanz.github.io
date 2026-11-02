@@ -1,0 +1,25 @@
+# AEO data for _posts/2021-09-30-deploy-kube-prometheus.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "kube-prometheus release-0.8 로 Prometheus, Alertmanager, Grafana 에 ceph-csi StorageClass 기반 Persistent Volume 을 붙여 Kubernetes 에 배포하는 과정을 정리합니다."
+keywords:
+- "kube-prometheus"
+- "Prometheus Operator"
+- "Alertmanager"
+- "Grafana"
+- "volumeClaimTemplate"
+- "StorageClass"
+- "ceph-csi"
+summary:
+- "Prometheus 와 Alertmanager CRD 에 `storage.volumeClaimTemplate` 을 추가하면 StorageClass 기반 Persistent Volume 을 사용할 수 있습니다."
+- "Grafana 는 CRD 로 관리되지 않으므로 별도 PVC 를 만들고 deployment 의 `emptyDir` 볼륨을 해당 PVC 로 바꿉니다."
+- "`manifests/setup/` 을 먼저 생성한 뒤 `manifests/` 를 배포하면 클러스터 모니터링용 dashboard 가 미리 구성된 Grafana 를 사용할 수 있습니다."
+tested_on: "Kubernetes v1.20.7 (Ubuntu 20.04.2 LTS, cri-o), kube-prometheus release-0.8"
+faq:
+- q: "kube-prometheus 에서 Prometheus 데이터를 Persistent Volume 에 저장하려면 어떻게 하나요?"
+  a: "`prometheus-prometheus.yaml` 의 spec 에 `storage.volumeClaimTemplate` 을 추가하고 `storageClassName` 과 용량을 지정합니다. Alertmanager 도 `alertmanager-alertmanager.yaml` 에 같은 방식으로 설정합니다."
+- q: "kube-prometheus 의 Grafana 에 PVC 를 연결하려면 어떻게 하나요?"
+  a: "Grafana 는 CRD 로 관리되지 않으므로 `grafana-pvc.yaml` 로 PVC 를 만들고, `grafana-deployment.yaml` 의 `grafana-storage` 볼륨을 `emptyDir` 대신 `persistentVolumeClaim` 으로 바꿉니다."
+- q: "kube-prometheus 는 어떤 순서로 배포하나요?"
+  a: "`kubectl create -f ./manifests/setup/` 으로 namespace 와 CRD, prometheus-operator 를 먼저 만들고, operator 가 시작되면 `kubectl create -f ./manifests/` 로 나머지를 배포합니다."
+- q: "kube-prometheus Grafana 의 초기 계정은 무엇인가요?"
+  a: "초기 계정과 패스워드는 `admin` / `admin` 이며, 접속 후 패스워드 변경 화면이 나옵니다. 글에서는 grafana service 를 NodePort 로 바꿔 접근했습니다."

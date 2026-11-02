@@ -3,7 +3,7 @@ layout: default
 noindex: true
 ---
 <div id="navbar" class="container">
-    <h5><a id="link-back" href="/">Main</a></h5>
+    <nav class="breadcrumb" aria-label="breadcrumb"><a id="link-back" href="/">Blog</a></nav>
     {% include share.html %}
 </div>
 
@@ -15,8 +15,8 @@ noindex: true
     </div>
 </div>
 
-<div id="content" class="container">
-    <div id="tag-content" role="main">
+<main id="content" class="container">
+    <div id="tag-content">
         <ul id="post-list">
             {% for post in site.posts %}
                 {% if post.tags contains page.name %}
@@ -26,4 +26,4 @@ noindex: true
         </ul>
         {% include pagination.html %}
     </div>
-</div>
+</main>

@@ -1,0 +1,19 @@
+# AEO data for _posts/2020-07-30-linux-reposync.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "reposync의 -n 옵션으로 RHEL 7 저장소에서 최신 버전 패키지만 동기화해 동기화 시간과 저장 용량을 줄이는 방법을 소개합니다."
+keywords:
+- "reposync"
+- "reposync -n"
+- "rhel-7-server-rpms"
+- "yum repolist"
+- "저장소 동기화"
+- "RHEL 7"
+summary:
+- "`reposync -n -r rhel-7-server-rpms`처럼 `-n` 옵션을 주면 최신 버전 패키지만 동기화할 수 있습니다."
+- "29,237개 패키지가 있는 rhel-7-server-rpms에서 5,475개만 받아 약 24,000개 패키지가 제외되었습니다."
+tested_on: "Red Hat Enterprise Linux 7 Server (rhel-7-server-rpms)"
+faq:
+- q: "reposync로 최신 버전 패키지만 받으려면 어떤 옵션을 쓰나요?"
+  a: "`-n` 옵션을 사용합니다. 예를 들어 `reposync -n -r rhel-7-server-rpms`로 실행하면 최신 버전 패키지만 sync 됩니다."
+- q: "reposync를 옵션 없이 실행하면 왜 오래 걸리나요?"
+  a: "저장소에 모든 버전의 패키지가 들어 있어 시간도 오래 걸리고 용량도 커지기 때문입니다. 본문 환경의 rhel-7-server-rpms는 29,237개 패키지를 가지고 있었습니다."

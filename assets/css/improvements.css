@@ -11,7 +11,7 @@ a:focus, button:focus, input:focus {
     position: absolute;
     top: -40px;
     left: 0;
-    background: #4A90E2;
+    background: #1a56a8; /* WCAG AA 대비 (흰 글자) */
     color: white;
     padding: 8px;
     text-decoration: none;
@@ -217,7 +217,7 @@ body {
     border: 1px solid var(--border-color);
 }
 
-.related-posts h3 {
+.related-posts h2 {
     margin-top: 0;
     font-size: 22px;
     color: var(--text-primary);
@@ -511,4 +511,108 @@ body.dark-mode .copy-code-btn:hover {
 }
 #post-content table tbody tr:nth-child(even) {
     background-color: var(--table-row-alt-bg, #f9f9f9);
+}
+
+
+/* ===== Refactor: 시맨틱 마크업 보조 스타일 ===== */
+/* 포스트 상단 breadcrumb (navbar 좌측) */
+#navbar .breadcrumb {
+    font-size: 14px;
+}
+#navbar .breadcrumb span {
+    margin: 0 6px;
+    opacity: 0.6;
+}
+
+/* 포스트 커버의 날짜/작성자/태그 한 줄 */
+#cover .post-meta-line {
+    opacity: 0.75;
+    font-size: 14px;
+}
+#cover .post-meta-line a {
+    color: inherit;
+    text-decoration: underline;
+}
+
+/* 본문 내 링크/푸터 링크: 색상 외에 밑줄로도 구분 (접근성) */
+#post-content p a,
+#post-content li a,
+#copyright a {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+/* 포스트 리스트 제목: h3 -> h2 변경에 따른 기본 마진 제거 */
+#post-list h2.post-title {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+/* skip link: 전역 a:link 색상(#505050)이 덮어쓰지 않도록 명시도 강화 */
+a.skip-to-main,
+a.skip-to-main:link,
+a.skip-to-main:visited {
+    color: #fff;
+}
+
+/* 푸터 배지 링크: 터치 타깃 최소 24px 확보 */
+#footer #links > li > a {
+    display: inline-block;
+    padding: 4px 0;
+    width: auto;
+    height: auto;
+}
+
+/* ===== AEO: 포스트 요약(결론 먼저) / 자주 묻는 질문 ===== */
+.post-tldr {
+    margin: 0 0 36px 0;
+    padding: 18px 22px;
+    border-left: 4px solid #1a56a8;
+    border-radius: 8px;
+    background: var(--bg-secondary);
+}
+.post-tldr .post-tldr-title {
+    margin: 0 0 8px 0;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+.post-tldr ul {
+    margin: 0;
+    padding-left: 20px;
+}
+.post-tldr li {
+    margin: 4px 0;
+    font-size: 15px;
+    line-height: 1.6;
+}
+.post-tldr .post-tldr-env {
+    margin: 10px 0 0 0;
+    font-size: 13px;
+    opacity: 0.8;
+}
+.post-faq {
+    margin-top: 48px;
+    padding-top: 8px;
+    border-top: 1px solid var(--border-color);
+}
+.post-faq details {
+    margin: 10px 0;
+    padding: 12px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+}
+.post-faq summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+.post-faq .post-faq-answer p {
+    margin: 10px 0 0 0;
+}
+.post-faq .post-faq-answer p,
+.post-faq .post-faq-answer li {
+    font-size: 15px;
+    line-height: 1.7;
+    text-align: left;
 }

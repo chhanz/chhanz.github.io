@@ -1,0 +1,21 @@
+# AEO data for _posts/2024-04-09-md-device-extend-raid-0.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+keywords:
+- "mdadm"
+- "RAID 0"
+- "MD device"
+- "reshape"
+- "xfs_growfs"
+- "mdadm --update=devicesize"
+- "mdadm.conf"
+summary:
+- "RAID 0 MD device는 운영 중에 `mdadm -Gv --raid-devices=4 --add`로 디스크를 추가하고 `xfs_growfs`로 파일시스템을 온라인 확장할 수 있습니다."
+- "온라인 증설 중에는 array가 일시적으로 RAID 4로 바뀌어 reshape를 수행하고, 완료되면 다시 RAID 0로 돌아옵니다."
+- "클라우드처럼 기존 디스크 용량을 늘릴 수 있다면 umount와 array 중지 후 `mdadm --assemble --update=devicesize`로 신규 디스크 없이 증설할 수 있습니다."
+faq:
+- q: "운영 중인 RAID 0 MD device에 디스크를 추가하려면 어떻게 하나요?"
+  a: "`sudo mdadm -Gv --level=0 --raid-devices=4 --add /dev/md0 /dev/xvde`처럼 raid-devices 수를 늘리며 신규 디스크를 추가합니다. reshape가 끝나면 `sudo xfs_growfs /data`로 파일시스템을 확장합니다."
+- q: "RAID 0에 디스크를 추가하면 왜 RAID 4로 표시되나요?"
+  a: "디스크 추가 과정에서 array가 RAID 4로 변경되어 reshape를 수행하기 때문입니다. `/proc/mdstat`에서 진행률을 볼 수 있으며, reshape가 완료되면 다시 RAID 0로 변경됩니다."
+- q: "신규 디스크 없이 기존 디스크 용량만 늘려서 MD device를 증설할 수 있나요?"
+  a: "네, 파일시스템을 umount하고 `mdadm --stop`으로 array를 중지한 뒤 디스크 용량을 늘립니다. `mdadm --examine --scan`으로 `/etc/mdadm.conf`에 array 정보를 넣고 `mdadm --assemble --update=devicesize`로 용량을 갱신한 다음, mount 후 `xfs_growfs`로 확장합니다."

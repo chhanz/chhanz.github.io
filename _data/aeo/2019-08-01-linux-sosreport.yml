@@ -1,0 +1,21 @@
+# AEO data for _posts/2019-08-01-linux-sosreport.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "sosreport가 기본으로 /var/tmp에 만드는 압축 파일의 생성 경로를 --tmp-dir 옵션으로 바꾸는 방법을 설명합니다."
+keywords:
+- "sosreport"
+- "sos 패키지"
+- "--tmp-dir"
+- "/var/tmp"
+- "CentOS 7"
+summary:
+- "sosreport는 기본적으로 /var/tmp/sosreport-XXXX.tar.xz 경로에 결과 파일을 생성합니다."
+- "/var 용량이 부족하거나 수집 파일이 클 때는 `sosreport --tmp-dir /tmp`처럼 `--tmp-dir` 옵션으로 생성 경로를 바꿀 수 있습니다."
+- "sos 패키지나 RHEL/CentOS 버전이 낮으면 다른 방법이 필요할 수 있어 Red Hat 참고 문서를 함께 안내합니다."
+tested_on: "CentOS 7, sos 3.6-19.el7.centos"
+faq:
+- q: "sosreport 파일은 기본적으로 어디에 생성되나요?"
+  a: "기본 경로는 /var/tmp이며 `/var/tmp/sosreport-<호스트명>-<날짜>-<문자열>.tar.xz` 형식으로 생성됩니다."
+- q: "sosreport 생성 경로를 바꾸려면 어떻게 하나요?"
+  a: "`--tmp-dir` 옵션을 사용합니다. `sosreport --tmp-dir /tmp`로 실행하면 결과 파일이 /tmp 아래에 생성됩니다."
+- q: "sosreport 명령이 없으면 어떻게 설치하나요?"
+  a: "`yum -y install sos`로 sos 패키지를 설치하면 sosreport를 수집할 수 있습니다."

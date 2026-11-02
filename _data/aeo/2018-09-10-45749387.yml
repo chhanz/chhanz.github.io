@@ -1,0 +1,26 @@
+# AEO data for _posts/2018-09-10-45749387.html
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "Cgroup과 namespace로 본 컨테이너 원리부터 CentOS 7에 docker-ce 설치, 기본 명령, Dockerfile 빌드, docker-compose로 WordPress 구동까지 다룹니다."
+keywords:
+- "Docker"
+- "Cgroup"
+- "namespace"
+- "docker-ce"
+- "Dockerfile"
+- "docker-compose"
+- "httpd"
+- "WordPress"
+summary:
+- "컨테이너는 Cgroup으로 자원을 제한하고 namespace로 프로세스를 격리하는 커널 기술이며, Docker는 이를 기반으로 한 오픈 소스 플랫폼입니다."
+- "CentOS 7에 docker-ce 저장소를 등록해 설치하고 ps, images, pull, push, tag, run, rm, rmi 같은 기본 명령을 실습합니다."
+- "`-p 80:80` 포트 매핑으로 httpd 웹 서비스를 노출하고, Dockerfile로 이미지를 빌드하며, docker-compose로 MySQL과 WordPress를 한 번에 실행합니다."
+tested_on: "CentOS Linux release 7.5.1804, docker-ce 18.06.1.ce-3.el7, docker-compose 1.22.0"
+faq:
+- q: "docker run으로 httpd를 실행했는데 curl 접속이 거부되는 이유는 무엇인가요?"
+  a: "컨테이너 포트가 Host 네트워크와 연결되지 않았기 때문입니다. `docker run -d -p 80:80 httpd`처럼 포트 매핑을 지정하면 외부에서 접속할 수 있습니다."
+- q: "컨테이너는 어떤 리눅스 기술로 격리되나요?"
+  a: "Cgroup과 namespace를 사용합니다. Cgroup은 CPU, 메모리, 네트워크 대역폭 같은 자원을 제한하고, namespace는 Mount, PID, Network, IPC, UTS, USER 6가지로 시스템 자원을 프로세스 전용처럼 격리합니다."
+- q: "CentOS 7에 docker-ce를 설치하려면 어떻게 하나요?"
+  a: "`wget https://download.docker.com/linux/centos/docker-ce.repo -O /etc/yum.repos.d/docker-ce.repo`로 저장소를 등록한 뒤 `yum install docker-ce`로 설치합니다. 이후 `systemctl enable docker;systemctl start docker`로 서비스를 시작하고 `docker run hello-world`로 확인합니다."
+- q: "docker-compose는 어떤 경우에 사용하나요?"
+  a: "여러 컨테이너를 한 번에 통합 관리할 때 사용합니다. 글에서는 docker-compose.yml 하나로 MySQL 5.7과 WordPress 컨테이너를 `docker-compose -f docker-compose.yml up -d` 한 줄로 실행합니다."

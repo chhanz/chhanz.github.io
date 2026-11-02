@@ -1,0 +1,22 @@
+# AEO data for _posts/2019-06-24-overview-okd-gui.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "Openshift Web Console의 Service Catalog, Application Console, Cluster Console을 살펴보고 GUI로 APP 배포, Scale Out, Build, Pod 생성을 해봅니다."
+keywords:
+- "Openshift Web Console"
+- "Service Catalog"
+- "Application Console"
+- "Cluster Console"
+- "S2I"
+- "Scale Out"
+- "Start Build"
+summary:
+- "Openshift Web Console은 Service Catalog, Application Console, Cluster Console 세 가지를 제공하며 CLI 없이도 앱을 배포하고 운영할 수 있습니다."
+- "Service Catalog에서 Apache HTTPD APP을 선택하고 Project, Container Image, Source를 입력하면 S2I로 자동 빌드되어 배포됩니다."
+- "Application Console에서는 Pod Scale Out, Start Build, Monitoring을 하고, 운영자용 Cluster Console에서는 Project 현황 점검과 Yaml 입력으로 Pod을 생성할 수 있습니다."
+faq:
+- q: "Openshift Web Console 접속 주소는 어떻게 확인하나요?"
+  a: "설치가 끝난 Openshift는 Web Console이 기본으로 expose되어 있으므로 생성된 route를 확인하면 됩니다. 글의 테스트 시스템에서는 `http://console.apps.example.com`으로 route가 만들어져 있었습니다."
+- q: "Openshift Web Console에서 Pod 수를 늘리려면 어떻게 하나요?"
+  a: "Application Console에서 배포된 APP의 상세 화면을 열고 Pods 옆의 `^` 모양 버튼을 누르면 원하는 만큼 Scale Out할 수 있습니다."
+- q: "Openshift의 Application Console과 Cluster Console은 어떻게 다른가요?"
+  a: "Application Console은 서비스 중인 APP의 빌드, Scale, 모니터링 등을 관리하는 개발자용 Console입니다. Cluster Console은 Project 현황, Pod, Network 같은 클러스터 인프라 영역까지 관리하는 운영자용 Console입니다."

@@ -1,0 +1,23 @@
+# AEO data for _posts/2020-01-27-create-cluster-ibm-kubernetes-service.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "IBM Cloud Kubernetes Service(IKS) Free 요금제로 클러스터를 만들고 ibmcloud CLI와 kubectl로 샘플 웹 서비스를 NodePort로 배포하는 과정을 정리합니다."
+keywords:
+- "IBM Cloud Kubernetes Service"
+- "IKS"
+- "Free 요금제"
+- "ibmcloud CLI"
+- "kubectl"
+- "NodePort"
+- "KUBECONFIG"
+summary:
+- "IKS Free 요금제를 선택하면 과금 없이 관리형 Kubernetes 클러스터를 만들 수 있지만, 신용카드 등록이 필요하고 클러스터는 한 달 뒤 사용이 중지됩니다."
+- "IBM Cloud CLI를 설치하고 `ibmcloud ks cluster config`로 받은 KUBECONFIG를 export하면 kubectl로 IKS 클러스터를 다룰 수 있습니다."
+- "`kubectl run`과 `kubectl expose --type=NodePort`로 sample-httpd를 배포하고 Worker node의 Public IP와 NodePort로 접속을 확인했습니다."
+tested_on: "CentOS 7.7, IBM Cloud CLI 0.22.0, IKS Kubernetes v1.15.8+IKS"
+faq:
+- q: "IKS Free 요금제는 정말 무료인가요?"
+  a: "Free 요금제를 사용하면 추가 과금은 없습니다. 다만 IBM Cloud 계정에 신용카드 등록이 필요하고, 클러스터 사용 기간은 한 달이며 이후 사용이 중지됩니다."
+- q: "IKS 클러스터를 kubectl로 사용하려면 어떻게 설정하나요?"
+  a: "`ibmcloud login -a cloud.ibm.com -r us-south`로 로그인한 뒤 `ibmcloud ks cluster config --cluster <클러스터 ID>`를 실행하고, 출력된 `export KUBECONFIG=...` 명령을 입력합니다."
+- q: "IKS Free 클러스터에 배포한 서비스는 외부에서 어떻게 접속하나요?"
+  a: "`kubectl expose ... --type=NodePort`로 서비스를 만들고, IKS Cluster 메뉴의 Worker nodes에서 확인한 Public IP와 NodePort(예: 31154)로 접속합니다."

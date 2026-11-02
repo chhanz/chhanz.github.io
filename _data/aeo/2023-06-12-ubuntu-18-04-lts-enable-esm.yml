@@ -1,0 +1,25 @@
+# AEO data for _posts/2023-06-12-ubuntu-18-04-lts-enable-esm.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "지원 종료된 Ubuntu 18.04 LTS에서 Ubuntu Pro 토큰으로 ESM을 활성화하고, pro fix 명령으로 CVE 취약점을 점검·조치하는 방법입니다."
+keywords:
+- "Ubuntu 18.04 ESM"
+- "Ubuntu Pro"
+- "pro attach"
+- "pro status"
+- "pro fix"
+- "ubuntu-advantage-tools"
+- "esm-infra"
+summary:
+- "Ubuntu 18.04 LTS는 2023년 5월 31일부로 지원이 종료되어 ESM을 활성화해야 최신 보안 패치를 받을 수 있습니다."
+- "Ubuntu One에 가입하면 개인 사용자도 최대 5대까지 쓸 수 있는 토큰을 받고, `sudo pro attach <token-id>`로 esm-apps, esm-infra, livepatch를 활성화합니다."
+- "AWS의 Ubuntu Pro AMI는 ESM이 미리 활성화되어 있으며, `pro fix <CVE>`로 특정 CVE의 영향 여부를 점검할 수 있습니다."
+tested_on: "Ubuntu 18.04 LTS (AWS EC2, Kernel 5.4.0-1097-aws)"
+faq:
+- q: "Ubuntu 18.04에서 ESM을 무료로 활성화할 수 있나요?"
+  a: "개인 사용자는 Ubuntu One에 가입하면 최대 5대까지 활성화할 수 있는 토큰을 받습니다. `sudo pro attach <token-id>`를 실행하면 'Ubuntu Pro - free personal subscription'으로 연결됩니다."
+- q: "pro 명령이 없으면 어떻게 하나요?"
+  a: "`sudo apt install ubuntu-advantage-tools`로 패키지를 설치하면 `pro` 명령을 사용할 수 있습니다."
+- q: "pro fix 명령으로 CVE 취약점을 어떻게 점검하고 조치하나요?"
+  a: "`pro fix CVE-2023-0459`처럼 실행하면 영향받는 패키지와 해결 여부가 표시됩니다. 예시에서는 `sudo apt install linux-image-aws`로 커널을 업그레이드하고 재부팅 후 이전 커널 패키지를 제거하자 resolved로 바뀌었습니다."
+- q: "AWS에서 Ubuntu Pro AMI를 쓰면 ESM 토큰을 따로 연결해야 하나요?"
+  a: "필요 없습니다. Ubuntu Pro AMI로 생성한 인스턴스는 ESM이 미리 활성화되어 있고, 요금은 온디맨드 방식으로 사용한 만큼 과금됩니다."

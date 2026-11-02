@@ -1,0 +1,14 @@
+{%- comment -%}
+  AEO: 자주 묻는 질문. front matter 의 faq: [{q, a}] 가 있을 때만 출력 (FAQPage JSON-LD 와 동일 내용).
+{%- endcomment -%}
+{%- if page.faq.size > 0 -%}
+<section class="post-faq" aria-labelledby="post-faq-title">
+    <h2 id="post-faq-title">자주 묻는 질문</h2>
+    {%- for item in page.faq %}
+    <details{% if forloop.first %} open{% endif %}>
+        <summary>{{ item.q }}</summary>
+        <div class="post-faq-answer">{{ item.a | markdownify }}</div>
+    </details>
+    {%- endfor %}
+</section>
+{%- endif -%}

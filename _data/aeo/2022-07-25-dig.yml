@@ -1,0 +1,24 @@
+# AEO data for _posts/2022-07-25-dig.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+keywords:
+- "dig"
+- "DNS 질의"
+- "+short"
+- "+trace"
+- "+nssearch"
+- "NS 레코드"
+- "MX 레코드"
+summary:
+- "`dig` 명령으로 도메인의 A 레코드, Name Server, Mail Server를 조회하고 DNS 질의 경로까지 확인할 수 있습니다."
+- "`@<DNS IP>`로 질의할 DNS 서버를 지정하고, `+short`로 결과만 간단히 출력할 수 있습니다."
+- "`+trace` 옵션을 쓰면 root DNS부터 최종 응답까지의 질의 경로를 단계별로 볼 수 있습니다."
+tested_on: "DiG 9.16.1-Ubuntu"
+faq:
+- q: "dig로 특정 DNS 서버를 지정해서 질의하려면 어떻게 하나요?"
+  a: "`dig @1.1.1.1 chhanz.mooo.com`처럼 `@<DNS IP>`를 붙여 실행합니다. 출력의 `SERVER` 항목에서 응답한 Name Server가 바뀐 것을 확인할 수 있습니다."
+- q: "dig로 도메인의 IP만 간단하게 확인하는 방법이 있나요?"
+  a: "`+short` 옵션을 사용합니다. `dig chhanz.mooo.com +short`처럼 실행하면 A 레코드의 IP만 출력됩니다."
+- q: "도메인이 등록된 Name Server와 Mail Server는 어떻게 확인하나요?"
+  a: "Name Server는 `dig naver.com NS +short` 또는 `dig google.com +nssearch`로, Mail Server는 `dig google.com MX +short`로 확인합니다."
+- q: "DNS 질의가 어떤 경로로 처리되는지 확인하려면 어떻게 하나요?"
+  a: "`dig <도메인> +trace`를 실행하면 root DNS에서 TLD 서버, 도메인의 Name Server까지 질의 경로를 차례로 보여줍니다."

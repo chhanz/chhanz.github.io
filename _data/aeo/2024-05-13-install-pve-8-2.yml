@@ -1,0 +1,22 @@
+# AEO data for _posts/2024-05-13-install-pve-8-2.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "Proxmox VE 8.2.1을 ISO로 설치하면서 디스크, Timezone, root 비밀번호, Management Network를 설정하고 8006 포트 관리 UI에 접속하는 과정을 정리합니다."
+keywords:
+- "Proxmox VE"
+- "Proxmox 8.2.1"
+- "PVE 설치"
+- "Install Proxmox VE (Graphical)"
+- "Management UI"
+- "8006 포트"
+summary:
+- "Proxmox VE 8.2.1 ISO로 부팅해 `Install Proxmox VE (Graphical)`을 선택하면 GUI 설치 화면으로 설치할 수 있습니다."
+- "설치 중 디스크(파티션·파일시스템은 Options 메뉴), Timezone, root 비밀번호, Static IP 기반 Management Network를 설정합니다."
+- "설치 후 `https://[proxmox-ip]:8006`으로 접속해 root 계정으로 Management UI에 로그인할 수 있습니다."
+tested_on: "Proxmox VE 8.2.1"
+faq:
+- q: "Proxmox VE 관리 웹 UI의 기본 접속 포트는 무엇인가요?"
+  a: "기본 포트는 `8006`이며 `https://[proxmox-ip]:8006`으로 접속합니다. 설치 때 설정한 root 계정과 비밀번호로 로그인합니다."
+- q: "Proxmox 설치 시 파티션 구성이나 파일시스템 종류는 어디서 바꾸나요?"
+  a: "설치 디스크를 지정하는 화면의 `Options` 메뉴에서 파티션 구성과 파일시스템 종류를 선택할 수 있습니다."
+- q: "Proxmox 설치 중 Management Network는 어떻게 설정하나요?"
+  a: "설치 화면에서 Proxmox의 Management Network를 직접 입력하며, 기본적으로 Static IP 설정을 사용합니다."

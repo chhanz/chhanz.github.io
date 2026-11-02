@@ -1,0 +1,25 @@
+# AEO data for _posts/2018-10-23-esxi-vmclone.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "vCenter 없이 ESXi에 SSH로 접속해 vmkfstools 기반 vm-copy.sh 스크립트로 VM을 복제하고 기존 가상 시스템으로 등록하는 방법입니다."
+keywords:
+- "VMware ESXi"
+- "VM Clone"
+- "vmkfstools"
+- "vm-copy.sh"
+- "thin provisioning"
+- "vCenter"
+- "datastore"
+summary:
+- "vCenter 없이도 ESXi에서 SSH를 켜고 vmkfstools 기반 스크립트를 실행하면 VM을 복제할 수 있습니다."
+- "스크립트는 `vmkfstools -d thin -i`로 vmdk를 thin 형식으로 복제하고, sed로 vmx와 vmxf 파일 안의 VM 이름을 바꿉니다."
+- "복제된 VM은 ESXi의 [VM 생성/등록] > [기존 가상 시스템 등록]으로 등록하고, 첫 전원 켜기 질의에서 [복사함]을 선택합니다."
+tested_on: "VMware ESXi-6.7.0-8169922-standard"
+faq:
+- q: "vCenter 없이 ESXi에서 VM을 복제할 수 있나요?"
+  a: "네, ESXi에 SSH로 접속해 vmkfstools로 디스크를 복제하는 스크립트를 쓰면 됩니다. 글의 `vm-copy.sh`를 `/bin`에 두고 datastore 경로에서 `vm-copy.sh ./원본VM/ ./대상VM` 형식으로 실행합니다."
+- q: "ESXi에서 VM을 복제하려면 원본 VM이 꺼져 있어야 하나요?"
+  a: "네, 원본 VM이 Shutdown 상태일 때만 복제할 수 있습니다."
+- q: "ESXi에서 SSH는 어떻게 활성화하나요?"
+  a: "ESXi 화면에서 [작업] > [서비스] > [SSH 사용]을 선택합니다."
+- q: "복제한 VM을 처음 켤 때 나오는 질의에는 무엇을 선택하나요?"
+  a: "[복사함]을 선택하면 복제된 VM이 정상적으로 부팅됩니다."

@@ -1,29 +1,17 @@
 ---
 layout: default
 ---
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": {{ site.title | jsonify }},
-  "url": "{{ site.url }}",
-  "description": {{ site.description | strip_html | strip_newlines | jsonify }},
-  "author": {
-    "@type": "Person",
-    "name": {{ site.author | jsonify }}
-  }
-}
-</script>
+{% assign cover = site.cover_image | default: site.image %}
 <div id="cover" class="container"
-    {% if site.image %}style="background-image:url({{ site.image }});"{% endif %}>
+    {% if cover %}style="background-image:url({{ cover }});"{% endif %}>
     <div>
         <h1>{{ site.title }}</h1>
         <p>{{ site.description | newline_to_br }}</p>
     </div>
 </div>
 
-<div id="content" class="container">
-    <div id="home-content" role="main">
+<main id="content" class="container">
+    <div id="home-content">
         {{ content }}
     </div>
-</div>
+</main>

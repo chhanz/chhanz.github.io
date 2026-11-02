@@ -1,0 +1,24 @@
+# AEO data for _posts/2022-05-02-ubuntu-ntp-chrony.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+keywords:
+- "Ubuntu 20.04"
+- "systemd-timesyncd"
+- "chrony"
+- "chronyc sources"
+- "timedatectl"
+- "chrony.conf"
+- "NTP"
+summary:
+- "Ubuntu 20.04 는 기본으로 `systemd-timesyncd` 가 NTP 동기화를 수행하며, 설정은 `/etc/systemd/timesyncd.conf` 에서 변경합니다."
+- "내부 NTP Client/Server 구성에는 `chrony` 가 권장되며, `apt install chrony` 로 설치하면 `systemd-timesyncd` 는 제거되고 masked 상태가 됩니다."
+- "Ubuntu 의 chrony 설정 파일은 `/etc/chrony/chrony.conf` 이고, `allow` 줄을 추가하면 내부 NTP 서비스를 제공할 수 있습니다."
+tested_on: "Ubuntu 20.04, chrony 3.5"
+faq:
+- q: "Ubuntu 20.04 에서 기본 NTP 서비스는 무엇인가요?"
+  a: "`systemd-timesyncd` 가 기본으로 NTP 서비스를 수행합니다. `timedatectl -a` 로 동기화 상태를, `systemctl status systemd-timesyncd` 로 데몬 상태를 확인할 수 있습니다."
+- q: "Ubuntu 에 chrony 를 설치하면 systemd-timesyncd 는 어떻게 되나요?"
+  a: "chrony 를 설치하면 `systemd-timesyncd` 패키지가 제거되고 서비스가 masked 상태가 되며, `chrony` 서비스가 enable 됩니다."
+- q: "Ubuntu 와 RHEL 의 chrony 설정 파일 경로는 어떻게 다른가요?"
+  a: "RHEL 계열은 `/etc/chrony.conf`, Debian 계열인 Ubuntu 는 `/etc/chrony/chrony.conf` 입니다. 설정 방식 자체는 동일합니다."
+- q: "chrony 의 NTP 동기화 상태는 어떻게 확인하나요?"
+  a: "`chronyc sources -v` 를 실행합니다. Source state 가 `*` 인 서버가 현재 동기화 중인 서버입니다."

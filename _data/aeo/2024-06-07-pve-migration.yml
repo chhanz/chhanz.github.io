@@ -1,0 +1,21 @@
+# AEO data for _posts/2024-06-07-pve-migration.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "Proxmox VE 8.2.1 Cluster에서 GUI의 Migrate 메뉴나 qm migrate 명령으로 실행 중인 VM을 다른 노드로 라이브 마이그레이션하는 방법을 정리합니다."
+keywords:
+- "Proxmox VE"
+- "Live Migration"
+- "qm migrate"
+- "qm list"
+- "PVE Cluster"
+- "remote-migrate"
+summary:
+- "Proxmox Cluster에서는 VM의 `Migrate` 메뉴에서 대상 노드를 고르거나 `qm migrate <VMID> <노드> --online`으로 VM을 라이브 마이그레이션할 수 있습니다."
+- "PVE Cluster 내에서는 offline과 online 마이그레이션을, Remote Cluster로는 `remote-migrate` 방식을 사용할 수 있습니다."
+tested_on: "Proxmox VE 8.2.1"
+faq:
+- q: "Proxmox에서 실행 중인 VM을 명령어로 다른 노드에 마이그레이션하려면 어떻게 하나요?"
+  a: "PVE 노드에서 `qm migrate 100 pve2 --online`처럼 VMID, 대상 노드, `--online` 옵션을 지정합니다. 마이그레이션 후 대상 노드에서 `qm list`로 VM이 running 상태인지 확인합니다."
+- q: "Proxmox에서 지원하는 VM 마이그레이션 방식에는 무엇이 있나요?"
+  a: "PVE Cluster 내에서 수행하는 `offline`과 `online` 마이그레이션이 있고, 기존 PVE Cluster에서 Remote Cluster로 옮기는 `remote-migrate` 방식도 있습니다."
+- q: "Proxmox GUI에서 VM을 마이그레이션하려면 어떻게 하나요?"
+  a: "마이그레이션할 VM에서 `Migrate` 메뉴를 선택하고, PVE Cluster 내에서 VM이 옮겨갈 PVE 노드를 선택하면 됩니다."

@@ -1,0 +1,25 @@
+# AEO data for _posts/2020-01-17-install-rhvm.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "RHEL 7 서버에 RHV 4.1 저장소를 연결하고 engine-setup으로 Red Hat Virtualization Manager를 Standalone 방식으로 설치하는 과정을 정리합니다."
+keywords:
+- "RHVM"
+- "Red Hat Virtualization Manager"
+- "engine-setup"
+- "rhevm"
+- "ovirt-engine"
+- "Standalone"
+- "Self-Hosted Engine"
+summary:
+- "RHV 4.1 저장소를 연결한 RHEL 7 서버에서 `yum -y install rhevm` 후 `engine-setup`을 실행하면 대화형 질의를 거쳐 RHVM이 Standalone으로 설치됩니다."
+- "설치는 약 20분 걸렸고, 완료 후 `https://rhvm.test.com:443/ovirt-engine` 관리 포탈에 admin 계정으로 접속할 수 있습니다."
+- "RHVM 설치 방식에는 단독 시스템에 설치하는 Standalone과 하이퍼바이저 위 VM으로 배포하는 Self-Hosted Engine이 있습니다."
+tested_on: "RHEL 7 Server, Red Hat Virtualization Manager 4.1 (otopi-1.6.3)"
+faq:
+- q: "RHVM의 Standalone과 Self-Hosted Engine 방식은 무엇이 다른가요?"
+  a: "Standalone은 RHVM을 단독 시스템(baremetal)에 설치하는 방식입니다. Self-Hosted Engine은 RHVM을 하이퍼바이저에 VM으로 배포해 기동하는 방식으로, VMware vCenter Appliance 설치와 같은 개념입니다."
+- q: "DNS 없이 테스트 환경에 RHVM을 설치하려면 어떻게 하나요?"
+  a: "`/etc/hosts`에 RHVM, RHVH, NFS, Repository 서버의 IP와 이름을 등록합니다. engine-setup의 Host FQDN 질의에도 이 이름(예: `rhvm.test.com`)을 입력합니다."
+- q: "RHVM 설치 후 서비스 상태는 어떻게 확인하나요?"
+  a: "`systemctl status ovirt-engine`으로 oVirt Engine 서비스가 active (running) 상태인지 확인합니다."
+- q: "RHVM 관리 포탈 로그인 계정은 무엇인가요?"
+  a: "`admin@internal` 사용자와 engine-setup 중 입력한 admin 비밀번호로 로그인합니다."

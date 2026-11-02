@@ -1,0 +1,24 @@
+# AEO data for _posts/2021-07-16-authselect-use-faillock.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "RHEL 8 계열에서 pam_tally2 대신 authselect 로 faillock 기능을 활성화하고 faillock.conf 로 계정 잠금 정책을 설정하는 방법을 정리합니다."
+keywords:
+- "authselect"
+- "faillock"
+- "pam_faillock"
+- "pam_tally2"
+- "faillock.conf"
+- "RHEL 8"
+- "with-faillock"
+summary:
+- "RHEL 8 계열에서는 PAM 파일을 직접 수정하지 않고 `authselect enable-feature with-faillock` 으로 계정 잠금 기능을 켭니다."
+- "`/etc/security/faillock.conf` 에 `deny = 4` 를 설정하고 `authselect apply-changes` 를 실행하면 4회 인증 실패 시 계정이 잠깁니다."
+- "잠긴 계정은 기본값 600초 후 풀리며, `faillock --reset --user <계정>` 으로 수동 해제할 수 있습니다."
+faq:
+- q: "RHEL 8 에서 pam_tally2 대신 무엇을 사용해야 하나요?"
+  a: "`faillock` 모듈을 사용합니다. RHEL 8 계열부터 `pam_tally2` 는 deprecated 되었고, `authselect enable-feature with-faillock` 으로 활성화합니다."
+- q: "faillock 계정 잠금 횟수는 어디서 설정하나요?"
+  a: "`/etc/security/faillock.conf` 의 `deny` 값으로 설정합니다. 수정 후 `authselect apply-changes` 로 변경 사항을 적용합니다. 이 파일은 `pam-1.3.1-8.el8` 부터 사용할 수 있습니다."
+- q: "faillock 으로 잠긴 계정을 수동으로 해제하려면 어떻게 하나요?"
+  a: "`faillock --reset --user test` 처럼 계정을 지정해 초기화합니다. 인증 실패 현황은 `faillock` 명령으로 확인할 수 있습니다."
+- q: "authselect 으로 커스텀 프로파일을 만들려면 어떻게 하나요?"
+  a: "`authselect create-profile -b sssd security-profile` 로 sssd 기반 프로파일을 만들고, `authselect select custom/security-profile` 로 선택합니다."

@@ -1,4 +1,5 @@
-<ul id="pagination" role="navigation">
+<nav aria-label="페이지 이동">
+<ul id="pagination">
     {% if paginator %}
         {% if paginator.total_pages <= 5 %}
             {% assign first = 1 %}
@@ -21,7 +22,7 @@
         {% endif %}
         {% for p in (first..last) %}
             {% if p == paginator.page %}
-                <li class="page-number active">{{ p }}</li>
+                <li class="page-number active" aria-current="page">{{ p }}</li>
                 {% elsif p == 1 %}
                 <li class="page-number"><a href="{{ site.baseurl }}/">{{ p }}</a></li>
             {% else %}
@@ -37,3 +38,4 @@
         {% endif %}
     {% endif %}
 </ul>
+</nav>

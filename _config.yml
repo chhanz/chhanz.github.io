@@ -5,6 +5,8 @@ description: |
   
 baseurl: ''
 url: https://tech.chhanz.xyz
+lang: ko-KR
+locale: ko_KR
 timezone: Asia/Seoul
 facebook_comment: true
 
@@ -19,10 +21,12 @@ markdown: kramdown
 kramdown:
   input: GFM
   syntax_highlighter: null
+  # 포스트 본문의 '#'(h1)을 h2로 내려 페이지당 h1을 제목 하나로 유지 (SEO/AEO, 접근성)
+  header_offset: 1
 
 plugins:
   - jekyll-paginate
-  - jekyll-sitemap
+  - jekyll-last-modified-at   # git 커밋 기준 수정일 -> sitemap lastmod, dateModified
 
 # Performance optimization
 compress_html:
@@ -44,8 +48,7 @@ collections:
     output: true
     permalink: /tags/:path/
 
-# Sitemap configuration
-# jekyll-sitemap will automatically generate sitemap.xml
+# Sitemap: sitemap.xml / sitemap-chhanz.xml 은 _includes/sitemap.xml 템플릿으로 생성
 defaults:
   - scope:
       path: "assets/**/*"
@@ -56,20 +59,40 @@ defaults:
       type: authors
     values:
       layout: author
+      sitemap: false
+      noindex: true
   - scope:
       path: ''
       type: tags
     values:
       layout: tag
       sitemap: false
+      noindex: true
 
-exclude: [README.md, Gemfile, Gemfile.lock]
+exclude: [README.md, Gemfile, Gemfile.lock, vendor, .github]
 
 keep_files: [assets, files]
 
 author: chhanz
-image: '/assets/images/default_cover.jpg'
+image: '/assets/images/default_cover.jpg'        # og:image / 구조화 데이터 기본 이미지
+cover_image: '/assets/images/default_cover.webp'  # 화면용 커버 (LCP, WebP)
 asset_url: /assets
+
+# 구조화 데이터(JSON-LD) Person 정보 - AEO/E-E-A-T
+owner:
+  name: Cheolhee Han
+  alternate_name: chhanz
+  job_title: Cloud Engineer
+  knows_about: [Linux, AWS, Kubernetes, OpenShift, Docker, Ansible]
+  credentials:
+    - Red Hat Certified Architect (RHCA) in Infrastructure
+    - Certified Kubernetes Administrator (CKA)
+    - AWS Certified Solutions Architect - Professional
+  url: /about/
+  image: /assets/authors/chhan.webp
+  same_as:
+    - https://github.com/chhanz
+    - https://www.linkedin.com/in/chhanz
 
 google_analytics:
 #  ua: UA-130421804-1
@@ -79,8 +102,6 @@ google_analytics:
 #  username: 
 #  comment: true
 #twitter:
-#  username:
-#google_plus:
 #  username:
 github:
   username: chhanz

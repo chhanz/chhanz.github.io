@@ -1,0 +1,23 @@
+# AEO data for _posts/2023-07-09-al2023-certbot-nginx.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "Amazon Linux 2023에서 Python venv에 Certbot을 pip으로 설치하고 Let's Encrypt 인증서로 nginx에 HTTPS를 적용, crontab으로 자동 갱신하는 방법입니다."
+keywords:
+- "Certbot"
+- "certbot-nginx"
+- "Let's Encrypt"
+- "Amazon Linux 2023"
+- "nginx HTTPS"
+- "Python venv"
+- "certbot renew"
+summary:
+- "Amazon Linux 2023은 Certbot rpm 패키지를 제공하지 않으므로 Python venv를 만들고 `pip install certbot certbot-nginx`로 설치합니다."
+- "`certbot --nginx`를 실행하면 Let's Encrypt 인증서 발급과 `nginx.conf`의 443 ssl 설정, HTTP→HTTPS 리다이렉트 추가가 자동으로 이루어집니다."
+- "`certbot renew`를 실행하는 스크립트를 crontab에 등록해 매달 1일 인증서 자동 갱신을 설정할 수 있습니다."
+tested_on: "Amazon Linux 2023"
+faq:
+- q: "Amazon Linux 2023에서 Certbot은 어떻게 설치하나요?"
+  a: "rpm 패키지가 제공되지 않아 pip으로 설치합니다. `python3 -m venv /opt/certbot`으로 venv를 만들고 활성화한 뒤 `pip install certbot certbot-nginx`를 실행합니다."
+- q: "certbot --nginx를 실행하면 nginx 설정이 어떻게 바뀌나요?"
+  a: "server 블록에 `listen 443 ssl`, `ssl_certificate`, `ssl_certificate_key` 등이 `# managed by Certbot` 주석과 함께 추가되고, 80 포트 요청을 HTTPS로 301 리다이렉트하는 server 블록이 생성됩니다."
+- q: "Certbot 인증서 자동 갱신은 어떻게 설정하나요?"
+  a: "venv를 활성화하고 `certbot renew | logger -t certbot`을 실행하는 `/opt/certbot/renew.sh`를 만들어 crontab에 `0 0 1 * * /opt/certbot/renew.sh`로 등록합니다. AL2023에는 crontab이 기본 설치되어 있지 않으므로 cronie를 먼저 설치해야 합니다."

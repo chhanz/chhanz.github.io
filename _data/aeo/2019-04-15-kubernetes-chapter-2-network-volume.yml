@@ -1,0 +1,22 @@
+# AEO data for _posts/2019-04-15-kubernetes-chapter-2-network-volume.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+keywords:
+- "Persistent Volume"
+- "Persistent Volume Claim"
+- "Static Provisioning"
+- "Dynamic Provisioning"
+- "NFS"
+- "cephfs"
+- "ceph rbd"
+- "StorageClass"
+summary:
+- "NFS와 cephfs를 Pod Volume으로 연결하는 Static Provisioning과 ceph rbd StorageClass를 이용한 Dynamic Provisioning을 예제로 비교합니다."
+- "cephfs를 쓰려면 Worker 노드에 ceph-common 패키지를 설치하고 `ceph auth get client.admin`으로 얻은 Key를 Kubernetes Secret으로 등록해야 합니다."
+- "rbd-provisioner와 `provisioner: ceph.com/rbd` StorageClass를 구성하면 PVC를 요청하는 즉시 ceph rbd PV가 생성되어 Attach됩니다."
+faq:
+- q: "Kubernetes에서 PV와 PVC는 어떻게 다른가요?"
+  a: "PV는 Pod과 다른 수명 주기로 관리되는 저장소이고, PVC는 PV를 추상화해 개발자가 크기와 정책만 지정해 요청할 수 있게 해 주는 기능입니다. 운영자가 요청에 맞춰 PV를 만들어 주는 방식을 Static Provisioning이라고 합니다."
+- q: "Kubernetes Pod에서 cephfs를 사용하려면 무엇이 필요한가요?"
+  a: "Worker 노드에 ceph-common 패키지를 설치하고 ceph 인증 Key를 Kubernetes Secret으로 등록해야 합니다. Pod yaml의 cephfs Volume에서 이 Secret을 참조합니다."
+- q: "ceph rbd로 Dynamic Provisioning을 구성하려면 어떻게 하나요?"
+  a: "ceph 접속용 Secret을 만들고 rbd-provisioner를 배포한 뒤 `provisioner: ceph.com/rbd`를 지정한 StorageClass를 생성합니다. 이후 해당 StorageClass로 PVC를 만들면 rbd PV가 자동으로 생성됩니다."

@@ -1,0 +1,22 @@
+# AEO data for _posts/2020-08-12-linux-backup-rear.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "ReaR(Relax-and-Recover)로 NFS 서버에 부팅용 ISO와 백업 데이터를 저장하고, ISO 부팅 후 rear recover로 Linux OS를 복구하는 방법을 정리합니다."
+keywords:
+- "ReaR"
+- "Relax-and-Recover"
+- "rear mkbackup"
+- "rear recover"
+- "NETFS"
+- "NFS"
+- "/etc/rear/local.conf"
+summary:
+- "ReaR는 실행 중인 Linux의 부팅 가능한 이미지를 만들어 시스템을 복구하거나 다른 하드웨어로 마이그레이션할 수 있는 도구입니다."
+- "`/etc/rear/local.conf`에 `OUTPUT=ISO`, `BACKUP=NETFS`와 NFS 경로를 지정하고 `rear -d -v mkbackup`으로 백업합니다."
+- "복구는 저장된 ISO로 CD 부팅한 뒤 프롬프트에서 `rear -v recover`를 실행하면 됩니다."
+faq:
+- q: "ReaR 백업을 NFS에 저장하려면 어떻게 설정하나요?"
+  a: "`/etc/rear/local.conf`에 `OUTPUT=ISO`, `OUTPUT_URL=nfs://10.10.10.1/data`, `BACKUP=NETFS`, `BACKUP_URL=nfs://10.10.10.1/data`처럼 지정합니다. `NETFS`는 NFS 같은 Network Filesystem에 백업 데이터를 저장하는 방식입니다."
+- q: "ReaR로 백업을 실행하는 명령어는 무엇인가요?"
+  a: "`rear -d -v mkbackup`을 실행하면 부팅용 ISO와 백업 데이터가 설정한 NFS 경로에 저장됩니다."
+- q: "ReaR 백업으로 서버를 복구하려면 어떻게 하나요?"
+  a: "저장된 ISO로 CD 부팅하면 복구용 프롬프트가 뜨고, 여기서 `rear -v recover`를 실행합니다. 네트워크가 static 환경이면 복구 전에 IP를 먼저 설정합니다."

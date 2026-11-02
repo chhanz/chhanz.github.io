@@ -1,0 +1,24 @@
+# AEO data for _posts/2020-03-02-podman.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "RHEL 8/CentOS 8부터 Docker 대신 제공되는 Podman의 구조 차이와 설치, 기본 명령, systemd 및 Kubernetes YAML generate 기능을 정리합니다."
+keywords:
+- "Podman"
+- "libpod"
+- "podman generate systemd"
+- "podman generate kube"
+- "Docker"
+- "systemd"
+summary:
+- "Podman은 `yum -y install podman`만으로 설치되고 daemon 서비스를 띄울 필요 없이 run, ps, stop, start, rm, pull 등 Docker와 거의 같은 명령을 씁니다."
+- "Docker는 daemon을 재시작하거나 중지하면 운영 중인 컨테이너에 영향을 주었지만, Podman은 서로 간섭이 없는 컨테이너를 만들 수 있습니다."
+- "`podman generate systemd`로 컨테이너별 systemd 서비스 파일을, `podman generate kube`로 Kubernetes에 바로 배포할 수 있는 Pod YAML을 만들 수 있습니다."
+tested_on: "CentOS 7, Podman 1.4.4"
+faq:
+- q: "Podman도 Docker처럼 서비스를 시작해야 하나요?"
+  a: "필요 없습니다. Podman은 설치 후 systemd로 daemon 서비스를 시작하지 않고 바로 사용할 수 있습니다."
+- q: "Podman 컨테이너를 systemd 서비스로 관리하려면 어떻게 하나요?"
+  a: "`podman generate systemd <컨테이너 이름> > /etc/systemd/system/<이름>.service`로 서비스 파일을 만들고 상황에 맞게 수정한 뒤 `systemctl start`/`stop`으로 관리합니다."
+- q: "Podman 컨테이너를 Kubernetes YAML로 바꿀 수 있나요?"
+  a: "가능합니다. `podman generate kube <컨테이너 이름>`으로 Pod YAML을 만들고 `kubectl create -f`로 Kubernetes에 배포할 수 있습니다."
+- q: "Docker와 Podman 명령어는 얼마나 다른가요?"
+  a: "기본 사용법은 매우 흡사합니다. run, ps, stop, start, images, pull, rm과 `-p` 포트 매핑 옵션을 Docker와 같은 방식으로 씁니다."

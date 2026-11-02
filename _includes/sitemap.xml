@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{%- assign posts = site.posts | where_exp: 'p', 'p.sitemap != false' %}
+{%- for post in posts %}
+  <url>
+    <loc>{{ post.url | absolute_url | xml_escape }}</loc>
+    <lastmod>{{ post.last_modified_at | default: post.date | date_to_xmlschema }}</lastmod>
+  </url>
+{%- endfor %}
+  <url>
+    <loc>{{ '/' | absolute_url }}</loc>
+    <lastmod>{{ site.posts.first.date | date_to_xmlschema }}</lastmod>
+  </url>
+{%- assign pages = site.html_pages | where_exp: 'p', 'p.sitemap != false' | where_exp: 'p', 'p.noindex != true' %}
+{%- for p in pages %}
+  {%- unless p.url == '/' or p.url == '/index.html' or p.url contains '/page/' or p.url contains '404' %}
+  <url>
+    <loc>{{ p.url | replace: '/index.html', '/' | absolute_url | xml_escape }}</loc>
+    {%- if p.last_modified_at %}
+    <lastmod>{{ p.last_modified_at | date_to_xmlschema }}</lastmod>
+    {%- endif %}
+  </url>
+  {%- endunless %}
+{%- endfor %}
+</urlset>

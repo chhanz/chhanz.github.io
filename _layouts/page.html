@@ -1,16 +1,20 @@
 ---
 layout: default
 ---
-<div id="cover" class="container"
+<main id="main">
+<article>
+<header id="cover" class="container"
      {% if page.image %}style="background-image: url({{ page.image }});"{% endif %}>
     <div>
         <h1>{{ page.title }}</h1>
-        <p>{{ page.description | newline_to_br }}</p>
+        {% if page.description %}<p>{{ page.description | newline_to_br }}</p>{% endif %}
     </div>
-</div>
+</header>
 
 <div id="content" class="container">
-    <div id="post-content" class="post page" role="main">
+    <div id="post-content" class="post page">
         {{ content }}
     </div>
 </div>
+</article>
+</main>

@@ -2,79 +2,58 @@
 layout: default
 ---
 {% assign author = site.authors | where: 'name', page.author | first %}
-{% assign post_image = page.image | default: site.image %}
-{% unless post_image contains '://' %}{% assign post_image = post_image | prepend: site.url %}{% endunless %}
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": {{ page.title | jsonify }},
-  "description": {{ page.excerpt | strip_html | truncatewords: 75 | jsonify }},
-  "image": {{ post_image | jsonify }},
-  "datePublished": "{{ page.date | date_to_xmlschema }}",
-  {% if page.modified %}"dateModified": "{{ page.modified }}",{% endif %}
-  "author": {
-    "@type": "Person",
-    "name": {{ page.author | default: site.author | jsonify }},
-    "url": "{{ site.url }}{{ author.url }}"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": {{ site.title | jsonify }},
-    "logo": {
-      "@type": "ImageObject",
-      "url": "{{ site.url }}/assets/favicon.png"
-    }
-  },
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "{{ site.url }}{{ page.url }}"
-  }
-  {% if page.tags %},
-  "keywords": {{ page.tags | jsonify }}
-  {% endif %}
-}
-</script>
-<div id="fb-root"></div>
+{% assign primary_tag = page.tags | first %}
 <div id="navbar" class="container">
-    <h5><a id="link-back" href="/">Back to Posts</a></h5>
+    <nav class="breadcrumb" aria-label="breadcrumb">
+        <a id="link-back" href="/">Blog</a>
+        {% if primary_tag %}<span aria-hidden="true">›</span> <a href="/tags/{{ primary_tag }}/">{{ primary_tag }}</a>{% endif %}
+    </nav>
     {% include share.html page=page %}
 </div>
 
-<div id="cover" class="container"
+<main id="main">
+<article>
+<header id="cover" class="container"
      {% if page.image %}style="background-image: url({{ page.image }});"{% endif %}>
     <div>
         <h1>{{ page.title }}</h1>
-        <p>{{ page.description }}</p>
-        <p class="right" style="opacity: 0.5">
-            {% for tag in page.tags %}
-                {{ tag }}
-                {% unless forloop.last %},{% endunless %}
-            {% endfor %}
+        {% if page.description %}<p class="post-summary">{{ page.description }}</p>{% endif %}
+        <p class="post-meta-line">
+            <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: '%Y-%m-%d' }}</time>
+            {% assign modified = page.last_modified_at | date: '%Y-%m-%d' %}
+            {% assign published = page.date | date: '%Y-%m-%d' %}
+            {% if page.last_modified_at and modified != published %}
+            · 수정 <time datetime="{{ page.last_modified_at | date_to_xmlschema }}">{{ modified }}</time>
+            {% endif %}
+            · <a href="{{ site.owner.url }}" rel="author">{{ site.owner.alternate_name }}</a>
+            {% if page.tags.size > 0 %}· {{ page.tags | join: ', ' }}{% endif %}
         </p>
         {% include cover_link.html cover=page.cover %}
     </div>
-</div>
+</header>
 
-<div id="content" class="container post" role="main">
-    <div id="post-content">{{ content }}</div>
-    <div id="post-footer">
-        {% assign author = site.authors | where: 'name', page.author | first %}
-        <a id="post-author" href="{{ author.url }}">
-            <div id="author-image" style="background-image:url({{ author.image | default: '' }});">
+<div id="content" class="container post">
+    <div id="post-content">
+        {% include post-summary.html %}
+        {{ content }}
+        {% include post-faq.html %}
+    </div>
+    <footer id="post-footer">
+        <a id="post-author" href="{{ site.owner.url }}" rel="author">
+            <div id="author-image" style="background-image:url({{ author.image | default: site.owner.image }});">
                 <span class="sr-only">{{ author.name }}'s profile image</span>
             </div>
-            <p id="author-name">{{ author.name }}</p>
+            <p id="author-name">{{ author.name | default: site.owner.alternate_name }}</p>
         </a>
         <p id="post-date">
-            {{ page.date | date: '%Y-%m-%d' }}{% if page.modified %} / {{ page.modified }}{% endif%}
+            <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: '%Y-%m-%d' }}</time>
             {% include reading-time.html %}
         </p>
-        <a id="post-more" href="{{ author.url }}">
+        <a id="post-more" href="{{ author.url }}" aria-label="이 작성자의 다른 포스트 보기">
             <span>Read more posts by this author</span>
         </a>
-    </div>
-    <div id="post-comment">
+    </footer>
+    <section id="post-comment" aria-label="댓글">
         <script src="https://utteranc.es/client.js"
                 repo="chhanz/chhanz.github.io"
                 issue-term="title"
@@ -83,17 +62,19 @@ layout: default
                 crossorigin="anonymous"
                 async>
         </script>
-    </div>
+    </section>
     {% include related-posts.html %}
 </div>
+</article>
+</main>
 
-<div id="post-links" class="container">
+<nav id="post-links" class="container" aria-label="이전/다음 포스트">
     {% assign prev = page.previous %}
     {% if prev %}
         <div id="post-prev"
              {% if prev.image %}style="background-image: url({{ prev.image }});"{% endif %}>
             <div>
-                <h3><a href="{{ prev.url }}">{{ prev.title }}</a></h3>
+                <h2 class="post-link-title"><a href="{{ prev.url }}">{{ prev.title }}</a></h2>
                 <p>YOU MIGHT ENJOY</p>
             </div>
         </div>
@@ -103,13 +84,13 @@ layout: default
         <div id="post-next"
              {% if next.image %}style="background-image: url({{ next.image }});"{% endif %}>
             <div>
-                <h3><a href="{{ next.url }}">{{ next.title }}</a></h3>
+                <h2 class="post-link-title"><a href="{{ next.url }}">{{ next.title }}</a></h2>
                 <p>NEXT POST</p>
             </div>
         </div>
     {% endif %}
-</div>
+</nav>
 
-<div id="content" class="container">
+<div class="container">
     {% include inside-ad.html %}
 </div>

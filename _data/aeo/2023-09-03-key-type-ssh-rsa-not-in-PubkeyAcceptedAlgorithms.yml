@@ -1,0 +1,21 @@
+# AEO data for _posts/2023-09-03-key-type-ssh-rsa-not-in-PubkeyAcceptedAlgorithms.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "구버전 SSH 클라이언트로 최신 OS에 접속할 때 발생하는 key type ssh-rsa not in PubkeyAcceptedAlgorithms 오류를 시스템 암호화 정책 변경으로 해결하는 방법을 정리합니다."
+keywords:
+- "PubkeyAcceptedAlgorithms"
+- "ssh-rsa"
+- "userauth_pubkey"
+- "update-crypto-policies"
+- "LEGACY 암호화 정책"
+- "/var/log/secure"
+summary:
+- "`update-crypto-policies --set LEGACY`로 시스템 암호화 정책을 이전 릴리즈 호환 정책으로 바꾸면 ssh-rsa 키 접속 오류를 우회할 수 있습니다."
+- "이 오류는 주로 Ubuntu 14.04 같은 구버전 OS나 SSH 클라이언트에서 Amazon Linux 2023 같은 최신 OS로 접속할 때 `/var/log/secure`에 기록됩니다."
+- "LEGACY 정책을 적용하면 aes256-cbc, 3des-cbc 같은 cipher와 sha1 계열 kex 알고리즘이 허용 목록에 추가됩니다."
+faq:
+- q: "sshd 로그에 userauth_pubkey: key type ssh-rsa not in PubkeyAcceptedAlgorithms가 나오는 이유는 무엇인가요?"
+  a: "주로 구버전 운영체제나 구버전 SSH client에서 최신 버전의 운영체제로 접속할 때 발생합니다. 예를 들어 Ubuntu 14.04에서 Amazon Linux 2023으로 접속할 때 `/var/log/secure`에서 확인할 수 있습니다."
+- q: "ssh-rsa 키 접속 오류를 서버 측에서 우회하려면 어떻게 하나요?"
+  a: "`sudo update-crypto-policies --set LEGACY`로 시스템 암호화 정책을 이전 릴리즈와 호환되는 정책으로 변경합니다. 적용 여부는 `sudo update-crypto-policies --show`의 출력이 `LEGACY`인지로 확인합니다."
+- q: "LEGACY 암호화 정책으로 바꾸면 무엇이 달라지나요?"
+  a: "ciphers에 aes256-cbc, aes128-cbc, 3des-cbc가, kexalgorithms에 diffie-hellman-group-exchange-sha1, diffie-hellman-group14-sha1이 추가됩니다."

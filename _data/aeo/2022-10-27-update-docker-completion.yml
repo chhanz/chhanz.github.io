@@ -1,0 +1,20 @@
+# AEO data for _posts/2022-10-27-update-docker-completion.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "Docker 20.10부터 docker-ce 저장소가 deprecated되어, docker/cli 저장소의 completion 파일로 Bash 자동 완성을 설정하는 방법입니다."
+keywords:
+- "Docker Completion"
+- "bash_completion.d"
+- "docker/cli"
+- "docker-ce"
+- "Docker 20.10"
+- "Bash 자동 완성"
+summary:
+- "Docker 20.10부터 docker-ce 저장소가 deprecated되었으므로 docker completion 파일은 `docker/cli` 저장소에서 받아야 합니다."
+- "`docker/cli`의 `contrib/completion/bash/docker` 파일을 `/etc/bash_completion.d/docker`로 내려받으면 `docker <tab>` 자동 완성이 동작합니다."
+faq:
+- q: "최신 Docker에서 Bash 자동 완성을 설정하려면 어떻게 하나요?"
+  a: "`sudo curl -L https://raw.githubusercontent.com/docker/cli/master/contrib/completion/bash/docker -o /etc/bash_completion.d/docker`로 completion 파일을 내려받습니다. 이후 `docker <tab>`으로 하위 명령이 자동 완성됩니다."
+- q: "예전처럼 docker-ce 저장소에서 completion 파일을 받으면 안 되나요?"
+  a: "Docker 20.10부터 Docker Engine과 CLI 패키지가 각 소스 저장소에서 직접 빌드되면서 docker-ce 저장소는 deprecated되었습니다. 그래서 `docker/cli` 저장소의 completion 파일을 사용해야 합니다."
+- q: "Bash 외의 다른 Shell용 Docker completion 파일도 있나요?"
+  a: "있습니다. `docker/cli` 저장소의 `contrib/completion` 경로에서 Bash, Zsh, fish, powershell용 파일을 제공합니다."

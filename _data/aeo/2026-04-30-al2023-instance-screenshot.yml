@@ -1,0 +1,21 @@
+# AEO data for _posts/2026-04-30-al2023-instance-screenshot.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+keywords:
+- "Amazon Linux 2023"
+- "인스턴스 스크린샷"
+- "kernel-modules-extra"
+- "EC2 인스턴스 진단"
+- "dracut"
+- "initramfs"
+summary:
+- "AL2023 기본 AMI에서 EC2 인스턴스 스크린샷이 부팅 로고 화면에서 멈추는 문제는 `kernel-modules-extra` 패키지를 설치하고 재부팅하면 해결됩니다."
+- "패키지 설치 시 `dracut`으로 initramfs가 재생성되며, 재부팅 후 스크린샷에 로그인 프롬프트까지 정상적으로 표시됩니다."
+- "사용자 지정 AMI에 이 패키지를 미리 포함하면 이후 기동하는 인스턴스에서 바로 스크린샷 기능을 활용할 수 있습니다."
+tested_on: "Amazon Linux 2023, Kernel 6.1.166-197.305.amzn2023.x86_64"
+faq:
+- q: "AL2023 인스턴스 스크린샷이 'Booting Amazon Linux' 화면에서 멈춰 보이는 이유는 무엇인가요?"
+  a: "AL2023 기본 AMI에 가상 콘솔 관련 커널 모듈이 포함된 `kernel-modules-extra` 패키지가 설치되어 있지 않기 때문입니다. OS는 정상 부팅되어 로그인까지 가능하지만 스크린샷 화면만 갱신되지 않습니다."
+- q: "AL2023에서 인스턴스 스크린샷 기능을 정상 동작시키려면 어떻게 하나요?"
+  a: "`dnf install kernel-modules-extra.x86_64`로 패키지를 설치한 뒤 `sudo reboot`로 재부팅합니다. 설치 과정에서 `dracut`으로 initramfs가 재생성되므로 재부팅이 필요합니다."
+- q: "EC2 인스턴스 스크린샷은 언제 유용한가요?"
+  a: "SSH 접속이 되지 않거나 상태 검사가 실패해 인스턴스 내부 로그를 볼 수 없을 때 유용합니다. EC2 콘솔 `인스턴스 진단` 탭의 `인스턴스 스크린샷`과 `시스템 로그`로 현재 콘솔 상태를 확인할 수 있습니다."

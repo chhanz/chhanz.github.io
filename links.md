@@ -2,7 +2,7 @@
 layout: page
 title: Links
 permalink: /Links/
-image: /assets/images/link_page.jpg
+image: /assets/images/link_page.webp
 sitemap: false
 ---
 

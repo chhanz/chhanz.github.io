@@ -1,0 +1,22 @@
+# AEO data for _posts/2020-05-12-install-ansible-tower.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "RHEL 7에서 저장소를 활성화하고 Ansible Tower 3.6.3 Setup Bundle의 inventory를 수정한 뒤 setup.sh로 배포하는 과정을 정리합니다."
+keywords:
+- "Ansible Tower"
+- "Setup Bundle"
+- "setup.sh"
+- "inventory"
+- "subscription-manager"
+- "awx"
+summary:
+- "rhel-7-server-rpms, ansible-2.9, rhscl 저장소를 활성화하고 Ansible Tower 3.6.3 Setup Bundle을 받아 `setup.sh`를 실행하면 Tower가 자동으로 배포됩니다."
+- "배포 전 bundle의 `inventory`에서 admin_password, pg_password, rabbitmq_password를 지정합니다."
+- "배포 후 Web console에 admin 계정으로 접속해 라이선스 파일을 추가하거나 서브스크립션이 있는 RHN 계정으로 로그인합니다."
+tested_on: "RHEL 7, Red Hat Ansible Tower 3.6.3 Setup Bundle"
+faq:
+- q: "Ansible Tower 설치 전에 어떤 Repository를 활성화해야 하나요?"
+  a: "`subscription-manager repos --enable`로 `rhel-7-server-rpms`, `rhel-7-server-ansible-2.9-rpms`, `rhel-server-rhscl-7-rpms`를 활성화합니다."
+- q: "Ansible Tower 설치 시 비밀번호는 어디서 지정하나요?"
+  a: "Setup Bundle 디렉터리의 `inventory` 파일 `[all:vars]`에서 `admin_password`, `pg_password`, `rabbitmq_password`를 지정합니다."
+- q: "setup.sh가 일부 패키지를 설치하지 못하면 어떻게 하나요?"
+  a: "OS 설치 환경에 따라 setup.sh가 자동으로 설치하지 못하는 패키지가 있으므로 `yum -y install wget curl rsync`처럼 수동으로 설치합니다."

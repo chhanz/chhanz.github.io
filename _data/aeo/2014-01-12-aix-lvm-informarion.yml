@@ -1,0 +1,16 @@
+# AEO data for _posts/2014-01-12-aix-lvm-informarion.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "AIX의 LVM이 무엇인지 설명한 문서를 SlideShare 슬라이드로 공유한 글입니다."
+keywords:
+- "AIX LVM"
+- "LVM"
+- "AIX"
+- "SlideShare"
+summary:
+- "AIX의 LVM이 무엇인지 설명하는 문서 \"AIX - LVM 이란?\"을 SlideShare 슬라이드로 임베드해 공유합니다."
+- "작성자가 사원 시절 만든 문서로, 2014년 1월에 작성해 2019년 1월에 배포했습니다."
+faq:
+- q: "AIX LVM 설명 자료는 어디에서 볼 수 있나요?"
+  a: "글에 임베드된 SlideShare 슬라이드 \"AIX - LVM 이란?\"에서 볼 수 있습니다. 슬라이드 제목 링크로 SlideShare 원본 페이지에 접속할 수도 있습니다."
+- q: "이 AIX LVM 문서는 언제 작성되었나요?"
+  a: "2014년 1월 12일에 작성되었고 2019년 1월 10일에 블로그로 배포되었습니다."

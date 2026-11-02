@@ -1,0 +1,22 @@
+# AEO data for _posts/2020-09-25-expose-app.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "kubectl expose로 Deployment를 Service로 노출하고 기본 ClusterIP 타입을 NodePort로 바꿔 클러스터 외부에서 Flask 앱에 접속하는 방법을 정리합니다."
+keywords:
+- "Kubernetes Service"
+- "kubectl expose"
+- "NodePort"
+- "ClusterIP"
+- "LoadBalancer"
+- "ExternalName"
+- "kubectl edit service"
+summary:
+- "`kubectl expose deployment flask-example-app --port 80`으로 Service를 만들면 기본 타입은 ClusterIP입니다."
+- "`kubectl edit service`로 type을 `NodePort`로 바꾸면 `<NodeIP>:<NodePort>`로 클러스터 외부에서 접속할 수 있습니다."
+- "Service 타입에는 ClusterIP, NodePort, LoadBalancer, ExternalName이 있으며 노출 범위가 각각 다릅니다."
+faq:
+- q: "kubectl expose로 만든 Service를 NodePort로 바꾸려면 어떻게 하나요?"
+  a: "`kubectl edit service flask-example-app`으로 YAML을 열고 `spec`의 `type: ClusterIP`를 `NodePort`로 수정해 저장합니다. `kubectl get service`에서 TYPE이 NodePort로 바뀐 것을 확인할 수 있습니다."
+- q: "NodePort 번호를 지정하지 않으면 어떻게 되나요?"
+  a: "YAML에서 따로 지정하지 않으면 포트가 랜덤으로 할당됩니다. 본문 예제에서는 `80:32296/TCP`처럼 32296 포트가 할당되었습니다."
+- q: "ClusterIP와 NodePort의 차이는 무엇인가요?"
+  a: "ClusterIP는 클러스터 내부 IP로만 서비스를 노출하고, NodePort는 선택된 노드들의 동일한 포트로 노출해 클러스터 외부에서도 접근할 수 있게 합니다. NodePort는 ClusterIP의 상위 집합입니다."

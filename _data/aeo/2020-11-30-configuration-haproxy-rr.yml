@@ -1,0 +1,23 @@
+# AEO data for _posts/2020-11-30-configuration-haproxy-rr.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "CentOS 7에서 haproxy를 설치하고 haproxy.cfg의 frontend/backend에 balance roundrobin을 설정해 여러 웹 서비스로 요청을 순차 분배하는 방법을 정리합니다."
+keywords:
+- "HAProxy"
+- "roundrobin"
+- "haproxy.cfg"
+- "로드밸런싱"
+- "leastconn"
+- "haproxy_connect_any"
+- "CentOS 7"
+summary:
+- "`/etc/haproxy/haproxy.cfg`에 frontend와 backend를 정의하고 `balance roundrobin`을 지정하면 요청을 서버에 순차 분배합니다."
+- "SELinux를 켠 채 쓰려면 `setsebool -P haproxy_connect_any 1`을 실행하고, firewalld를 쓰면 http 서비스를 허용해야 합니다."
+- "roundrobin 외에 static-rr, leastconn, source, uri, rdp-cookie 알고리즘도 사용할 수 있습니다."
+tested_on: "CentOS 7"
+faq:
+- q: "HAProxy에서 로드밸런싱 알고리즘은 어디서 설정하나요?"
+  a: "backend 섹션의 `balance` 항목에서 설정합니다. 예를 들어 `balance roundrobin`으로 지정하면 서버에 순차적으로 분배합니다."
+- q: "SELinux가 켜진 상태에서 HAProxy를 쓰려면 어떻게 하나요?"
+  a: "`setsebool -P haproxy_connect_any 1`을 실행합니다. firewalld를 사용 중이면 http 서비스도 추가하고 reload해야 합니다."
+- q: "HAProxy roundrobin이 제대로 동작하는지 어떻게 확인하나요?"
+  a: "`while true; do curl lb.okd.chhanz.com:8080; done`처럼 반복 요청을 보내 응답이 pod-test-app-1, 2, 3 순서로 돌아가는지 확인합니다."

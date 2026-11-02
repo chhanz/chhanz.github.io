@@ -1,0 +1,24 @@
+# AEO data for _posts/2020-11-06-configuration-dns.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "CentOS 7에서 bind로 DNS 서버를 설치하고 Zone 파일로 도메인을 추가한 뒤, Windows DNS 전달자와 bind forwarders를 구성하는 방법을 정리합니다."
+keywords:
+- "bind"
+- "named"
+- "/etc/named.conf"
+- "Zone file"
+- "DNS forwarders"
+- "Windows DNS 전달자"
+- "dig"
+- "CentOS 7"
+summary:
+- "`yum -y install bind`로 설치하고 `systemctl enable --now named`로 DNS 서비스를 실행합니다."
+- "`/etc/named.rfc1912.zones`에 zone을 추가하고 `/var/named`에 zone 파일을 만든 뒤 `dig`로 응답을 확인합니다."
+- "기존 Windows DNS의 전달자에 Linux DNS를 추가하면 DHCP 수정 없이 새 도메인 정보도 제공할 수 있습니다."
+tested_on: "CentOS 7"
+faq:
+- q: "bind DNS 서버가 다른 대역의 질의도 받게 하려면 무엇을 수정하나요?"
+  a: "`/etc/named.conf`의 `listen-on port 53`과 `allow-query`에 `any`를 추가합니다. 보안상 필요하면 특정 IP 대역만 허용할 수도 있습니다."
+- q: "bind에 새 도메인 zone을 추가하려면 어떻게 하나요?"
+  a: "`/etc/named.rfc1912.zones` 하단에 `type master`와 zone 파일 이름을 지정한 zone 블록을 추가하고, `/var/named`에 zone 파일을 만든 뒤 `systemctl restart named`로 재시작합니다. zone 파일은 `named` 계정이 읽을 수 있는 권한이어야 합니다."
+- q: "DNS forwarder를 설정하면 어떻게 동작하나요?"
+  a: "1차로 질의한 DNS에 없는 도메인은 forwarder에 설정된 DNS로 질의를 넘깁니다. bind에서는 `/etc/named.conf`의 options에 `forward only;`와 `forwarders { 10.50.2.51; };`처럼 설정합니다."

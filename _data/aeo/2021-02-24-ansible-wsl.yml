@@ -1,0 +1,23 @@
+# AEO data for _posts/2021-02-24-ansible-wsl.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "Windows 10의 WSL(Linux용 Windows 하위 시스템)에 Ubuntu를 설치하고 apt로 Ansible을 설치해 ad-hoc ping 테스트까지 해보는 방법을 소개합니다."
+keywords:
+- "WSL"
+- "Windows Subsystem for Linux"
+- "Windows 10"
+- "Ubuntu"
+- "Ansible"
+- "sshpass"
+- "Ansible ad-hoc"
+summary:
+- "Windows 10에서도 WSL을 켜고 Ubuntu를 설치하면 Linux 명령 환경에서 Ansible을 사용할 수 있습니다."
+- "WSL은 `Windows 기능 켜기/끄기`에서 `Linux용 Windows 하위 시스템`을 체크해 켜고, Ubuntu는 Windows Store에서 설치합니다."
+- "Ubuntu에서 `sudo apt install ansible sshpass`로 설치하고 `ansible --version`과 ad-hoc `ping`으로 동작을 확인합니다."
+tested_on: "Windows 10 WSL (Ubuntu)"
+faq:
+- q: "Windows에서도 Ansible을 사용할 수 있나요?"
+  a: "WSL(Windows Subsystem for Linux)을 이용하면 사용할 수 있습니다. WSL에 Ubuntu를 설치한 뒤 그 안에서 Ansible을 설치합니다."
+- q: "WSL은 어떻게 활성화하나요?"
+  a: "`제어판` > `프로그램 및 기능` > `Windows 기능 켜기/끄기`에서 `Linux용 Windows 하위 시스템`을 체크하고 확인을 누릅니다. 이후 Windows Store에서 Ubuntu를 검색해 설치합니다."
+- q: "WSL Ubuntu에 Ansible은 어떻게 설치하나요?"
+  a: "`sudo apt install ansible sshpass`로 설치하며, sshpass는 필요할 때 함께 설치합니다. 설치 후 `ansible --version`으로 확인합니다."

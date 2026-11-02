@@ -1,0 +1,22 @@
+# AEO data for _posts/2020-07-01-ocp-codeready.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "OpenShift 4.4 OperatorHub에서 CodeReady Workspaces Operator를 설치하고 웹 기반 IDE로 Python 샘플 코드를 실행·디버깅하는 과정을 정리합니다."
+keywords:
+- "CodeReady Workspaces"
+- "OpenShift 4.4"
+- "OperatorHub"
+- "CheCluster"
+- "Eclipse Che"
+- "웹 IDE"
+summary:
+- "OperatorHub에서 CodeReady Workspaces Operator를 설치하고 CheCluster를 생성하면 브라우저로 접속하는 IDE 환경을 만들 수 있습니다."
+- "Python 샘플 워크스페이스에서 Debug 메뉴로 디버깅하고 Terminal의 `Run Task`로 코드를 실행할 수 있습니다."
+- "별도 로컬 개발 환경 없이 OpenShift 컨테이너 위에서 코드를 작성, 빌드, 테스트할 수 있습니다."
+tested_on: "OpenShift 4.4"
+faq:
+- q: "OpenShift에서 CodeReady Workspaces는 어떻게 설치하나요?"
+  a: "`admin` 계정으로 OperatorHub에서 `CodeReady`를 검색해 `Install`하고 Namespace를 선택해 `Subscribe`합니다. Installed Operators에서 Status가 `Succeeded`가 되면 `Create Instance`로 CheCluster를 생성합니다."
+- q: "CheCluster를 만든 뒤 언제부터 CodeReady Workspaces에 접속할 수 있나요?"
+  a: "CheCluster의 Pod들이 순차적으로 배포되고 실행이 완료되면 CodeReady Workspace URL로 접근할 수 있습니다. 첫 접속 시 사용할 계정을 생성합니다."
+- q: "CodeReady Workspaces 배포가 TLS 에러로 실패하면 어떻게 하나요?"
+  a: "Red Hat 솔루션 문서(https://access.redhat.com/solutions/4675271)를 참고하도록 본문에서 안내하고 있습니다."

@@ -1,0 +1,22 @@
+# AEO data for _posts/2019-09-20-docker-configuration-nvidia-runtime.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "CentOS/RHEL에 docker-ce와 nvidia-container-runtime을 설치하고 Docker의 기본 runtime을 nvidia로 바꾸는 방법을 정리합니다."
+keywords:
+- "nvidia-container-runtime"
+- "docker-ce"
+- "daemon.json"
+- "default-runtime"
+- "NVIDIA DGX Station"
+- "Tesla V100"
+summary:
+- "docker-ce와 nvidia-container-runtime을 설치하고 daemon.json의 `default-runtime`을 `nvidia`로 지정하면 새 컨테이너가 nvidia runtime으로 생성됩니다."
+- "RHEL/CentOS에서 제공하는 기본 `docker` 패키지로는 설치할 수 없고 반드시 docker-ce가 필요합니다."
+- "설정 후 `docker info`에서 Runtimes에 nvidia와 runc가, Default Runtime에 nvidia가 표시되는지 확인합니다."
+tested_on: "NVIDIA DGX Station (Tesla V100-DGXS-16GB 4장), Red Hat 운영체제"
+faq:
+- q: "RHEL/CentOS 기본 docker 패키지로 nvidia container runtime을 쓸 수 있나요?"
+  a: "쓸 수 없습니다. nvidia container runtime을 설정하려면 `docker-ce`로 Docker가 설치되어 있어야 합니다."
+- q: "Docker 기본 runtime을 nvidia로 바꾸려면 어떻게 하나요?"
+  a: "`/etc/docker/daemon.json`에 `\"default-runtime\": \"nvidia\"`와 nvidia runtime 경로(`/usr/bin/nvidia-container-runtime`)를 지정합니다. 이어서 systemd `override.conf`에 `--add-runtime=nvidia=/usr/bin/nvidia-container-runtime` 옵션을 넣고 `systemctl daemon-reload`, `systemctl restart docker`를 실행합니다."
+- q: "nvidia runtime이 적용됐는지 어떻게 확인하나요?"
+  a: "`docker info` 출력에 `Runtimes: nvidia runc`, `Default Runtime: nvidia`가 보이면 적용된 것입니다. 설정 전에는 기본 runtime이 `runc`로 표시됩니다."

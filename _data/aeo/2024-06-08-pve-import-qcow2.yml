@@ -1,0 +1,25 @@
+# AEO data for _posts/2024-06-08-pve-import-qcow2.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+keywords:
+- "Proxmox VE"
+- "qcow2"
+- "qm importdisk"
+- "Cloud-init"
+- "Cloudinit Drive"
+- "Rocky Linux 8.10"
+- "Amazon Linux 2023"
+- "virt-customize"
+summary:
+- "qcow2 Cloud Image를 `qm importdisk`로 VM 디스크에 가져오고 Cloudinit Drive를 추가하면 초기 설정이 자동 적용되는 Proxmox VM Template을 만들 수 있습니다."
+- "Amazon Linux 2023 KVM 이미지도 같은 방식으로 가져올 수 있으며, Proxmox Cloudinit Device가 `seed.iso` 역할을 대신합니다."
+- "AL2023 Cloud image는 기본적으로 SSH 비밀번호 접속이 막혀 있어 `virt-customize`로 `ssh_pwauth`를 true로 바꾼 뒤 import할 수 있습니다."
+tested_on: "Proxmox VE, Rocky Linux 8.10 GenericCloud 이미지(8.10-20240528.0), Amazon Linux 2023 KVM 이미지(2023.4.20240528.0)"
+faq:
+- q: "Proxmox에서 qcow2 이미지를 VM 디스크로 추가하려면 어떻게 하나요?"
+  a: "PVE 노드에서 qcow2 이미지를 내려받은 뒤 `qm importdisk <VMID> <이미지 파일> <스토리지>`를 실행합니다. 추가된 Unused Disk를 `VirtIO Block` 유형으로 변경하고 Boot Order에 추가합니다."
+- q: "Proxmox에서 Cloud Image로 VM Template을 만드는 순서는 어떻게 되나요?"
+  a: "`Do not use any media`로 VM을 만들고 기본 디스크를 제거한 뒤, `qm importdisk`로 Cloud Image를 디스크로 추가하고 Boot Order를 설정합니다. 이어서 Cloudinit Drive를 추가해 계정, 비밀번호, 네트워크를 설정하고 `Convert to template`를 선택합니다. VM은 이 Template을 `Full Clone`으로 복제해 생성합니다."
+- q: "Amazon Linux 2023을 Proxmox에서 쓸 때 seed.iso를 따로 만들어야 하나요?"
+  a: "필요 없습니다. Proxmox의 Cloudinit Device가 `seed.iso` 역할을 대신해 meta-data, user-data, network-config를 자동으로 제공합니다."
+- q: "Amazon Linux 2023 Cloud Image에서 SSH 비밀번호 접속을 허용하려면 어떻게 하나요?"
+  a: "`libguestfs-tools`를 설치하고 `virt-customize -a <qcow2 이미지> --run-command`로 `/etc/cloud/cloud.cfg`의 `ssh_pwauth`를 true로 바꾼 뒤 이미지를 import합니다. 이미 부팅한 VM이라면 console에서 `/etc/ssh/sshd_config`를 수정해야 합니다."

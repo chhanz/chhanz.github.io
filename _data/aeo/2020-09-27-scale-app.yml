@@ -1,0 +1,21 @@
+# AEO data for _posts/2020-09-27-scale-app.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "kubectl scale과 kubectl edit로 Deployment의 replicas를 늘려 Pod를 Scale-out하고, 요청이 여러 Pod로 분산되는지 curl로 확인하는 방법을 정리합니다."
+keywords:
+- "kubectl scale"
+- "replicas"
+- "Scale-out"
+- "Kubernetes Deployment"
+- "kubectl edit deployment"
+- "NodePort"
+summary:
+- "`kubectl scale deployment --replicas=5 flask-example-app`으로 Pod를 1개에서 5개로 Scale-out할 수 있습니다."
+- "`kubectl edit deployment`로 `spec.replicas` 값을 직접 수정해도 Pod 수를 바꿀 수 있습니다."
+- "NodePort로 `curl`을 반복 호출하면 응답하는 Pod 이름이 바뀌어 여러 Pod가 요청을 나눠 처리하는 것을 확인할 수 있습니다."
+faq:
+- q: "Kubernetes에서 Pod 개수를 늘리는 명령어는 무엇인가요?"
+  a: "`kubectl scale deployment --replicas=5 flask-example-app`처럼 `--replicas`로 원하는 개수를 지정합니다."
+- q: "명령어 대신 YAML로 replicas를 바꿀 수 있나요?"
+  a: "가능합니다. `kubectl edit deployment flask-example-app`으로 열어 `spec`의 `replicas` 값을 수정하고 저장하면 됩니다."
+- q: "Scale-out이 실제로 적용됐는지 어떻게 확인하나요?"
+  a: "`kubectl get deployment`에서 READY가 `5/5`인지, `kubectl get pod`에서 Pod 5개가 Running인지 확인합니다. `while true; do curl <TEST-SERVER-IP>:<NODEPORT>; done`으로 응답하는 Pod 이름이 바뀌는지도 볼 수 있습니다."

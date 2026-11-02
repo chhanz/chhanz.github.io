@@ -1,0 +1,22 @@
+# AEO data for _posts/2019-12-30-enable-kvm-nested-virtualization.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "kvm-intel 모듈에 nested=1 옵션을 넣어 KVM nested virtualization을 켜고 virt-manager에서 VM의 CPU 가상화를 활성화하는 방법을 정리합니다."
+keywords:
+- "KVM nested virtualization"
+- "kvm-intel"
+- "nested=1"
+- "modprobe.d"
+- "virt-manager"
+- "Copy Host CPU Configuration"
+summary:
+- "`/etc/modprobe.d/`에 `options kvm-intel nested=1`을 추가하고 재부팅하면 KVM nested virtualization이 켜져 VM 안에서 다시 가상화를 구성할 수 있습니다."
+- "적용 여부는 `/sys/module/kvm_intel/parameters/nested` 값이 `Y`인지로 확인합니다."
+- "VM에는 virt-manager CPU 메뉴에서 `Copy Host CPU Configuration`을 선택해 가상화를 활성화합니다."
+tested_on: "커널 3.10.0-1062.4.3.el7.x86_64 (rhelversion 7.7, CentOS 커널), kvm-intel"
+faq:
+- q: "KVM nested virtualization이 켜졌는지 어떻게 확인하나요?"
+  a: "`cat /sys/module/kvm_intel/parameters/nested` 결과가 `Y`이면 켜진 것입니다."
+- q: "kvm-intel nested 옵션은 어디에 설정하나요?"
+  a: "`/etc/modprobe.d/kvm-nested-module.conf` 같은 파일에 `options kvm-intel nested=1`을 넣고 시스템을 재부팅합니다."
+- q: "nested 설정 후 VM 안에서 가상화를 쓰려면 무엇을 더 해야 하나요?"
+  a: "virt-manager에서 해당 VM의 CPU 메뉴를 열고 `Copy Host CPU Configuration`을 선택합니다. 이후 VM 안에서 가상화 활성화 여부를 확인합니다."

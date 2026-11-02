@@ -1,0 +1,22 @@
+# AEO data for _posts/2020-09-22-podman-build-flask-example-app.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "Flask 예제 앱을 Dockerfile과 buildah bud 또는 podman build로 이미지화하고, 로컬 실행 테스트 후 Docker Hub에 push하는 과정을 정리합니다."
+keywords:
+- "Podman"
+- "Buildah"
+- "buildah bud"
+- "podman build"
+- "Dockerfile"
+- "Flask"
+- "Docker Hub"
+summary:
+- "Dockerfile이 있는 소스에서 `buildah bud -t flask-test-app:v1 .` 또는 `podman build -t flask-test-app:v1 .`로 빌드합니다."
+- "`podman run -d -p 39999:80 --name test flask-test-app:v1`로 실행하고 `curl 127.0.0.1:39999`로 확인합니다."
+- "`buildah login docker.io`, `buildah tag`, `buildah push` 순서로 이미지를 Docker Hub에 올릴 수 있습니다."
+faq:
+- q: "Dockerfile로 이미지를 빌드할 때 buildah와 podman 명령은 어떻게 다른가요?"
+  a: "buildah는 `buildah bud -t flask-test-app:v1 .`, podman은 `podman build -t flask-test-app:v1 .`를 사용하며 둘 다 같은 Dockerfile로 이미지를 빌드합니다."
+- q: "Buildah로 Docker Hub에 이미지를 push하려면 어떻게 하나요?"
+  a: "`buildah login docker.io`로 로그인하고 `buildah tag flask-test-app:v1 docker.io/<dockerhub id>/flask-test-app:v1`로 태그를 바꾼 뒤 `buildah push docker.io/<dockerhub id>/flask-test-app:v1`을 실행합니다."
+- q: "Podman 컨테이너를 한 번에 모두 정리하려면 어떻게 하나요?"
+  a: "`podman rm -f $(podman ps -aq)`를 실행하면 모든 컨테이너를 강제로 종료하고 삭제합니다."

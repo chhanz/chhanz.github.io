@@ -1,0 +1,18 @@
+# AEO data for _posts/2019-01-19-linux-how-to-use-logger.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "logger 명령으로 쉘 스크립트의 출력 메시지를 태그와 함께 /var/log/messages에 기록하는 방법을 httpd 점검 스크립트 예제로 설명합니다."
+keywords:
+- "logger"
+- "/var/log/messages"
+- "syslogd"
+- "logger -t"
+- "httpd 상태 점검 스크립트"
+summary:
+- "스크립트 출력을 `logger -t <태그>`로 파이프하면 각 줄이 지정한 태그와 함께 /var/log/messages에 기록됩니다."
+- "httpd가 중지되었는지 확인하고 재시작하는 스크립트의 메시지를 시스템 로그에 남기는 예제를 다룹니다."
+- "/var/log/messages에 기록된 메시지를 모니터링 소프트웨어에 연동하면 서비스 상태 체크를 손쉽게 구성할 수 있습니다."
+faq:
+- q: "쉘 스크립트 출력을 /var/log/messages에 기록하려면 어떻게 하나요?"
+  a: "스크립트 출력을 `logger`로 파이프합니다. 예를 들어 `./chkweb.sh | logger -t ServiceCHKDeamon`을 실행하면 출력 각 줄이 /var/log/messages에 기록됩니다."
+- q: "logger의 -t 옵션은 무엇을 하나요?"
+  a: "로그에 붙는 태그를 지정합니다. `-t ServiceCHKDeamon`으로 실행하면 /var/log/messages의 각 줄에 `ServiceCHKDeamon:` 태그가 붙어 다른 로그와 구분할 수 있습니다."

@@ -1,0 +1,25 @@
+# AEO data for _posts/2023-02-24-ubuntu-change-bootlist-grub.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "부팅되지 않는 Ubuntu EC2 인스턴스의 Root Volume을 복구 인스턴스에서 chroot로 열어 GRUB_DEFAULT를 이전 커널로 바꾸는 방법입니다."
+keywords:
+- "GRUB_DEFAULT"
+- "update-grub"
+- "grub.cfg submenu"
+- "chroot"
+- "복구 인스턴스"
+- "Ubuntu"
+- "EC2"
+summary:
+- "부팅되지 않는 Ubuntu EC2 인스턴스는 Root Volume을 복구 인스턴스에 붙이고 chroot로 들어가 기본 부팅 커널을 이전 버전으로 바꿀 수 있습니다."
+- "`grub.cfg`에서 menuentry 순번을 확인한 뒤, submenu를 쓰는 경우 `GRUB_DEFAULT=\"1>2\"`처럼 `>`로 순번을 지정하고 `update-grub`을 실행합니다."
+- "인스턴스가 정상 기동된다면 복구 인스턴스 없이 Boot Kernel 확인과 Update Grub 단계만 적용하면 됩니다."
+tested_on: "Ubuntu 20.04 (AWS EC2, Kernel 5.15.0-1030-aws / 5.15.0-1028-aws)"
+faq:
+- q: "Ubuntu에서 기본 부팅 커널을 이전 버전으로 바꾸려면 어떻게 하나요?"
+  a: "`/boot/grub/grub.cfg`에서 menuentry와 submenu 순번을 확인하고 `/etc/default/grub`의 `GRUB_DEFAULT`에 해당 순번을 넣은 뒤 `update-grub`을 실행합니다."
+- q: "GRUB_DEFAULT에 \"1>2\" 같은 값은 무슨 의미인가요?"
+  a: "submenu 안의 항목을 가리키는 순번입니다. `1`은 'Advanced options for Ubuntu' submenu이고 `>2`는 그 안의 세 번째 항목(예: 5.15.0-1028-aws)을 의미합니다."
+- q: "부팅되지 않는 EC2 인스턴스의 grub 설정은 어떻게 수정하나요?"
+  a: "문제 인스턴스의 Root Volume을 복구 인스턴스에 Attach하고 `/mnt/rescue`에 마운트한 뒤 `/proc`, `/dev`, `/sys`를 bind mount하고 `chroot`로 들어가 수정합니다. 수정 후 umount하고 Volume을 원래 인스턴스에 다시 연결해 부팅합니다."
+- q: "GRUB 기본 커널 변경이 적용되었는지 어떻게 확인하나요?"
+  a: "`cat /boot/grub/grub.cfg | grep \"set default\"`로 설정값을 확인하고, 재부팅 후 `uname -a`로 이전 커널로 부팅되었는지 확인합니다."

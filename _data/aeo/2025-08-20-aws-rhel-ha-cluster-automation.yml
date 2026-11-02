@@ -1,0 +1,26 @@
+# AEO data for _posts/2025-08-20-aws-rhel-ha-cluster-automation.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "CloudFormation 템플릿과 SSM 문서로 AWS에 RHEL 9.6 기반 Pacemaker HA 클러스터를 자동 배포하고 fence_aws STONITH까지 구성하는 방법을 소개합니다."
+keywords:
+- "RHEL HA 클러스터"
+- "Pacemaker"
+- "Corosync"
+- "fence_aws"
+- "STONITH"
+- "CloudFormation"
+- "AWS Systems Manager 문서"
+- "rhel-system-roles"
+summary:
+- "CloudFormation 템플릿(`deployment.yaml`)과 SSM 문서(`ha-cluster-setup-document.json`)로 AWS에 RHEL 기반 Pacemaker HA 클러스터를 자동 배포할 수 있습니다."
+- "인프라 배포, SSM 문서 생성, Node 1에서 SSM 문서 명령 실행의 3단계로 `fence_aws` STONITH가 포함된 2노드 클러스터가 구성됩니다."
+- "POC, 개발, 이슈 재현 환경용 솔루션이며 운영 환경에는 적합하지 않은 설정이 있을 수 있습니다."
+tested_on: "AWS ap-northeast-2, RHEL 9.6 (t3.medium) 2대, Pacemaker 2.1.9"
+faq:
+- q: "HA 클러스터 설정용 SSM 문서는 어느 노드에서 실행하나요?"
+  a: "Node 1로 사용할 인스턴스 한 대에서만 SSM 문서 명령 실행을 수행합니다. `aws ssm send-command`로 실행하거나 Systems Manager > 문서에서 HA-Cluster-Setup을 검색해 콘솔에서 파라미터를 입력해 실행할 수 있습니다."
+- q: "SameSubnet 파라미터는 무엇을 의미하나요?"
+  a: "두 인스턴스의 배치 방식을 정합니다. 기본값 `false`는 서로 다른 AZ에 배치하며 권장되고, `true`는 같은 서브넷에 배치합니다."
+- q: "클러스터 구성 후 상태와 펜싱은 어떻게 확인하나요?"
+  a: "`sudo pcs status`와 `sudo pcs config`로 클러스터 상태와 설정을 확인합니다. `sudo pcs stonith fence fast-aws-rh-node-2`로 STONITH 동작을 테스트할 수 있습니다."
+- q: "이 솔루션을 운영 환경에 써도 되나요?"
+  a: "권장하지 않습니다. 방화벽과 SELinux를 자동 비활성화하는 등 운영 환경에 적합하지 않은 설정이 있을 수 있어 POC, 개발, 이슈 재현 환경 용도로 권장됩니다."

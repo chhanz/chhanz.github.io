@@ -1,0 +1,17 @@
+# AEO data for _posts/2013-04-27-windows-mscs-cluster.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+keywords:
+- "MSCS"
+- "Windows 2008 MSCS"
+- "Windows 2003 MSCS"
+- "MSCS 설치 가이드"
+- "Windows 클러스터"
+- "SlideShare"
+summary:
+- "Windows 2008 MSCS 설치 가이드, Windows 2003 MSCS 설치 가이드, MSCS 운영 및 기타 설치 가이드 세 가지 문서를 SlideShare 슬라이드로 제공합니다."
+- "작성자가 사원 시절 만든 MSCS 구성 매뉴얼로, 2013년 4월에 작성해 2019년 1월에 배포했습니다."
+faq:
+- q: "이 글의 MSCS 구성 매뉴얼은 어떤 Windows 버전을 다루나요?"
+  a: "Windows 2008과 Windows 2003의 MSCS 설치 가이드를 각각 제공합니다. 여기에 MSCS 운영 및 기타 설치 가이드가 추가로 포함되어 있습니다."
+- q: "MSCS 구성 매뉴얼은 어떤 형태로 볼 수 있나요?"
+  a: "SlideShare에 올린 슬라이드를 글 안에 임베드해 제공합니다. 각 슬라이드 제목 링크로 SlideShare에서 직접 열 수도 있습니다."

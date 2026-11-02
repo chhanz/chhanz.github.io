@@ -1,79 +1,81 @@
 <meta charset="utf-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{% comment %} ---------- 메타 값 계산 ---------- {% endcomment %}
 {% if page.layout == 'post' or page.layout == 'page' %}
 {% assign meta_title = page.title %}
 {% assign meta_author = page.author | default: site.author %}
-{% assign meta_description = page.excerpt | strip_html | truncatewords: 75 %}
+{% assign meta_excerpt = page.excerpt | strip_html | normalize_whitespace %}
+{% if page.description and page.description != '' %}
+{% assign meta_description = page.description | strip_html | append: ' - ' | append: meta_excerpt | truncate: 160 %}
+{% else %}
+{% assign meta_description = meta_excerpt | truncate: 160 %}
+{% endif %}
 {% assign meta_url = site.url | append: site.baseurl | append: page.url %}
 {% assign meta_image = page.image | default: site.image %}
-{% assign meta_type = 'article' %}
+{% if page.layout == 'post' %}{% assign meta_type = 'article' %}{% else %}{% assign meta_type = 'website' %}{% endif %}
 {% else %}
-{% assign meta_title = site.title %}
+{% assign meta_title = page.title | default: site.title %}
+{% if page.title and page.title != site.title %}{% assign meta_title = page.title | append: ' | ' | append: site.title %}{% endif %}
 {% assign meta_author = site.author %}
-{% assign meta_description = site.description | strip_html %}
-{% assign meta_url = site.url %}
-{% if page.image %}
-{% assign meta_image = page.image %}
-{% else %}
-{% assign meta_image = site.image %}
-{% endif %}
+{% assign meta_description = site.description | strip_html | normalize_whitespace %}
+{% assign meta_url = site.url | append: site.baseurl | append: page.url | replace: '/index.html', '/' %}
+{% assign meta_image = page.image | default: site.image %}
 {% assign meta_type = 'website' %}
 {% endif %}
-{% unless meta_image contains '://' %}
-{% assign meta_image = meta_image | prepend: site.url %}
-{% endunless %}
-<link rel="canonical" href="{{ meta_url }}" />
-{% if paginator and paginator.page > 1 %}
-<meta name="robots" content="noindex, follow" />
-{% elsif page.noindex %}
-<meta name="robots" content="noindex, follow" />
-{% endif %}
+{% unless meta_image contains '://' %}{% assign meta_image = meta_image | prepend: site.url %}{% endunless %}
+{% comment %} 화면용 커버는 WebP, 공유 미리보기(og:image)는 호환성을 위해 같은 이름의 JPG 원본 사용 {% endcomment %}
+{% if meta_image contains '/assets/images/' %}{% assign meta_image = meta_image | replace: '.webp', '.jpg' %}{% endif %}
 <title>{{ meta_title }}</title>
-<meta name="title" content="{{ meta_title }}" />
+<meta name="description" content="{{ meta_description | escape }}"/>
 <meta name="author" content="{{ meta_author }}"/>
-<meta name="description" content="{{ meta_description }}"/>
-{% if site.facebook.app_id %}
-<meta property="fb:app_id" content="{{ site.facebook.app_id }}"/>
+<link rel="canonical" href="{{ meta_url }}"/>
+{% if paginator and paginator.page > 1 %}
+<meta name="robots" content="noindex, follow"/>
+{% elsif page.noindex or layout.noindex %}
+<meta name="robots" content="noindex, follow"/>
+{% else %}
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1"/>
 {% endif %}
+{% comment %} ---------- Open Graph / Twitter ---------- {% endcomment %}
 <meta property="og:site_name" content="{{ site.title }}"/>
+<meta property="og:locale" content="{{ site.locale | default: 'ko_KR' }}"/>
 <meta property="og:type" content="{{ meta_type }}"/>
-<meta property="og:title" content="{{ meta_title }}"/>
-<meta property="og:description" content="{{ meta_description }}"/>
+<meta property="og:title" content="{{ meta_title | escape }}"/>
+<meta property="og:description" content="{{ meta_description | escape }}"/>
 <meta property="og:url" content="{{ meta_url }}"/>
 <meta property="og:image" content="{{ meta_image }}"/>
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="{{ meta_title }}"/>
-<meta name="twitter:description" content="{{ meta_description }}"/>
-<meta name="twitter:label1" content="Written by"/>
-<meta name="twitter:data1" content="{{ meta_author }}"/>
-<meta name="twitter:image:src" content="{{ meta_image }}"/>
-<meta name="naver-site-verification" content="ce4d8f9fb88ba2ec8a010aa020221a59e1d0d8d7" />
-<meta name="google-site-verification" content="Jrr5LiIzAUsvmhfiDR8BbzvFkrgKT9VVx3EfQyjzi9U" />
-{% if page.tags %}
-<meta name="twitter:label2" content="Filed under"/>
-<meta name="twitter:data2" content="{{ page.tags | join: ','}}"/>
-{% for tag in page.tags %}
-<meta property="article:tag" content="{{ tag }}"/>
+{% if meta_type == 'article' %}
+<meta property="article:published_time" content="{{ page.date | date_to_xmlschema }}"/>
+{% if page.last_modified_at %}<meta property="article:modified_time" content="{{ page.last_modified_at | date_to_xmlschema }}"/>{% endif %}
+<meta property="article:author" content="{{ site.url }}{{ site.owner.url }}"/>
+{% for tag in page.tags %}<meta property="article:tag" content="{{ tag }}"/>
 {% endfor %}
 {% endif %}
-{% if page.date %}
-<meta property="article:published_time" content="{{ page.date | date_to_xmlschema }}"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="{{ meta_title | escape }}"/>
+<meta name="twitter:description" content="{{ meta_description | escape }}"/>
+<meta name="twitter:image" content="{{ meta_image }}"/>
+<meta name="naver-site-verification" content="ce4d8f9fb88ba2ec8a010aa020221a59e1d0d8d7"/>
+<meta name="google-site-verification" content="Jrr5LiIzAUsvmhfiDR8BbzvFkrgKT9VVx3EfQyjzi9U"/>
+<link rel="alternate" type="application/rss+xml" title="{{ site.title }} RSS" href="{{ site.url }}/rss/"/>
+<link rel="icon" href="{{ site.baseurl }}/favicon.ico" sizes="any"/>
+<link rel="icon" href="{{ site.asset_url }}/favicon.png" type="image/png"/>
+<link rel="apple-touch-icon" href="{{ site.asset_url }}/favicon.png"/>
+{% comment %} ---------- 리소스 힌트 / LCP ---------- {% endcomment %}
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin/>
+{% assign cover = page.image %}
+{% if page.layout == 'home' %}{% assign cover = site.cover_image | default: site.image %}{% endif %}
+{% if cover %}<link rel="preload" as="image" href="{{ cover }}" fetchpriority="high"/>{% endif %}
+{% comment %} ---------- CSS ---------- {% endcomment %}
+<link rel="stylesheet" href="{{ site.asset_url }}/lib/normalize.css"/>
+<link rel="stylesheet" href="{{ site.asset_url }}/css/screen.css"/>
+<link rel="stylesheet" href="{{ site.asset_url }}/css/dark-mode.css"/>
+<link rel="stylesheet" href="{{ site.asset_url }}/css/improvements.css"/>
+{% if page.layout == 'post' or page.layout == 'page' %}
+<link rel="stylesheet" href="{{ site.asset_url }}/css/syntax-stackoverflow-dark.css"/>
+<link rel="stylesheet" href="{{ site.asset_url }}/lib/magnific-popup.min.css"/>
 {% endif %}
-{% if page.author %}
-<meta property="article:author" content="{{ site.url }}{{ site.baseurl }}/authors/{{ page.author }}"/>
-{% endif %}
-<link href="{{ site.url }}/rss/" rel="alternate" type="application/rss+xml" title="RSS"/>
-<link rel="shortcut icon" href="{{ site.baseurl }}/favicon.ico">
-<link href="{{ site.asset_url }}/favicon.png" rel="icon" type="image/png"/>
-<!--link href="{{ site.asset_url }}/apple-touch-icon.png" rel="apple-touch-icon" type="image/png"/-->
-<!--link href="{{ site.asset_url }}/apple-touch-icon.png" rel="apple-touch-icon-precomposed" type="image/png"/-->
-<link href="{{ site.asset_url }}/lib/normalize.css" rel="stylesheet" type="text/css"/>
-<link href="{{ site.asset_url }}/css/syntax-stackoverflow-dark.css" rel="stylesheet" type="text/css"/>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet" type="text/css"/>
-<link href="{{ site.asset_url }}/lib/magnific-popup.min.css" rel="stylesheet" type="text/css"/>
-<link href="{{ site.asset_url }}/css/screen.css" rel="stylesheet" type="text/css"/>
-<link href="{{ site.asset_url }}/css/dark-mode.css" rel="stylesheet" type="text/css"/>
-<link href="{{ site.asset_url }}/css/improvements.css" rel="stylesheet" type="text/css"/>
+{% comment %} 웹폰트는 렌더링을 막지 않도록 비동기 로드 (font-display: swap) {% endcomment %}
+<link rel="preload" as="style" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" crossorigin onload="this.onload=null;this.rel='stylesheet'"/>
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" crossorigin/></noscript>
+{% include schema.html %}

@@ -1,0 +1,25 @@
+# AEO data for _posts/2021-08-18-ceph-architecture.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "Ceph 의 구성 요소인 OSD, Monitor, Manager, MDS 와 RGW, RBD, CephFS 클라이언트, Placement Group, Pool 및 Replicated 와 Erasure coded pool 의 차이를 정리합니다."
+keywords:
+- "Ceph"
+- "Ceph OSD"
+- "Ceph Monitor"
+- "RADOS Gateway"
+- "RBD"
+- "CephFS"
+- "Placement Group"
+- "Erasure coded pool"
+summary:
+- "Ceph 는 단일 분산 클러스터에서 object, block, file 스토리지를 함께 제공하는 오픈소스 소프트웨어 정의 스토리지입니다."
+- "OSD 는 데이터 저장과 복제를, Monitor 는 Paxos 로 클러스터 맵을, Manager 는 PG 와 메타데이터 정보를, MDS 는 CephFS 메타데이터를 담당합니다."
+- "Replicated pool 은 3 replica 로 200% overhead 지만 복구가 빠르고, Erasure coded pool 은 50% overhead 로 비용 효율적이지만 복구 비용이 큽니다."
+faq:
+- q: "Ceph Monitor 와 Ceph Manager 는 어떤 차이가 있나요?"
+  a: "Monitor 는 클러스터 맵의 마스터 복사본을 유지하며 Paxos 알고리즘으로 상태 합의를 보장합니다. Manager 는 PG, 프로세스·호스트 메타데이터 정보를 유지하고 읽기 전용 CLI 쿼리 처리와 RESTful 모니터링 API 를 제공합니다."
+- q: "Ceph 에서 Placement Group(PG)은 왜 필요한가요?"
+  a: "수많은 object 를 개별 관리하면 리소스가 많이 들기 때문에 PG 단위로 묶어 효율적으로 관리합니다. Pool 은 여러 PG 로 나뉘고, CRUSH 알고리즘이 PG 를 OSD 에 고르게 배포합니다."
+- q: "Replicated pool 과 Erasure coded pool 중 무엇을 선택해야 하나요?"
+  a: "높은 내구성과 빠른 복구가 필요하면 Replicated pool, 용량 대비 비용 효율이 중요하면 Erasure coded pool 이 적합합니다. 각각 RAID 1 과 RAID 5/6 에 비유할 수 있습니다."
+- q: "Ceph Object Gateway 는 어떤 API 를 지원하나요?"
+  a: "librados 기반의 RESTful 게이트웨이로 Amazon S3 와 OpenStack Swift 인터페이스를 지원합니다."

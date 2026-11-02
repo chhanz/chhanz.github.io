@@ -1,0 +1,26 @@
+# AEO data for _posts/2025-11-12-grype.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+description: "Anchore의 오픈 소스 취약점 스캔 도구 Grype를 설치하고 CVE 검색, 시스템 전체 스캔과 패치 후 재스캔, 컨테이너 이미지 검사를 해봅니다."
+keywords:
+- "Grype"
+- "Anchore"
+- "grype db search"
+- "CVE"
+- "취약점 스캔"
+- "ignore-package.yml"
+- "EPSS"
+- "컨테이너 이미지 스캔"
+summary:
+- "Grype는 Anchore가 개발한 오픈 소스 취약점 스캔 도구로, 컨테이너 이미지와 파일시스템에서 알려진 CVE 취약점을 찾아냅니다."
+- "`grype / -c ignore-package.yml`로 시스템 전체를 스캔해 runc 취약점을 찾고, `yum update runc` 후 재스캔에서 취약점이 해결된 것을 확인합니다."
+- "`grype docker.io/library/nginx:1.28.0-alpine`처럼 이미지 이름을 지정하면 심각도와 EPSS 점수가 포함된 결과로 컨테이너 이미지를 검사할 수 있습니다."
+tested_on: "Grype 0.103.0 (linux amd64), Amazon Linux 2023"
+faq:
+- q: "Grype는 어떻게 설치하나요?"
+  a: "`sudo curl -sSfL https://get.anchore.io/grype | sudo sh -s -- -b /usr/local/bin`으로 최신 버전을 `/usr/local/bin`에 설치합니다."
+- q: "특정 CVE가 어떤 패키지와 버전에 영향을 주는지 Grype로 확인할 수 있나요?"
+  a: "네. `grype db search \"CVE-2024-56737\"`처럼 CVE 번호로 검색하면 Grype 취약점 데이터베이스에서 영향받는 패키지, 배포판 네임스페이스, 버전 조건을 조회합니다."
+- q: "Grype 스캔에서 특정 패키지 유형을 제외하려면 어떻게 하나요?"
+  a: "설정 파일의 `ignore` 항목에 제외할 패키지 이름과 type을 지정하고 `-c` 옵션으로 적용합니다. 본문에서는 커널, python, go-module 패키지를 제외해 runc 취약점만 확인했습니다."
+- q: "Grype 스캔 결과의 EPSS는 무엇인가요?"
+  a: "Exploit Prediction Scoring System 점수입니다. 심각도(Critical, High, Medium, Low)와 함께 출력되어 취약점 대응 우선순위를 판단하는 데 활용할 수 있습니다."
