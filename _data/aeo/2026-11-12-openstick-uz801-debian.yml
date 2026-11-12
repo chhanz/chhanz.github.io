@@ -1,0 +1,26 @@
+# AEO data for _posts/2026-11-12-openstick-uz801-debian.md
+# 빌드 시 _plugins/aeo_data.rb 가 포스트 front matter 에 병합 (front matter 값이 있으면 그쪽 우선)
+keywords:
+- "OpenStick"
+- "UZ801"
+- "MSM8916"
+- "OpenStick Installer"
+- "EDL 9008"
+- "bkerler edl"
+- "fastboot oem reboot-edl"
+- "e2fsck"
+- "rootfs"
+summary:
+- "OpenStick Installer v0.0.4로 UZ801에 Debian을 설치하면 이미지의 rootfs 손상으로 부팅되지 않을 수 있으며, 설치 완료 메시지가 출력되어도 USB 네트워크와 Wi-Fi가 올라오지 않습니다."
+- "부트로더는 정상이므로 fastboot(`18d1:d00d`) 상태에서 `fastboot oem reboot-edl`로 EDL(9008) 모드에 진입할 수 있습니다."
+- "Installer가 내려받은 `full_emmc.bin`에서 rootfs 파티션을 `dd`로 추출하여 `e2fsck -fy`로 복구한 뒤, `edl w rootfs`로 해당 파티션만 다시 기록하면 정상 부팅됩니다."
+tested_on: "UZ801 (FY_UZ801_V3.31, MSM8916), Linux Mint 22.3, OpenStick Installer v0.0.4, edl V3.62"
+faq:
+- q: "OpenStick Installer에서 CONGRATULATIONS가 출력되었는데 접속이 안 되는 이유는 무엇인가요?"
+  a: "Installer는 플래시 후 60초 동안 SSH 응답을 기다리고, 응답이 없어도 완료 메시지를 출력합니다. v0.0.4의 UZ801 이미지는 rootfs가 손상되어 있어 부팅되지 않는 경우가 있습니다."
+- q: "손상된 rootfs를 장비에서 직접 읽어 와야 하나요?"
+  a: "rootfs에는 장비 고유 정보가 들어가지 않으므로, Installer가 내려받은 `full_emmc.bin`에서 14번 파티션(시작 섹터 348194, 7286717 섹터)을 추출하여 사용하면 됩니다. 장비에서 직접 읽으면 USB 연결 상태에 따라 중간에 끊길 수 있습니다."
+- q: "edl이 loader를 자동으로 찾지 못하면 어떻게 하나요?"
+  a: "OpenStick Installer 레포에 포함된 `prog_emmc_firehose_8916.mbn`을 내려받아 `--loader` 옵션으로 지정합니다."
+- q: "rootfs만 다시 기록하면 IMEI는 유지되나요?"
+  a: "`edl w rootfs`는 rootfs 파티션에만 기록하므로 modemst1, modemst2, fsg 등 IMEI와 calibration이 저장된 파티션은 그대로 유지됩니다."
