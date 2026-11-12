@@ -259,7 +259,7 @@ Bus 002 Device 014: ID 05c6:9008 Qualcomm, Inc. Gobi Wireless Modem (QDL mode)
 
 위와 같이 `05c6:9008`로 EDL 모드에 진입한 것을 확인 할 수 있습니다.
 
-참고로 fastboot로도 인식되지 않는 경우에는, USB 단자의 D+와 GND를 쇼트한 상태로 연결하여 EDL 모드로 진입하는 방법이 알려져 있습니다.
+참고로 fastboot로도 인식되지 않는 경우에는, USB 단자의 D+와 GND를 쇼트한 상태로 연결하여 EDL 모드로 진입하는 방법이 알려져 있었지만 제가 가지고 있던 동글은 Reset 버튼을 5초 이상 누르면서 전원을 인가하면 EDL 모드로 들어가졌습니다.
 
 ### edl 설치
 
