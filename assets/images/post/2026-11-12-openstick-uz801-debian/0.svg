@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="240" viewBox="0 0 1280 240" role="img" aria-label="OpenStick UZ801 Debian - 설치와 rootfs 손상 복구">
+  <title>OpenStick UZ801 Debian - 설치와 rootfs 손상 복구</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0f172a"/><stop offset="0.6" stop-color="#172036"/><stop offset="1" stop-color="#1e2a44"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ef4444"/><stop offset="0.5" stop-color="#f59e0b"/><stop offset="1" stop-color="#22c55e"/>
+    </linearGradient>
+    <linearGradient id="body" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f8fafc"/><stop offset="1" stop-color="#cbd5e1"/>
+    </linearGradient>
+    <linearGradient id="plug" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#e2e8f0"/><stop offset="1" stop-color="#94a3b8"/>
+    </linearGradient>
+    <pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1" fill="#94a3b8" opacity="0.18"/>
+    </pattern>
+  </defs>
+
+  <rect width="1280" height="240" fill="url(#bg)"/>
+  <rect width="1280" height="240" fill="url(#dots)"/>
+  <rect width="1280" height="4" fill="url(#accent)"/>
+
+  <g font-family="'SF Pro Display', 'Pretendard', 'Noto Sans KR', 'Noto Sans CJK KR', system-ui, sans-serif">
+    <!-- 왼쪽: USB 동글 -->
+    <g transform="translate(70 62)">
+      <!-- USB 단자 -->
+      <rect x="0" y="22" width="62" height="40" rx="4" fill="url(#plug)"/>
+      <rect x="14" y="32" width="12" height="8" rx="1" fill="#475569"/>
+      <rect x="36" y="32" width="12" height="8" rx="1" fill="#475569"/>
+      <!-- 본체 -->
+      <rect x="58" y="6" width="236" height="78" rx="18" fill="#0b1220" opacity="0.6" transform="translate(0 6)"/>
+      <rect x="58" y="6" width="236" height="78" rx="18" fill="url(#body)"/>
+      <!-- 칩 -->
+      <rect x="96" y="26" width="38" height="38" rx="5" fill="#1e293b"/>
+      <text x="115" y="50" text-anchor="middle" font-size="10" font-weight="700" fill="#94a3b8">8916</text>
+      <!-- LED: 빨강에서 초록으로 -->
+      <circle cx="262" cy="30" r="7" fill="#ef4444"/>
+      <circle cx="262" cy="58" r="7" fill="#22c55e"/>
+      <circle cx="262" cy="58" r="12" fill="#22c55e" opacity="0.25"/>
+      <text x="196" y="52" text-anchor="middle" font-size="18" font-weight="800" fill="#334155">UZ801</text>
+    </g>
+
+    <!-- 복구 흐름 -->
+    <g transform="translate(70 172)" font-size="15" font-weight="700">
+      <rect width="92" height="32" rx="16" fill="#1e293b" stroke="#ef4444" stroke-width="1.5"/>
+      <text x="46" y="21" text-anchor="middle" fill="#fca5a5">EDL 9008</text>
+      <path d="M100 16 H116" stroke="#64748b" stroke-width="2.5" stroke-linecap="round"/>
+      <path d="M112 10 L119 16 L112 22" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <rect x="126" width="80" height="32" rx="16" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5"/>
+      <text x="166" y="21" text-anchor="middle" fill="#fcd34d">e2fsck</text>
+      <path d="M214 16 H230" stroke="#64748b" stroke-width="2.5" stroke-linecap="round"/>
+      <path d="M226 10 L233 16 L226 22" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <rect x="240" width="84" height="32" rx="16" fill="#1e293b" stroke="#22c55e" stroke-width="1.5"/>
+      <text x="282" y="21" text-anchor="middle" fill="#86efac">SSH OK</text>
+    </g>
+  </g>
+
+  <!-- 구분선 -->
+  <rect x="432" y="56" width="2" height="128" rx="1" fill="#334155"/>
+
+  <!-- 오른쪽: 제목 -->
+  <g font-family="'SF Pro Display', 'Pretendard', 'Noto Sans KR', 'Noto Sans CJK KR', system-ui, sans-serif">
+    <text x="476" y="98" font-size="50" font-weight="800" fill="#f8fafc" letter-spacing="-0.5">OpenStick <tspan fill="#86efac">UZ801</tspan> Debian</text>
+    <text x="478" y="144" font-size="26" font-weight="600" fill="#cbd5e1">설치와 rootfs 손상 복구</text>
+    <text x="478" y="184" font-size="18" font-weight="500" fill="#64748b">MSM8916 · Installer v0.0.4 · edl · e2fsck</text>
+  </g>
+</svg>
